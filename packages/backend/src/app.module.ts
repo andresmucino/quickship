@@ -3,26 +3,24 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
-import { ClientsModule } from './modules/clients/clients.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
+import { enviroments } from './config/enviroments';
+import config from './config';
+
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: enviroments[process.env.NODE_ENV] || '.env',
+      load: [config],
+      isGlobal: true,
+    }),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
       playground: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'mydatabase',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
-    ClientsModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

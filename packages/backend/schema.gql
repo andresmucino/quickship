@@ -2,43 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Clients {
-  id: String!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Query {
   sayHello: String!
-  clients: [Clients!]!
-  client(client: Int!): Clients!
-}
-
-type Mutation {
-  createClient(createClient: ClientInput!): Clients!
-  updateClient(updateClient: updateClientInput!): Clients!
-}
-
-input ClientInput {
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-}
-
-input updateClientInput {
-  firstName: String
-  lastName: String
-  phone: String
-  email: String
 }
