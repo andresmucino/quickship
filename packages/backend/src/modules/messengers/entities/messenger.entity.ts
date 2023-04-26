@@ -1,4 +1,4 @@
-import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
+import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,8 +9,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'clients' })
-export class ClientEntity {
+@Entity({ name: 'messengers' })
+export class MessengerEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -26,16 +26,16 @@ export class ClientEntity {
   @Column({ name: 'phone' })
   phone: string;
 
+  @OneToMany(() => OrderEntity, (order) => order.messenger, {
+    nullable: true,
+  })
+  orders?: OrderEntity[];
+
   @CreateDateColumn({
     type: 'timestamp',
     name: 'create_at',
   })
   createAt!: Date;
-
-  @OneToMany(() => InvoiceEntity, (invoice) => invoice.client, {
-    nullable: true,
-  })
-  invoices?: InvoiceEntity[];
 
   @UpdateDateColumn({
     type: 'timestamp',
@@ -49,5 +49,3 @@ export class ClientEntity {
   })
   deleteAt!: Date;
 }
-
-// uno a muchos
