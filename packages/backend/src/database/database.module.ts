@@ -10,23 +10,24 @@ import config from 'src/config';
             inject: [config.KEY],
             useFactory: (configService: ConfigType<typeof config>) => {
               const { database, host, password, port, url, username } = configService;
-      
+
               return {
-                type: 'mysql',
-                host: 'localhost',
-                port: 3306,
-                // url: url,
-                username: 'root',
-                password: '123456',
-                database: 'mydatabase',
+                type: 'postgres',
+                host: host,
+                port: Number(port),
+                url: 'postgres://quickship_user:IxZXfZ4ONWNEORGQA3hxaVPr25LFLweU@dpg-ch49rnks3fvjtibe9u30-a.oregon-postgres.render.com/quickship',
+                username: username,
+                password: password,
+                database: database,
                 autoLoadEntities: true,
                 synchronize: true,
-                // ssl: {
-                //   rejectUnauthorized: false,
-                // },
+                ssl: {
+                  rejectUnauthorized: false,
+                },
               };
             },
         })
-    ]
+    ],
+    exports: [TypeOrmModule]
 })
 export class DatabaseModule {}
