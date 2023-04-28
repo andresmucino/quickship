@@ -8,6 +8,8 @@ import { ClientsService } from '../clients/clients.service';
 import { ClientEntity } from '../clients/entities/client.entity';
 import { DirectionsService } from '../directions/directions.service';
 import { DirectionEntity } from '../directions/entities/direction.entity';
+import { MessengersService } from '../messengers/messengers.service';
+import { MessengerEntity } from '../messengers/entities/messenger.entity';
 
 @Injectable()
 export class OrdersService {
@@ -15,7 +17,8 @@ export class OrdersService {
     @InjectRepository(OrderEntity)
     private readonly ordersRepository: Repository<OrderEntity>,
     private clientService: ClientsService,
-    private DirectionService: DirectionsService,
+    private directionService: DirectionsService,
+    private messengersService: MessengersService,
   ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
@@ -52,7 +55,11 @@ export class OrdersService {
   }
 
   getRecolection(recolectionId: number): Promise<DirectionEntity> {
-    return this.DirectionService.findOneDirection(recolectionId);
+    return this.directionService.findOneDirection(recolectionId);
+  }
+
+  getMessenger(messengerId: number): Promise<MessengerEntity> {
+    return this.messengersService.findOneMessenger(messengerId);
   }
 
   // remove(id: number) {

@@ -79,12 +79,6 @@ export class OrderEntity {
   })
   destinationId?: string;
 
-  // @ManyToOne(() => DirectionEntity, (direction) => direction.destination, {
-  //   nullable: true,
-  // })
-  // @JoinColumn({ name: 'destination_id' })
-  // destination?: DirectionEntity;
-
   @Column({
     type: 'text',
     name: 'messenger_id',

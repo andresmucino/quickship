@@ -15,6 +15,8 @@ import { ClientDto } from '../clients/dto/client.dto';
 import { ClientEntity } from '../clients/entities/client.entity';
 import { DirectionsDto } from '../directions/dto/directions.dto';
 import { DirectionEntity } from '../directions/entities/direction.entity';
+import { MessengerDto } from '../messengers/dto/messenger.dto';
+import { MessengerEntity } from '../messengers/entities/messenger.entity';
 
 @Resolver(() => OrderDto)
 export class OrdersResolver {
@@ -51,6 +53,11 @@ export class OrdersResolver {
   @ResolveField(() => DirectionsDto, { name: 'recolection' })
   getRecolection(@Parent() direction: OrderDto): Promise<DirectionEntity> {
     return this.ordersService.getRecolection(direction.recolectionId);
+  }
+
+  @ResolveField(() => MessengerDto, {name: 'messenger'})
+  getMessenger(@Parent() messenger: OrderDto): Promise<MessengerEntity> {
+    return this.ordersService.getMessenger(messenger.messengerId)
   }
 
   // @Mutation(() => Order)
