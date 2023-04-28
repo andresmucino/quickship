@@ -20,11 +20,6 @@ export class InvoicesResolver {
     return this.invoicesService.findOneInvoice(id);
   }
 
-  @ResolveField(() => ClientDto)
-  getClient(@Parent() clientId: InvoiceDto): Promise<ClientEntity> {
-    return this.invoicesService.getClient(clientId.id)
-  }
-
   @Mutation(() => InvoiceDto)
   createInvoice(
     @Args('createInvoiceInput') createInvoiceInput: CreateInvoiceInput,
@@ -38,6 +33,11 @@ export class InvoicesResolver {
     id: number,
   ) {
     return this.invoicesService.updateInvoice(id, updateInvoiceInput);
+  }
+
+  @ResolveField(() => ClientDto)
+  getClient(@Parent() clientId: InvoiceDto): Promise<ClientEntity> {
+    return this.invoicesService.getClient(clientId.id)
   }
 
   // @Mutation(() => Invoice)

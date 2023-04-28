@@ -21,10 +21,6 @@ export class InvoicesService {
     return invoices;
   }
 
-  getClient(clientId: number): Promise<ClientEntity> {
-    return this.clientService.findOneClient(clientId)
-  }
-
   async findOneInvoice(id: number): Promise<InvoiceEntity> {
     const invoice = await this.invoicesRepository.findOne({
       where: { id: id },
@@ -44,6 +40,10 @@ export class InvoicesService {
     this.invoicesRepository.merge(invoice, updateInvoiceInput)
 
     return this.invoicesRepository.save(invoice)
+  }
+
+  getClient(clientId: number): Promise<ClientEntity> {
+    return this.clientService.findOneClient(clientId)
   }
 
   // remove(id: number) {

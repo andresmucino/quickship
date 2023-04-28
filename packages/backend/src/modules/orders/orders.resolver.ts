@@ -1,10 +1,12 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { OrdersService } from './orders.service';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
 import { OrderDto } from './dto/orders.dto';
+import { ClientDto } from '../clients/dto/client.dto';
+import { ClientEntity } from '../clients/entities/client.entity';
 
-@Resolver('Orders')
+@Resolver(() => OrderDto)
 export class OrdersResolver {
   constructor(private readonly ordersService: OrdersService) {}
 
@@ -29,6 +31,11 @@ export class OrdersResolver {
     id: number,
   ) {
     return this.ordersService.updateOrder(id, updateOrderInput);
+  }
+
+  @ResolveField(() => ClientDto)
+  getClient(@Parent() clientId: OrderDto): Promise<ClientEntity> {
+    return this.ordersService.getClient(clientId.clientId)
   }
 
   // @Mutation(() => Order)

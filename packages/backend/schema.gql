@@ -28,12 +28,29 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type order {
+  id: Float!
+  contactName: String!
+  contactLastName: String!
+  contactPhone: String!
+  contactEmail: String!
+  comments: String!
+  price: Float!
+  client_id: Float
+  client: Clients
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+  getClient: Clients!
+}
+
 type Clients {
   id: Float!
   firstName: String!
   lastName: String!
   phone: String!
   email: String!
+  orders: order
   invoices: invoice
   createAt: DateTime!
   updateAt: DateTime!
@@ -83,19 +100,6 @@ type package {
   width: Float!
   heigth: Float!
   legth: Float!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-type order {
-  id: Float!
-  contactName: String!
-  contactLastName: String!
-  contactPhone: String!
-  contactEmail: String!
-  comments: String!
-  price: Float!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime

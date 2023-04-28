@@ -1,4 +1,5 @@
 import { Field, GraphQLISODateTime, ObjectType } from "@nestjs/graphql";
+import { ClientDto } from "src/modules/clients/dto/client.dto";
 
 
 @ObjectType('order')
@@ -24,6 +25,15 @@ export class OrderDto {
   
     @Field()
     price!: number;
+
+    @Field({
+        name: 'client_id',
+        nullable: true,
+      })
+      clientId?: number;
+    
+      @Field((type) => ClientDto, { nullable: true })
+      client: ClientDto
 
     @Field(() => GraphQLISODateTime)
     createAt!: Date;

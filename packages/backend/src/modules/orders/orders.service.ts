@@ -4,13 +4,16 @@ import { UpdateOrderInput } from './dto/update-order.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity } from './entities/order.entity';
 import { Repository } from 'typeorm';
+import { ClientsService } from '../clients/clients.service';
+import { ClientEntity } from '../clients/entities/client.entity';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly ordersRepository: Repository<OrderEntity>,
-  ) {}
+    private clientService: ClientsService
+    ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
     const orders = await this.ordersRepository.find();
@@ -39,6 +42,10 @@ export class OrdersService {
     this.ordersRepository.merge(order, updateOrderInput);
 
     return order;
+  }
+
+  getClient(clientId: number): Promise<ClientEntity> {
+    return this.clientService.findOneClient(clientId)
   }
 
   // remove(id: number) {

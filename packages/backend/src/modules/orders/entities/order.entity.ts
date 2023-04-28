@@ -1,3 +1,4 @@
+import { ClientEntity } from 'src/modules/clients/entities/client.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
 import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
 import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
@@ -41,8 +42,21 @@ export class OrderEntity {
   @Column({ name: 'price' })
   price: number;
 
+  @Column({
+    type: 'text',
+    name: 'client_id',
+    nullable: true,
+  })
+  clientId?: string;
+
+  @ManyToOne(() => ClientEntity, (client) => client.orders, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'client_id' })
+  client?: ClientEntity;
+
   @ManyToMany(() => OrderStatusEntity, (orderStatus) => orderStatus.orders)
-  @JoinTable({name: 'statuses_order'})
+  @JoinTable({ name: 'statuses_order' })
   orderStatus?: OrderEntity[];
 
   @Column({
@@ -90,7 +104,7 @@ export class OrderEntity {
   packages?: PackageEntity[];
 
   @OneToOne(() => InvoiceEntity, (invoice) => invoice.order)
-  invoice?: InvoiceEntity
+  invoice?: InvoiceEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

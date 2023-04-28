@@ -1,5 +1,6 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
 import { InvoiceDto } from 'src/modules/invoices/dto/invoice.dto';
+import { OrderDto } from 'src/modules/orders/dto/orders.dto';
 
 @ObjectType('Clients')
 export class ClientDto {
@@ -17,6 +18,9 @@ export class ClientDto {
 
   @Field()
   email!: string;
+
+  @Field((type) => OrderDto, { nullable: true })
+  orders?: OrderDto[]
 
   @Field((type) => InvoiceDto, { nullable: true })
   invoices?: InvoiceDto[]
