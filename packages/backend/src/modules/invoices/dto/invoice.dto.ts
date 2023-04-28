@@ -40,13 +40,12 @@ export class InvoiceDto {
   cfdi!: string;
 
   @Field({
-    name: 'client_id',
     nullable: true,
   })
   clientId?: number;
 
   @Field((type) => ClientDto, { nullable: true })
-  client: ClientDto
+  client: ClientDto;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

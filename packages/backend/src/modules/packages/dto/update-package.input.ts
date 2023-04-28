@@ -2,7 +2,7 @@ import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @InputType()
-export class UpdatePackageInput{
+export class UpdatePackageInput {
   // @Field()
   // @IsString()
   // @IsNotEmpty()

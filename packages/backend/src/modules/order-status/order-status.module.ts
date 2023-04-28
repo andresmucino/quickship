@@ -6,6 +6,6 @@ import { OrderStatusEntity } from './entities/order-status.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([OrderStatusEntity])],
-  providers: [OrderStatusResolver, OrderStatusService]
+  providers: [OrderStatusResolver, OrderStatusService],
 })
 export class OrderStatusModule {}

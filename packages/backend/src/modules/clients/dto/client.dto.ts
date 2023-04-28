@@ -20,10 +20,10 @@ export class ClientDto {
   email!: string;
 
   @Field((type) => OrderDto, { nullable: true })
-  orders?: OrderDto[]
+  orders?: OrderDto[];
 
   @Field((type) => InvoiceDto, { nullable: true })
-  invoices?: InvoiceDto[]
+  invoices?: InvoiceDto[];
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

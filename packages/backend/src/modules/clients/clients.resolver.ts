@@ -20,13 +20,14 @@ export class ClientsResolver {
 
   @Mutation(() => ClientDto)
   createClient(@Args('createClient') createClient: CreateClientInput) {
-    
     return this.clientsService.createClient(createClient);
   }
 
   @Mutation(() => ClientDto)
-  updateClient(@Args('updateClient') updateClient: UpdateClientInput, id: number) {
-
+  updateClient(
+    @Args('updateClient') updateClient: UpdateClientInput,
+    id: number,
+  ) {
     return this.clientsService.updateClient(id, updateClient);
   }
 }

@@ -6,10 +6,10 @@ export class CreateOrderStatusInput {
   @Field()
   @IsString()
   @IsNotEmpty()
-  name!: string
+  name!: string;
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  description!: string
+  description!: string;
 }

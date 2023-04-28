@@ -12,8 +12,8 @@ export class OrdersService {
   constructor(
     @InjectRepository(OrderEntity)
     private readonly ordersRepository: Repository<OrderEntity>,
-    private clientService: ClientsService
-    ) {}
+    private clientService: ClientsService,
+  ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
     const orders = await this.ordersRepository.find();
@@ -45,7 +45,7 @@ export class OrdersService {
   }
 
   getClient(clientId: number): Promise<ClientEntity> {
-    return this.clientService.findOneClient(clientId)
+    return this.clientService.findOneClient(clientId);
   }
 
   // remove(id: number) {

@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, Int, Parent, ResolveField } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  Parent,
+  ResolveField,
+} from '@nestjs/graphql';
 import { InvoicesService } from './invoices.service';
 import { CreateInvoiceInput } from './dto/create-invoice.input';
 import { UpdateInvoiceInput } from './dto/update-invoice.input';
@@ -37,7 +45,7 @@ export class InvoicesResolver {
 
   @ResolveField(() => ClientDto)
   getClient(@Parent() clientId: InvoiceDto): Promise<ClientEntity> {
-    return this.invoicesService.getClient(clientId.id)
+    return this.invoicesService.getClient(clientId.id);
   }
 
   // @Mutation(() => Invoice)

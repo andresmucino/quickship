@@ -8,7 +8,6 @@ import { OrderStatusDto } from './dto/order-status.dto';
 export class OrderStatusResolver {
   constructor(private readonly orderStatusService: OrderStatusService) {}
 
-
   @Query(() => [OrderStatusDto], { name: 'orderStatus' })
   findAll() {
     return this.orderStatusService.findAllOrderStatus();
@@ -20,13 +19,23 @@ export class OrderStatusResolver {
   }
 
   @Mutation(() => OrderStatusDto)
-  createOrderStatus(@Args('createOrderStatusInput') createOrderStatusInput: CreateOrderStatusInput) {
+  createOrderStatus(
+    @Args('createOrderStatusInput')
+    createOrderStatusInput: CreateOrderStatusInput,
+  ) {
     return this.orderStatusService.createOrderStatus(createOrderStatusInput);
   }
 
   @Mutation(() => OrderStatusDto)
-  updateOrderStatus(@Args('updateOrderStatusInput') updateOrderStatusInput: UpdateOrderStatusInput, id: number) {
-    return this.orderStatusService.updateOrderStatus(id, updateOrderStatusInput);
+  updateOrderStatus(
+    @Args('updateOrderStatusInput')
+    updateOrderStatusInput: UpdateOrderStatusInput,
+    id: number,
+  ) {
+    return this.orderStatusService.updateOrderStatus(
+      id,
+      updateOrderStatusInput,
+    );
   }
 
   // @Mutation(() => OrderStatusDto)

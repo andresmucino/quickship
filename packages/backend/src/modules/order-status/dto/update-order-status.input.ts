@@ -1,5 +1,5 @@
-import { Field, InputType } from "@nestjs/graphql";
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { Field, InputType } from '@nestjs/graphql';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 @InputType('updateOrderStatusInput')
 export class UpdateOrderStatusInput {
@@ -7,11 +7,11 @@ export class UpdateOrderStatusInput {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  name?: string
+  name?: string;
 
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  description?: string
+  description?: string;
 }

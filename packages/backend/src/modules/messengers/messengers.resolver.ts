@@ -4,7 +4,6 @@ import { MessengerDto } from './dto/messenger.dto';
 import { CreateMessengerInput } from './dto/create-messenger.input';
 import { UpdateMessengerInput } from './dto/update-messenger.input';
 
-
 @Resolver('Messenger')
 export class MessengersResolver {
   constructor(private readonly messengersService: MessengersService) {}

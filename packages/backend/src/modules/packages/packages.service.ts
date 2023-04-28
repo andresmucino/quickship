@@ -4,12 +4,15 @@ import { UpdatePackageInput } from './dto/update-package.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PackageEntity } from './entities/package.entity';
 import { Repository } from 'typeorm';
+import { OrdersService } from '../orders/orders.service';
+import { OrderEntity } from '../orders/entities/order.entity';
 
 @Injectable()
 export class PackagesService {
   constructor(
     @InjectRepository(PackageEntity)
     private readonly packagesRepository: Repository<PackageEntity>,
+    private ordersService: OrdersService,
   ) {}
 
   async findAllPackages(): Promise<PackageEntity[]> {
@@ -27,7 +30,6 @@ export class PackagesService {
   }
 
   createPackage(createPackageInput: CreatePackageInput): Promise<any> {
-    
     const newPackage = this.packagesRepository.create(createPackageInput);
 
     return this.packagesRepository.save(newPackage);
@@ -42,6 +44,10 @@ export class PackagesService {
     this.packagesRepository.merge(updatePackage, updatePackageInput);
 
     return this.packagesRepository.save(updatePackage);
+  }
+
+  getOrder(orderId: number): Promise<OrderEntity> {
+    return this.ordersService.findOneOrder(orderId);
   }
 
   // remove(id: number) {

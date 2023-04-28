@@ -1,10 +1,16 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+} from '@nestjs/graphql';
 import { PackagesService } from './packages.service';
 import { CreatePackageInput } from './dto/create-package.input';
 import { UpdatePackageInput } from './dto/update-package.input';
 import { PackageDto } from './dto/packages.dto';
 
-@Resolver('Packages')
+@Resolver(() => PackageDto)
 export class PackagesResolver {
   constructor(private readonly packagesService: PackagesService) {}
 
