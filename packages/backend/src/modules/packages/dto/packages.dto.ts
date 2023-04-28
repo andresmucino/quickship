@@ -1,4 +1,5 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
+import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
 import { OrderDto } from 'src/modules/orders/dto/orders.dto';
 
 @ObjectType('package')
@@ -26,6 +27,12 @@ export class PackageDto {
 
   @Field((type) => OrderDto, { nullable: true })
   order: OrderDto;
+
+  @Field({ nullable: true })
+  destinationId: number;
+
+  @Field((type) => DirectionsDto, { nullable: true })
+  destination: DirectionsDto;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

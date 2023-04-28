@@ -50,7 +50,7 @@ export class OrdersResolver {
 
   @ResolveField(() => DirectionsDto, { name: 'recolection' })
   getRecolection(@Parent() direction: OrderDto): Promise<DirectionEntity> {
-    return this.ordersService.getDirection(direction.recolectionId);
+    return this.ordersService.getRecolection(direction.recolectionId);
   }
 
   // @Mutation(() => Order)

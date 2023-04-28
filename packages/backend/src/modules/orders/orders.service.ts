@@ -15,7 +15,7 @@ export class OrdersService {
     @InjectRepository(OrderEntity)
     private readonly ordersRepository: Repository<OrderEntity>,
     private clientService: ClientsService,
-    private DirectionService: DirectionsService
+    private DirectionService: DirectionsService,
   ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
@@ -51,8 +51,8 @@ export class OrdersService {
     return this.clientService.findOneClient(clientId);
   }
 
-  getDirection(directionId: number): Promise<DirectionEntity> {
-    return this.DirectionService.findOneDirection(directionId)
+  getRecolection(recolectionId: number): Promise<DirectionEntity> {
+    return this.DirectionService.findOneDirection(recolectionId);
   }
 
   // remove(id: number) {

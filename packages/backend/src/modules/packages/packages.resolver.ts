@@ -13,6 +13,8 @@ import { UpdatePackageInput } from './dto/update-package.input';
 import { PackageDto } from './dto/packages.dto';
 import { OrderDto } from '../orders/dto/orders.dto';
 import { OrderEntity } from '../orders/entities/order.entity';
+import { DirectionsDto } from '../directions/dto/directions.dto';
+import { DirectionEntity } from '../directions/entities/direction.entity';
 
 @Resolver(() => PackageDto)
 export class PackagesResolver {
@@ -46,9 +48,14 @@ export class PackagesResolver {
     return this.packagesService.updatePackage(id, updatePackageInput);
   }
 
-  @ResolveField(() => OrderDto, {name: 'order'})
+  @ResolveField(() => OrderDto, { name: 'order' })
   getOrder(@Parent() orderId: PackageDto): Promise<OrderEntity> {
-    return this.packagesService.getOrder(orderId.orderId)
+    return this.packagesService.getOrder(orderId.orderId);
+  }
+
+  @ResolveField(() => DirectionsDto, { name: 'destination' })
+  getDestination(@Parent() direction: PackageDto): Promise<DirectionEntity> {
+    return this.packagesService.getdestination(direction.destinationId);
   }
 
   // @Mutation(() => PackageDto)

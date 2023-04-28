@@ -42,8 +42,8 @@ export class OrderDto {
   })
   recolectionId?: number;
 
-  @Field((type) => DirectionsDto, {nullable: true})
-  recolection: DirectionsDto
+  @Field((type) => DirectionsDto, { nullable: true })
+  recolection: DirectionsDto;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

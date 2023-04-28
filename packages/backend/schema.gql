@@ -28,6 +28,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type package {
+  id: String!
+  guide: String!
+  weigth: Float!
+  width: Float!
+  heigth: Float!
+  legth: Float!
+  orderId: Float
+  order: order!
+  destinationId: Float
+  destination: directions!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
 type directions {
   id: Float!
   street: String!
@@ -40,20 +56,7 @@ type directions {
   latitude: Float!
   longitude: Float!
   order: order
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-type package {
-  id: String!
-  guide: String!
-  weigth: Float!
-  width: Float!
-  heigth: Float!
-  legth: Float!
-  orderId: Float
-  order: order!
+  packages: package
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime

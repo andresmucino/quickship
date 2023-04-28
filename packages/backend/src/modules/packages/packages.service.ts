@@ -6,6 +6,8 @@ import { PackageEntity } from './entities/package.entity';
 import { Repository } from 'typeorm';
 import { OrdersService } from '../orders/orders.service';
 import { OrderEntity } from '../orders/entities/order.entity';
+import { DirectionsService } from '../directions/directions.service';
+import { DirectionEntity } from '../directions/entities/direction.entity';
 
 @Injectable()
 export class PackagesService {
@@ -13,6 +15,7 @@ export class PackagesService {
     @InjectRepository(PackageEntity)
     private readonly packagesRepository: Repository<PackageEntity>,
     private ordersService: OrdersService,
+    private directionsService: DirectionsService,
   ) {}
 
   async findAllPackages(): Promise<PackageEntity[]> {
@@ -48,6 +51,10 @@ export class PackagesService {
 
   getOrder(orderId: number): Promise<OrderEntity> {
     return this.ordersService.findOneOrder(orderId);
+  }
+
+  getdestination(destinationId: number): Promise<DirectionEntity> {
+    return this.directionsService.findOneDirection(destinationId);
   }
 
   // remove(id: number) {
