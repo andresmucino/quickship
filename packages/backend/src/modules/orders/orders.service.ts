@@ -30,12 +30,15 @@ export class OrdersService {
     return this.ordersRepository.save(newOrder);
   }
 
-  async updateOrder(id: number, updateOrderInput: UpdateOrderInput): Promise<OrderEntity> {
-   const order = await this.findOneOrder(id)
+  async updateOrder(
+    id: number,
+    updateOrderInput: UpdateOrderInput,
+  ): Promise<OrderEntity> {
+    const order = await this.findOneOrder(id);
 
-   this.ordersRepository.merge(order, updateOrderInput)
-   
-    return order
+    this.ordersRepository.merge(order, updateOrderInput);
+
+    return order;
   }
 
   // remove(id: number) {

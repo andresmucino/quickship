@@ -2,21 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Clients {
-  id: String!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
+type invoice {
+  id: Float!
+  socialReazon: String!
+  rfc: String!
+  street: String!
+  neigthboorhood: String!
+  municipality: String!
+  state: String!
+  externalNumber: Float!
+  internalNumber: Float!
+  zipCode: Float!
+  taxRegimen: Float!
+  cfdi: String!
+  client_id: Float
+  client: Clients
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
+  getClient: Clients!
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type Clients {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  invoices: invoice
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
 
 type directions {
   id: Float!
@@ -40,24 +62,6 @@ type messenger {
   lastName: String!
   phone: String!
   email: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-type invoice {
-  id: Float!
-  socialReazon: String!
-  rfc: String!
-  street: String!
-  neigthboorhood: String!
-  municipality: String!
-  state: String!
-  externalNumber: Float!
-  internalNumber: Float!
-  zipCode: Float!
-  taxRegimen: Float!
-  cfdi: String!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime

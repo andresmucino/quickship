@@ -4,17 +4,25 @@ import { UpdateInvoiceInput } from './dto/update-invoice.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { InvoiceEntity } from './entities/invoice.entity';
 import { Repository } from 'typeorm';
+import { ClientsService } from '../clients/clients.service';
+import { ClientDto } from '../clients/dto/client.dto';
+import { ClientEntity } from '../clients/entities/client.entity';
 
 @Injectable()
 export class InvoicesService {
   constructor(
     @InjectRepository(InvoiceEntity)
     private readonly invoicesRepository: Repository<InvoiceEntity>,
+    private clientService: ClientsService
   ) {}
 
   async findAllInvoices(): Promise<InvoiceEntity[]> {
     const invoices = await this.invoicesRepository.find();
     return invoices;
+  }
+
+  getClient(clientId: number): Promise<ClientEntity> {
+    return this.clientService.findOneClient(clientId)
   }
 
   async findOneInvoice(id: number): Promise<InvoiceEntity> {
