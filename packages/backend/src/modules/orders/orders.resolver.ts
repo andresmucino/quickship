@@ -13,6 +13,8 @@ import { UpdateOrderInput } from './dto/update-order.input';
 import { OrderDto } from './dto/orders.dto';
 import { ClientDto } from '../clients/dto/client.dto';
 import { ClientEntity } from '../clients/entities/client.entity';
+import { DirectionsDto } from '../directions/dto/directions.dto';
+import { DirectionEntity } from '../directions/entities/direction.entity';
 
 @Resolver(() => OrderDto)
 export class OrdersResolver {
@@ -41,9 +43,14 @@ export class OrdersResolver {
     return this.ordersService.updateOrder(id, updateOrderInput);
   }
 
-  @ResolveField(() => ClientDto)
+  @ResolveField(() => ClientDto, { name: 'client' })
   getClient(@Parent() clientId: OrderDto): Promise<ClientEntity> {
     return this.ordersService.getClient(clientId.clientId);
+  }
+
+  @ResolveField(() => DirectionsDto, { name: 'recolection' })
+  getRecolection(@Parent() direction: OrderDto): Promise<DirectionEntity> {
+    return this.ordersService.getDirection(direction.recolectionId);
   }
 
   // @Mutation(() => Order)

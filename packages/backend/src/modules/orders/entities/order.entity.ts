@@ -66,7 +66,7 @@ export class OrderEntity {
   })
   recolectionId?: string;
 
-  @ManyToOne(() => DirectionEntity, (direction) => direction.recolection, {
+  @OneToOne(() => DirectionEntity, (direction) => direction.recolection, {
     nullable: true,
   })
   @JoinColumn({ name: 'recolection_id' })
@@ -79,11 +79,11 @@ export class OrderEntity {
   })
   destinationId?: string;
 
-  @ManyToOne(() => DirectionEntity, (direction) => direction.destination, {
-    nullable: true,
-  })
-  @JoinColumn({ name: 'destination_id' })
-  destination?: DirectionEntity;
+  // @ManyToOne(() => DirectionEntity, (direction) => direction.destination, {
+  //   nullable: true,
+  // })
+  // @JoinColumn({ name: 'destination_id' })
+  // destination?: DirectionEntity;
 
   @Column({
     type: 'text',

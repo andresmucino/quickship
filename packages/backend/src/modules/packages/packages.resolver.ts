@@ -46,7 +46,7 @@ export class PackagesResolver {
     return this.packagesService.updatePackage(id, updatePackageInput);
   }
 
-  @ResolveField(() => OrderDto)
+  @ResolveField(() => OrderDto, {name: 'order'})
   getOrder(@Parent() orderId: PackageDto): Promise<OrderEntity> {
     return this.packagesService.getOrder(orderId.orderId)
   }

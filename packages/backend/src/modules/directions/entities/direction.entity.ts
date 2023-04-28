@@ -1,10 +1,12 @@
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -41,15 +43,15 @@ export class DirectionEntity {
   @Column({ name: 'longitude' })
   longitude: number;
 
-  @OneToMany(() => OrderEntity, (order) => order.recolection, {
+  @OneToOne(() => OrderEntity, (order) => order.recolection, {
     nullable: true,
   })
-  recolection?: OrderEntity[];
+  recolection?: OrderEntity;
 
-  @OneToMany(() => OrderEntity, (order) => order.destination, {
+  @OneToOne(() => PackageEntity, (order) => order.destination, {
     nullable: true,
   })
-  destination?: OrderEntity[];
+  destination?: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

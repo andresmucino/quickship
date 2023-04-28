@@ -28,6 +28,23 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type directions {
+  id: Float!
+  street: String!
+  neigthboorhood: String!
+  municipality: String!
+  state: String!
+  externalNumber: String!
+  internalNumber: String!
+  zipCode: Float!
+  latitude: Float!
+  longitude: Float!
+  order: order
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
 type package {
   id: String!
   guide: String!
@@ -36,11 +53,10 @@ type package {
   heigth: Float!
   legth: Float!
   orderId: Float
-  order: order
+  order: order!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
-  getOrder: order!
 }
 
 type order {
@@ -53,11 +69,12 @@ type order {
   price: Float!
   clientId: Float
   packages: package
-  client: Clients
+  client: Clients!
+  recolectionId: Float
+  recolection: directions!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
-  getClient: Clients!
 }
 
 type Clients {
@@ -68,22 +85,6 @@ type Clients {
   email: String!
   orders: order
   invoices: invoice
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-type directions {
-  id: Float!
-  street: String!
-  neigthboorhood: String!
-  municipality: String!
-  state: String!
-  externalNumber: String!
-  internalNumber: String!
-  zipCode: Float!
-  latitude: Float!
-  longitude: Float!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime

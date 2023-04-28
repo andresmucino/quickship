@@ -6,6 +6,8 @@ import { OrderEntity } from './entities/order.entity';
 import { Repository } from 'typeorm';
 import { ClientsService } from '../clients/clients.service';
 import { ClientEntity } from '../clients/entities/client.entity';
+import { DirectionsService } from '../directions/directions.service';
+import { DirectionEntity } from '../directions/entities/direction.entity';
 
 @Injectable()
 export class OrdersService {
@@ -13,6 +15,7 @@ export class OrdersService {
     @InjectRepository(OrderEntity)
     private readonly ordersRepository: Repository<OrderEntity>,
     private clientService: ClientsService,
+    private DirectionService: DirectionsService
   ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
@@ -46,6 +49,10 @@ export class OrdersService {
 
   getClient(clientId: number): Promise<ClientEntity> {
     return this.clientService.findOneClient(clientId);
+  }
+
+  getDirection(directionId: number): Promise<DirectionEntity> {
+    return this.DirectionService.findOneDirection(directionId)
   }
 
   // remove(id: number) {

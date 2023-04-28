@@ -1,3 +1,4 @@
+import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import {
   Column,
@@ -6,6 +7,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -42,6 +44,19 @@ export class PackageEntity {
   })
   @JoinColumn({ name: 'order_id' })
   order?: OrderEntity;
+
+  @Column({
+    type: 'text',
+    name: 'recolection_id',
+    nullable: true,
+  })
+  destinationId?: string;
+
+  @OneToOne(() => DirectionEntity, (direction) => direction.destination, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'destination_id' })
+  destination?: DirectionEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
