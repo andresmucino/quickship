@@ -4,11 +4,15 @@ import {
   Mutation,
   Args,
   Int,
+  ResolveField,
+  Parent,
 } from '@nestjs/graphql';
 import { PackagesService } from './packages.service';
 import { CreatePackageInput } from './dto/create-package.input';
 import { UpdatePackageInput } from './dto/update-package.input';
 import { PackageDto } from './dto/packages.dto';
+import { OrderDto } from '../orders/dto/orders.dto';
+import { OrderEntity } from '../orders/entities/order.entity';
 
 @Resolver(() => PackageDto)
 export class PackagesResolver {
@@ -40,6 +44,11 @@ export class PackagesResolver {
     id: number,
   ) {
     return this.packagesService.updatePackage(id, updatePackageInput);
+  }
+
+  @ResolveField(() => OrderDto)
+  getOrder(@Parent() orderId: PackageDto): Promise<OrderEntity> {
+    return this.packagesService.getOrder(orderId.orderId)
   }
 
   // @Mutation(() => PackageDto)

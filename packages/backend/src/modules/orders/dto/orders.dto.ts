@@ -30,9 +30,7 @@ export class OrderDto {
   })
   clientId?: number;
 
-  @Field({
-    nullable: true,
-  })
+  @Field((type) => PackageDto, { nullable: true })
   packages: PackageDto[];
 
   @Field((type) => ClientDto, { nullable: true })

@@ -15,7 +15,7 @@ type invoice {
   zipCode: Float!
   taxRegimen: Float!
   cfdi: String!
-  client_id: Float
+  clientId: Float
   client: Clients
   createAt: DateTime!
   updateAt: DateTime!
@@ -28,6 +28,21 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type package {
+  id: String!
+  guide: String!
+  weigth: Float!
+  width: Float!
+  heigth: Float!
+  legth: Float!
+  orderId: Float
+  order: order
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+  getOrder: order!
+}
+
 type order {
   id: Float!
   contactName: String!
@@ -36,7 +51,8 @@ type order {
   contactEmail: String!
   comments: String!
   price: Float!
-  client_id: Float
+  clientId: Float
+  packages: package
   client: Clients
   createAt: DateTime!
   updateAt: DateTime!
@@ -88,18 +104,6 @@ type orderStatus {
   id: String!
   name: String!
   description: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-type package {
-  id: String!
-  guide: String!
-  weigth: Float!
-  width: Float!
-  heigth: Float!
-  legth: Float!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime

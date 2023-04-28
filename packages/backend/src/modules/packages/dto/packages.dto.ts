@@ -22,7 +22,10 @@ export class PackageDto {
   legth!: number;
 
   @Field({ nullable: true })
-  orderId: OrderDto;
+  orderId: number;
+
+  @Field((type) => OrderDto, { nullable: true })
+  order: OrderDto;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;
