@@ -32,4 +32,24 @@ export class CreateOrderInput {
   @IsNumber()
   @IsNotEmpty()
   price!: number;
+
+  @Field()
+  @IsNumber()
+  @IsNotEmpty()
+  packagesId!: number;
+
+  @Field()
+  @IsNumber()
+  @IsNotEmpty()
+  clientId!: number;
+
+  @Field()
+  @IsNumber()
+  @IsNotEmpty()
+  messengerId!: number;
+
+  @Field({name: 'direction_id'})
+  @IsNumber()
+  @IsNotEmpty()
+  recolectionId!: number;  
 }

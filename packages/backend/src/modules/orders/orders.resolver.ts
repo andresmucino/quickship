@@ -17,6 +17,8 @@ import { DirectionsDto } from '../directions/dto/directions.dto';
 import { DirectionEntity } from '../directions/entities/direction.entity';
 import { MessengerDto } from '../messengers/dto/messenger.dto';
 import { MessengerEntity } from '../messengers/entities/messenger.entity';
+import { OrderStatusDto } from '../order-status/dto/order-status.dto';
+import { OrderStatusEntity } from '../order-status/entities/order-status.entity';
 
 @Resolver(() => OrderDto)
 export class OrdersResolver {
@@ -58,6 +60,12 @@ export class OrdersResolver {
   @ResolveField(() => MessengerDto, {name: 'messenger'})
   getMessenger(@Parent() messenger: OrderDto): Promise<MessengerEntity> {
     return this.ordersService.getMessenger(messenger.messengerId)
+  }
+
+  @ResolveField(() => OrderStatusDto)
+  getOrderStatus(status: OrderDto): Promise<OrderStatusEntity> {
+    //@ts-ignore
+    return this.ordersService.getOrderStatus(status.orderStatuses)
   }
 
   // @Mutation(() => Order)

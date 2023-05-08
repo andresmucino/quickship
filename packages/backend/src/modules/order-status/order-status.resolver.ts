@@ -8,7 +8,7 @@ import { OrderStatusDto } from './dto/order-status.dto';
 export class OrderStatusResolver {
   constructor(private readonly orderStatusService: OrderStatusService) {}
 
-  @Query(() => [OrderStatusDto], { name: 'orderStatus' })
+  @Query(() => [OrderStatusDto], { name: 'orderStatuses' })
   findAll() {
     return this.orderStatusService.findAllOrderStatus();
   }

@@ -4,7 +4,7 @@ import { DirectionsDto } from './dto/directions.dto';
 import { CreateDirectionInput } from './dto/create-direction.input';
 import { UpdateDirectionInput } from './dto/update-direction.input';
 
-@Resolver('Direction')
+@Resolver(() => DirectionsDto)
 export class DirectionsResolver {
   constructor(private readonly directionsService: DirectionsService) {}
 

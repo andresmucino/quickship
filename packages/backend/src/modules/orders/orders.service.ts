@@ -10,6 +10,9 @@ import { DirectionsService } from '../directions/directions.service';
 import { DirectionEntity } from '../directions/entities/direction.entity';
 import { MessengersService } from '../messengers/messengers.service';
 import { MessengerEntity } from '../messengers/entities/messenger.entity';
+import { OrderStatusService } from '../order-status/order-status.service';
+import { OrderStatusDto } from '../order-status/dto/order-status.dto';
+import { OrderStatusEntity } from '../order-status/entities/order-status.entity';
 
 @Injectable()
 export class OrdersService {
@@ -19,6 +22,7 @@ export class OrdersService {
     private clientService: ClientsService,
     private directionService: DirectionsService,
     private messengersService: MessengersService,
+    private orderStatusService: OrderStatusService
   ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
@@ -60,6 +64,10 @@ export class OrdersService {
 
   getMessenger(messengerId: number): Promise<MessengerEntity> {
     return this.messengersService.findOneMessenger(messengerId);
+  }
+
+  getOrderStatus(status: OrderStatusDto): Promise<any> {
+    return this.orderStatusService.findAllOrderStatus()
   }
 
   // remove(id: number) {

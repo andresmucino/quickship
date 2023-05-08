@@ -36,21 +36,21 @@ export class DirectionEntity {
   @Column({ name: 'zip_code' })
   zipCode: number;
 
-  @Column({ name: 'latitude' })
+  @Column({ name: 'latitude', type: 'float' })
   latitude: number;
 
-  @Column({ name: 'longitude' })
+  @Column({ name: 'longitude', type: 'float' })
   longitude: number;
 
-  @OneToOne(() => OrderEntity, (order) => order.recolection, {
-    nullable: true,
-  })
-  recolection?: OrderEntity;
+  // @OneToOne(() => OrderEntity, (order) => order.recolection, {
+  //   nullable: true,
+  // })
+  // recolection?: OrderEntity;
 
-  @OneToOne(() => PackageEntity, (order) => order.destination, {
+  @OneToOne(() => PackageEntity, (package_) => package_.direction, {
     nullable: true,
   })
-  destination?: PackageEntity;
+  direction?: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -28,6 +28,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type contact {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
 type package {
   id: String!
   guide: String!
@@ -37,8 +48,10 @@ type package {
   legth: Float!
   orderId: Float
   order: order!
-  destinationId: Float
-  destination: directions!
+  directionId: Float
+  direction: directions!
+  contactId: Float
+  contact: contact!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
@@ -74,6 +87,16 @@ type messenger {
   deleteAt: DateTime
 }
 
+type orderStatus {
+  id: String!
+  name: String!
+  description: String!
+  orders: order
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
 type order {
   id: Float!
   contactName: String!
@@ -89,9 +112,11 @@ type order {
   recolection: directions!
   messengerId: Float
   messenger: messenger!
+  orderStatuses: orderStatus
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
+  getOrderStatus: orderStatus!
 }
 
 type Clients {
@@ -107,15 +132,6 @@ type Clients {
   deleteAt: DateTime
 }
 
-type orderStatus {
-  id: String!
-  name: String!
-  description: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
 type Query {
   sayHello: String!
   clients: [Clients!]!
@@ -126,11 +142,13 @@ type Query {
   messenger(id: Int!): messenger!
   invoices: [invoice!]!
   invoice(id: Int!): invoice!
+  orderStatuses: [orderStatus!]!
   orderStatus(id: Int!): orderStatus!
   packages: [package!]!
   package(id: Int!): package!
   orders: [order!]!
   order(id: Int!): order!
+  contact(id: Int!): contact!
 }
 
 type Mutation {
@@ -148,6 +166,8 @@ type Mutation {
   updatePackage(updatePackageInput: UpdatePackageInput!): package!
   createOrder(createOrderInput: orderInput!): order!
   updateOrder(updateOrderInput: updateOrderInput!): order!
+  createContact(createContactInput: ContactInput!): contact!
+  updateContact(updateContactInput: updateContactInput!): contact!
 }
 
 input ClientInput {
@@ -170,7 +190,7 @@ input directionInput {
   municipality: String!
   state: String!
   externalNumber: Float!
-  internalNumber: Float!
+  internalNumber: Float = 0
   zipCode: Float!
   latitude: Float!
   longitude: Float!
@@ -261,6 +281,10 @@ input orderInput {
   contactEmail: String!
   comments: String!
   price: Float!
+  packagesId: Float!
+  clientId: Float!
+  messengerId: Float!
+  direction_id: Float!
 }
 
 input updateOrderInput {
@@ -270,4 +294,18 @@ input updateOrderInput {
   contactEmail: String!
   comments: String!
   price: Float!
+}
+
+input ContactInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+}
+
+input updateContactInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
 }

@@ -1,3 +1,4 @@
+import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import {
@@ -47,16 +48,29 @@ export class PackageEntity {
 
   @Column({
     type: 'text',
-    name: 'recolection_id',
+    name: 'direction_id',
     nullable: true,
   })
-  destinationId?: string;
+  directionId?: string;
 
-  @OneToOne(() => DirectionEntity, (direction) => direction.destination, {
+  @OneToOne(() => DirectionEntity, (direction) => direction.direction, {
     nullable: true,
   })
-  @JoinColumn({ name: 'destination_id' })
-  destination?: DirectionEntity;
+  @JoinColumn({ name: 'direction_id' })
+  direction?: DirectionEntity;
+
+  @Column({
+    type: 'text',
+    name: 'contact_id',
+    nullable: true,
+  })
+  contactId: number;
+
+  @OneToOne(() => ContactEntity, (contact) => contact.package, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'contact_id' })
+  contact: ContactEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

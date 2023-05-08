@@ -8,6 +8,8 @@ import { OrdersService } from '../orders/orders.service';
 import { OrderEntity } from '../orders/entities/order.entity';
 import { DirectionsService } from '../directions/directions.service';
 import { DirectionEntity } from '../directions/entities/direction.entity';
+import { ContactEntity } from '../contact/entities/contact.entity';
+import { ContactService } from '../contact/contact.service';
 
 @Injectable()
 export class PackagesService {
@@ -16,6 +18,7 @@ export class PackagesService {
     private readonly packagesRepository: Repository<PackageEntity>,
     private ordersService: OrdersService,
     private directionsService: DirectionsService,
+    private contactsService: ContactService
   ) {}
 
   async findAllPackages(): Promise<PackageEntity[]> {
@@ -53,8 +56,12 @@ export class PackagesService {
     return this.ordersService.findOneOrder(orderId);
   }
 
-  getdestination(destinationId: number): Promise<DirectionEntity> {
-    return this.directionsService.findOneDirection(destinationId);
+  getDirection(directionId: number): Promise<DirectionEntity> {
+    return this.directionsService.findOneDirection(directionId);
+  }
+
+  getContact(contactId: number): Promise<ContactEntity> {
+    return this.contactsService.findOneContact(contactId)
   }
 
   // remove(id: number) {

@@ -1,19 +1,21 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
-import { OrderDto } from 'src/modules/orders/dto/orders.dto';
 
-@ObjectType('orderStatus')
-export class OrderStatusDto {
+@ObjectType('contact')
+export class ContactDto {
   @Field()
-  id!: string;
-
-  @Field()
-  name!: string;
+  id!: number;
 
   @Field()
-  description!: string;
+  firstName!: string;
 
-  @Field((type) => OrderDto, { nullable: true })
-  orders: OrderDto[];
+  @Field()
+  lastName!: string;
+
+  @Field()
+  phone!: string;
+
+  @Field()
+  email!: string;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

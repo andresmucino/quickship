@@ -2,6 +2,7 @@ import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
 import { ClientDto } from 'src/modules/clients/dto/client.dto';
 import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
 import { MessengerDto } from 'src/modules/messengers/dto/messenger.dto';
+import { OrderStatusDto } from 'src/modules/order-status/dto/order-status.dto';
 import { PackageDto } from 'src/modules/packages/dto/packages.dto';
 
 @ObjectType('order')
@@ -49,6 +50,9 @@ export class OrderDto {
 
   @Field((type) => MessengerDto, { nullable: true })
   messenger: MessengerDto;
+
+  @Field((type) => OrderStatusDto, {nullable: true})
+  orderStatuses: OrderStatusDto[]
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

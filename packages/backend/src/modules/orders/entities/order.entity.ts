@@ -24,21 +24,6 @@ export class OrderEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'contact_first_name' })
-  contactName: string;
-
-  @Column({ name: 'contact_last_name' })
-  contactLastName: string;
-
-  @Column({ name: 'contact_phone' })
-  contactPhone: string;
-
-  @Column({ name: 'contact_email' })
-  contactEmail: string;
-
-  @Column({ name: 'comments' })
-  comments: string;
-
   @Column({ name: 'price' })
   price: number;
 
@@ -47,7 +32,7 @@ export class OrderEntity {
     name: 'client_id',
     nullable: true,
   })
-  clientId?: string;
+  clientId?: number;
 
   @ManyToOne(() => ClientEntity, (client) => client.orders, {
     nullable: true,
@@ -59,32 +44,32 @@ export class OrderEntity {
   @JoinTable({ name: 'statuses_order' })
   orderStatus?: OrderEntity[];
 
-  @Column({
-    type: 'text',
-    name: 'recolection_id',
-    nullable: true,
-  })
-  recolectionId?: string;
+  // @Column({
+  //   type: 'text',
+  //   name: 'recolection_id',
+  //   nullable: true,
+  // })
+  // recolectionId?: number;
 
-  @OneToOne(() => DirectionEntity, (direction) => direction.recolection, {
-    nullable: true,
-  })
-  @JoinColumn({ name: 'recolection_id' })
-  recolection?: DirectionEntity;
+  // @OneToOne(() => DirectionEntity, (direction) => direction.recolection, {
+  //   nullable: true,
+  // })
+  // @JoinColumn({ name: 'recolection_id' })
+  // recolection?: DirectionEntity;
 
-  @Column({
-    type: 'text',
-    name: 'destination_id',
-    nullable: true,
-  })
-  destinationId?: string;
+  // @Column({
+  //   type: 'text',
+  //   name: 'destination_id',
+  //   nullable: true,
+  // })
+  // destinationId?: number;
 
   @Column({
     type: 'text',
     name: 'messenger_id',
     nullable: true,
   })
-  messengerId?: string;
+  messengerId?: number;
 
   @ManyToOne(() => MessengerEntity, (messenger) => messenger.orders, {
     nullable: true,

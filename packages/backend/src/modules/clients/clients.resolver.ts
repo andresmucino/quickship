@@ -4,7 +4,7 @@ import { CreateClientInput } from './dto/create-client.input';
 import { UpdateClientInput } from './dto/update-client.input';
 import { ClientDto } from './dto/client.dto';
 
-@Resolver('Client')
+@Resolver(() => ClientDto)
 export class ClientsResolver {
   constructor(private readonly clientsService: ClientsService) {}
 

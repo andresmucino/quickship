@@ -28,7 +28,7 @@ export class CreateDirectionInput {
   @IsNotEmpty()
   externalNumber!: number;
 
-  @Field()
+  @Field({ nullable: true, defaultValue: 0 })
   @IsNumber()
   @IsNotEmpty()
   internalNumber?: number;

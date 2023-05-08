@@ -14,6 +14,7 @@ import { InvoicesModule } from './modules/invoices/invoices.module';
 import { OrderStatusModule } from './modules/order-status/order-status.module';
 import { PackagesModule } from './modules/packages/packages.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { ContactModule } from './modules/contact/contact.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { OrdersModule } from './modules/orders/orders.module';
     OrderStatusModule,
     PackagesModule,
     OrdersModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
