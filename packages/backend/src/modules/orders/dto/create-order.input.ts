@@ -6,26 +6,6 @@ export class CreateOrderInput {
   @Field()
   @IsString()
   @IsNotEmpty()
-  contactName!: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  contactLastName!: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  contactPhone!: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  contactEmail!: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
   comments!: string;
 
   @Field()
@@ -47,9 +27,4 @@ export class CreateOrderInput {
   @IsNumber()
   @IsNotEmpty()
   messengerId!: number;
-
-  @Field({name: 'direction_id'})
-  @IsNumber()
-  @IsNotEmpty()
-  recolectionId!: number;  
 }
