@@ -6,10 +6,11 @@ import { PackageEntity } from './entities/package.entity';
 import { OrdersModule } from '../orders/orders.module';
 import { DirectionsModule } from '../directions/directions.module';
 import { ContactModule } from '../contact/contact.module';
+import { ContactEntity } from '../contact/entities/contact.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([PackageEntity]),
+    TypeOrmModule.forFeature([PackageEntity, ContactEntity]),
     OrdersModule,
     DirectionsModule,
     ContactModule
