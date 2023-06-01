@@ -32,7 +32,7 @@ export class ClientsService {
 
   async updateClient(id: number, updateClientInput: UpdateClientInput) {
     const client = await this.findOneClient(id);
-    
+
     this.clientsRepository.merge(client, updateClientInput);
 
     return this.clientsRepository.save(client);

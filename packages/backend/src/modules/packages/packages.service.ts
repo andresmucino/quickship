@@ -4,12 +4,21 @@ import { UpdatePackageInput } from './dto/update-package.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PackageEntity } from './entities/package.entity';
 import { Repository } from 'typeorm';
+import { OrdersService } from '../orders/orders.service';
+import { OrderEntity } from '../orders/entities/order.entity';
+import { DirectionsService } from '../directions/directions.service';
+import { DirectionEntity } from '../directions/entities/direction.entity';
+import { ContactEntity } from '../contact/entities/contact.entity';
+import { ContactService } from '../contact/contact.service';
 
 @Injectable()
 export class PackagesService {
   constructor(
     @InjectRepository(PackageEntity)
     private readonly packagesRepository: Repository<PackageEntity>,
+    private ordersService: OrdersService,
+    private directionsService: DirectionsService,
+    private contactsService: ContactService
   ) {}
 
   async findAllPackages(): Promise<PackageEntity[]> {
@@ -27,7 +36,6 @@ export class PackagesService {
   }
 
   createPackage(createPackageInput: CreatePackageInput): Promise<any> {
-    
     const newPackage = this.packagesRepository.create(createPackageInput);
 
     return this.packagesRepository.save(newPackage);
@@ -42,6 +50,18 @@ export class PackagesService {
     this.packagesRepository.merge(updatePackage, updatePackageInput);
 
     return this.packagesRepository.save(updatePackage);
+  }
+
+  getOrder(orderId: number): Promise<OrderEntity> {
+    return this.ordersService.findOneOrder(orderId);
+  }
+
+  getDirection(directionId: number): Promise<DirectionEntity> {
+    return this.directionsService.findOneDirection(directionId);
+  }
+
+  getContact(contactId: number): Promise<ContactEntity> {
+    return this.contactsService.findOneContact(contactId)
   }
 
   // remove(id: number) {

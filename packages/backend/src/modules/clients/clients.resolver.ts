@@ -4,7 +4,7 @@ import { CreateClientInput } from './dto/create-client.input';
 import { UpdateClientInput } from './dto/update-client.input';
 import { ClientDto } from './dto/client.dto';
 
-@Resolver('Client')
+@Resolver(() => ClientDto)
 export class ClientsResolver {
   constructor(private readonly clientsService: ClientsService) {}
 
@@ -20,13 +20,14 @@ export class ClientsResolver {
 
   @Mutation(() => ClientDto)
   createClient(@Args('createClient') createClient: CreateClientInput) {
-    
     return this.clientsService.createClient(createClient);
   }
 
   @Mutation(() => ClientDto)
-  updateClient(@Args('updateClient') updateClient: UpdateClientInput, id: number) {
-
+  updateClient(
+    @Args('updateClient') updateClient: UpdateClientInput,
+    id: number,
+  ) {
     return this.clientsService.updateClient(id, updateClient);
   }
 }

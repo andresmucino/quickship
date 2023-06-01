@@ -4,7 +4,6 @@ import { UpdateOrderStatusInput } from './dto/update-order-status.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderStatusEntity } from './entities/order-status.entity';
 import { Repository } from 'typeorm';
-import { PromiseOrValue } from 'graphql/jsutils/PromiseOrValue';
 
 @Injectable()
 export class OrderStatusService {

@@ -34,7 +34,10 @@ export class MessengersService {
     return this.messengerRepository.save(newMessenger);
   }
 
-  async updateMessenger(id: number, updateMessengerInput: UpdateMessengerInput) {
+  async updateMessenger(
+    id: number,
+    updateMessengerInput: UpdateMessengerInput,
+  ) {
     const messenger = await this.findOneMessenger(id);
 
     this.messengerRepository.merge(messenger, updateMessengerInput);

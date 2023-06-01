@@ -1,17 +1,16 @@
-import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'clients' })
-export class ClientEntity {
+@Entity({ name: 'contact' })
+export class ContactEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -27,21 +26,23 @@ export class ClientEntity {
   @Column({ name: 'phone' })
   phone: string;
 
+  @Column({
+    type: 'text',
+    name: 'package_id',
+    nullable: true,
+  })
+  packageId: number;
+
+  @OneToOne(() => PackageEntity, (package_) => package_.contact, {
+    nullable: true,
+  })
+  package: PackageEntity;
+
   @CreateDateColumn({
     type: 'timestamp',
     name: 'create_at',
   })
   createAt!: Date;
-
-  @OneToMany(() => OrderEntity, (order) => order.client, {
-    nullable: true,
-  })
-  orders?: OrderEntity[];
-
-  @OneToMany(() => InvoiceEntity, (invoice) => invoice.client, {
-    nullable: true,
-  })
-  invoices?: InvoiceEntity[];
 
   @UpdateDateColumn({
     type: 'timestamp',

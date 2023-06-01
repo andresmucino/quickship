@@ -1,3 +1,5 @@
+import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
+import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
 import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import {
   Column,
@@ -6,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -42,6 +45,32 @@ export class PackageEntity {
   })
   @JoinColumn({ name: 'order_id' })
   order?: OrderEntity;
+
+  @Column({
+    type: 'text',
+    name: 'direction_id',
+    nullable: true,
+  })
+  directionId?: string;
+
+  @OneToOne(() => DirectionEntity, (direction) => direction.direction, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'direction_id' })
+  direction?: DirectionEntity;
+
+  @Column({
+    type: 'text',
+    name: 'contact_id',
+    nullable: true,
+  })
+  contactId: number;
+
+  @OneToOne(() => ContactEntity, (contact) => contact.package, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'contact_id' })
+  contact: ContactEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

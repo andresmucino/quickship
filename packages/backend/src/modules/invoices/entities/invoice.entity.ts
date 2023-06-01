@@ -70,7 +70,7 @@ export class InvoiceEntity {
   })
   orderId?: string;
 
-  @OneToOne(() => OrderEntity, (order) => order.invoice) // specify inverse side as a second parameter
+  @OneToOne(() => OrderEntity, (order) => order.invoice)
   @JoinColumn({ name: 'order_id' })
   order: OrderEntity;
 

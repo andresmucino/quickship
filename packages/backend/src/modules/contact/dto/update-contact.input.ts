@@ -7,8 +7,8 @@ import {
   IsString,
 } from 'class-validator';
 
-@InputType('updateClientInput')
-export class UpdateClientInput {
+@InputType('updateContactInput')
+export class UpdateContactInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()

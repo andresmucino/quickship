@@ -2,49 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Clients {
-  id: String!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type directions {
-  id: Float!
-  street: String!
-  neigthboorhood: String!
-  municipality: String!
-  state: String!
-  externalNumber: String!
-  internalNumber: String!
-  zipCode: Float!
-  latitude: Float!
-  longitude: Float!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
-type messenger {
-  id: String!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
 type invoice {
   id: Float!
   socialReazon: String!
@@ -58,15 +15,25 @@ type invoice {
   zipCode: Float!
   taxRegimen: Float!
   cfdi: String!
+  clientId: Float
+  client: Clients
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
+  getClient: Clients!
 }
 
-type orderStatus {
-  id: String!
-  name: String!
-  description: String!
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type contact {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
@@ -79,6 +46,52 @@ type package {
   width: Float!
   heigth: Float!
   legth: Float!
+  orderId: Float
+  order: order!
+  directionId: Float
+  direction: directions!
+  contactId: Float
+  contact: contact!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type directions {
+  id: Float!
+  street: String!
+  neigthboorhood: String!
+  municipality: String!
+  state: String!
+  externalNumber: String!
+  internalNumber: String!
+  zipCode: Float!
+  latitude: Float!
+  longitude: Float!
+  order: order
+  packages: package
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type messenger {
+  id: String!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  orders: order
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type orderStatus {
+  id: String!
+  name: String!
+  description: String!
+  orders: order
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
@@ -92,6 +105,28 @@ type order {
   contactEmail: String!
   comments: String!
   price: Float!
+  clientId: Float
+  packages: package
+  client: Clients!
+  recolectionId: Float
+  recolection: directions!
+  messengerId: Float
+  messenger: messenger!
+  orderStatuses: orderStatus
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+  getOrderStatus: orderStatus!
+}
+
+type Clients {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  orders: order
+  invoices: invoice
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
@@ -107,11 +142,13 @@ type Query {
   messenger(id: Int!): messenger!
   invoices: [invoice!]!
   invoice(id: Int!): invoice!
+  orderStatuses: [orderStatus!]!
   orderStatus(id: Int!): orderStatus!
   packages: [package!]!
   package(id: Int!): package!
   orders: [order!]!
   order(id: Int!): order!
+  contact(id: Int!): contact!
 }
 
 type Mutation {
@@ -129,6 +166,8 @@ type Mutation {
   updatePackage(updatePackageInput: UpdatePackageInput!): package!
   createOrder(createOrderInput: orderInput!): order!
   updateOrder(updateOrderInput: updateOrderInput!): order!
+  createContact(createContactInput: ContactInput!): contact!
+  updateContact(updateContactInput: updateContactInput!): contact!
 }
 
 input ClientInput {
@@ -151,7 +190,7 @@ input directionInput {
   municipality: String!
   state: String!
   externalNumber: Float!
-  internalNumber: Float!
+  internalNumber: Float = 0
   zipCode: Float!
   latitude: Float!
   longitude: Float!
@@ -242,6 +281,10 @@ input orderInput {
   contactEmail: String!
   comments: String!
   price: Float!
+  packagesId: Float!
+  clientId: Float!
+  messengerId: Float!
+  direction_id: Float!
 }
 
 input updateOrderInput {
@@ -251,4 +294,18 @@ input updateOrderInput {
   contactEmail: String!
   comments: String!
   price: Float!
+}
+
+input ContactInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+}
+
+input updateContactInput {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
 }
