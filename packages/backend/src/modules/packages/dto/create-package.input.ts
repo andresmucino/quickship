@@ -23,7 +23,4 @@ export class CreatePackageInput {
   @IsNumber()
   @IsNotEmpty()
   legth!: number;
-
-  @Field(() => [CreateContactInput])
-  contact: CreateContactInput
 }

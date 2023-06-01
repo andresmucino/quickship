@@ -16,7 +16,6 @@ export class PackagesService {
   constructor(
     @InjectRepository(PackageEntity)
     private readonly packagesRepository: Repository<PackageEntity>,
-    @InjectRepository(ContactEntity) private readonly contactRepository: Repository<ContactEntity>,
     private ordersService: OrdersService,
     private directionsService: DirectionsService,
     private contactsService: ContactService
@@ -37,13 +36,8 @@ export class PackagesService {
   }
 
   createPackage(createPackageInput: CreatePackageInput): Promise<any> {
-    const {contact, ...packageData} = createPackageInput
 
-    const newPackage = this.packagesRepository.create(packageData);
-
-    if(!contact) {
-      newPackage.contact = this.contactRepository.create(contact)
-    }
+    const newPackage = this.packagesRepository.create(createPackageInput);
 
     return this.packagesRepository.save(newPackage);
   }

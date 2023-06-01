@@ -1,6 +1,5 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
 import { ContactDto } from 'src/modules/contact/dto/contact.dto';
-import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
 import { OrderDto } from 'src/modules/orders/dto/orders.dto';
 
