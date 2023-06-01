@@ -12,18 +12,18 @@ import config from 'src/config';
         const { database, host, password, port, url, username } = configService;
 
         return {
-          type: 'postgres',
-          host: "dpg-chc6u93hp8u01655q8d0-a",
-          port: 5432,
-          url: 'postgres://quickship_ubxn_user:zVPpiKD16PVyFlN29j8fQFa194rtPUB4@dpg-chc6u93hp8u01655q8d0-a.oregon-postgres.render.com/quickship_ubxn',
-          username: "quickship_ubxn_user",
-          password: "zVPpiKD16PVyFlN29j8fQFa194rtPUB4",
-          database: "quickship_ubxn",
+          type: 'mysql',
+          host: "localhost",
+          port: 3306,
+          // url: '',
+          username: "root",
+          password: "123456",
+          database: "test",
           autoLoadEntities: true,
           synchronize: true,
-          ssl: {
-            rejectUnauthorized: false,
-          },
+          // ssl: {
+          //   rejectUnauthorized: false,
+          // },
         };
       },
     }),

@@ -265,6 +265,14 @@ input packagesInput {
   width: Float!
   heigth: Float!
   legth: Float!
+  contact: [ContactInput!]!
+}
+
+input ContactInput {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
 }
 
 input UpdatePackageInput {
@@ -275,16 +283,11 @@ input UpdatePackageInput {
 }
 
 input orderInput {
-  contactName: String!
-  contactLastName: String!
-  contactPhone: String!
-  contactEmail: String!
   comments: String!
   price: Float!
   packagesId: Float!
   clientId: Float!
   messengerId: Float!
-  direction_id: Float!
 }
 
 input updateOrderInput {
@@ -294,13 +297,6 @@ input updateOrderInput {
   contactEmail: String!
   comments: String!
   price: Float!
-}
-
-input ContactInput {
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
 }
 
 input updateContactInput {

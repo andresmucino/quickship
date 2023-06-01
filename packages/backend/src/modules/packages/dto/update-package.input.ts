@@ -3,11 +3,6 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class UpdatePackageInput {
-  // @Field()
-  // @IsString()
-  // @IsNotEmpty()
-  // guide?: string;
-
   @Field()
   @IsNumber()
   @IsNotEmpty()

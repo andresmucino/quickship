@@ -1,13 +1,9 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber } from 'class-validator';
+import { CreateContactInput } from 'src/modules/contact/dto/create-contact.input';
 
 @InputType('packagesInput')
 export class CreatePackageInput {
-  // @Field()
-  // @IsString()
-  // @IsNotEmpty()
-  // guide!: string;
-
   @Field()
   @IsNumber()
   @IsNotEmpty()

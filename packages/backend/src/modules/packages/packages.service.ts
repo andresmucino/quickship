@@ -36,6 +36,7 @@ export class PackagesService {
   }
 
   createPackage(createPackageInput: CreatePackageInput): Promise<any> {
+
     const newPackage = this.packagesRepository.create(createPackageInput);
 
     return this.packagesRepository.save(newPackage);
