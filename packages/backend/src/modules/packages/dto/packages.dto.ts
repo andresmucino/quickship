@@ -6,7 +6,7 @@ import { OrderDto } from 'src/modules/orders/dto/orders.dto';
 @ObjectType('package')
 export class PackageDto {
   @Field()
-  id!: string;
+  id!: number;
 
   @Field()
   guide!: string;
@@ -32,13 +32,13 @@ export class PackageDto {
   @Field({ nullable: true })
   directionId: number;
 
-  @Field((type) => DirectionsDto, { nullable: true })
+  @Field(() => DirectionsDto, { nullable: true })
   direction: DirectionsDto;
 
-  @Field({ nullable: true })
+  @Field({ nullable: true, name: 'contact_id' })
   contactId: number;
 
-  @Field((type) => ContactDto, { nullable: true })
+  @Field(() => ContactDto, { nullable: true })
   contact: ContactDto;
 
   @Field(() => GraphQLISODateTime)

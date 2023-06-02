@@ -33,13 +33,10 @@ export class PackagesResolver {
   }
 
   @Mutation(() => PackageDto)
-  createPackage(
+  async createPackage(
     @Args('createPackageInput') createPackageInput: CreatePackageInput,
   ) {
-    const guide = `OD${Math.floor(Math.random() * 100 + 1)}`;
-    const input = { guide, ...createPackageInput };
-
-    return this.packagesService.createPackage(input);
+    return await this.packagesService.createPackage(createPackageInput);
   }
 
   @Mutation(() => PackageDto)
@@ -60,9 +57,9 @@ export class PackagesResolver {
     return this.packagesService.getDirection(direction.directionId);
   }
 
-  @ResolveField(() => ContactDto, {name: 'contact'})
+  @ResolveField(() => ContactDto, { name: 'contact' })
   getContact(@Parent() contact: PackageDto): Promise<ContactEntity> {
-    return this.packagesService.getContact(contact.contactId)
+    return this.packagesService.getContact(contact.contactId);
   }
 
   // @Mutation(() => PackageDto)

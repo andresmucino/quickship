@@ -32,4 +32,9 @@ export class UpdateContactInput {
   @IsEmail()
   @IsNotEmpty()
   email?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsNotEmpty()
+  packageId?: number;
 }

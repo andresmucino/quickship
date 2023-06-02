@@ -18,7 +18,7 @@ export class PackagesService {
     private readonly packagesRepository: Repository<PackageEntity>,
     private ordersService: OrdersService,
     private directionsService: DirectionsService,
-    private contactsService: ContactService
+    private contactsService: ContactService,
   ) {}
 
   async findAllPackages(): Promise<PackageEntity[]> {
@@ -35,11 +35,33 @@ export class PackagesService {
     return onePackage;
   }
 
-  createPackage(createPackageInput: CreatePackageInput): Promise<any> {
+  async createPackage(
+    createPackageInput: CreatePackageInput,
+  ): Promise<PackageEntity> {
+    const { contact, ...packageData } = createPackageInput;
 
-    const newPackage = this.packagesRepository.create(createPackageInput);
+    const idContact = await this.contactsService.createContact(contact);
 
-    return this.packagesRepository.save(newPackage);
+    this.packagesRepository.create({
+      contact: contact,
+      contactId: idContact.id,
+      ...packageData,
+    });
+
+    const guide = `OD${Math.floor(Math.random() * 100 + 1)}`;
+
+    const savedPackage = await this.packagesRepository.save({
+      concat: contact,
+      contactId: idContact.id,
+      guide: guide,
+      ...packageData,
+    });
+
+    await this.contactsService.updateContact(idContact.id, {
+      packageId: savedPackage.id,
+    });
+
+    return savedPackage;
   }
 
   async updatePackage(
@@ -62,7 +84,7 @@ export class PackagesService {
   }
 
   getContact(contactId: number): Promise<ContactEntity> {
-    return this.contactsService.findOneContact(contactId)
+    return this.contactsService.findOneContact(contactId);
   }
 
   // remove(id: number) {

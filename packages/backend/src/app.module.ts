@@ -15,6 +15,7 @@ import { OrderStatusModule } from './modules/order-status/order-status.module';
 import { PackagesModule } from './modules/packages/packages.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ContactModule } from './modules/contact/contact.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -27,7 +28,21 @@ import { ContactModule } from './modules/contact/contact.module';
       autoSchemaFile: 'schema.gql',
       playground: true,
     }),
-    DatabaseModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      // url: '',
+      username: 'root',
+      password: '123456',
+      database: 'test',
+      autoLoadEntities: true,
+      synchronize: true,
+      // ssl: {
+      //   rejectUnauthorized: false,
+      // },
+    }),
+    // DatabaseModule,
     ClientsModule,
     DirectionsModule,
     ClientsModule,

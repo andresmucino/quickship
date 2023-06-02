@@ -40,7 +40,7 @@ export class PackageEntity {
   })
   orderId?: string;
 
-  @ManyToOne(() => OrderEntity, (order) => order.packages, {
+  @ManyToOne(() => OrderEntity, (order) => order.packges, {
     nullable: true,
   })
   @JoinColumn({ name: 'order_id' })

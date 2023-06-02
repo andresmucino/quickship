@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateOrderInput } from './dto/create-order.input';
 import { UpdateOrderInput } from './dto/update-order.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,7 +12,7 @@ import { MessengersService } from '../messengers/messengers.service';
 import { MessengerEntity } from '../messengers/entities/messenger.entity';
 import { OrderStatusService } from '../order-status/order-status.service';
 import { OrderStatusDto } from '../order-status/dto/order-status.dto';
-import { OrderStatusEntity } from '../order-status/entities/order-status.entity';
+import { PackagesService } from '../packages/packages.service';
 
 @Injectable()
 export class OrdersService {
@@ -22,12 +22,14 @@ export class OrdersService {
     private clientService: ClientsService,
     private directionService: DirectionsService,
     private messengersService: MessengersService,
-    private orderStatusService: OrderStatusService
+    private orderStatusService: OrderStatusService,
+    @Inject(forwardRef(() => PackagesService))
+    private readonly packgeService: PackagesService,
   ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
     const orders = await this.ordersRepository.find();
-
+    console.log(orders)
     return orders;
   }
 
@@ -38,9 +40,29 @@ export class OrdersService {
   }
 
   async createOrder(createOrderInput: CreateOrderInput): Promise<OrderEntity> {
-    const newOrder = await this.ordersRepository.create(createOrderInput);
+    const { packges, ...packageData } = createOrderInput;
 
-    return this.ordersRepository.save(newOrder);
+    const idPackages = await Promise.all(
+      packges.map(
+        async (packg) => await this.packgeService.createPackage(packg),
+      ),
+    );
+
+    const packagesIds = idPackages.map((prop) => prop.id);
+
+    const newOrder = this.ordersRepository.create({
+      packges: [...idPackages],
+      ...packageData,
+    });
+
+    const saveOrder = await this.ordersRepository.save({
+      packagesIds: [...packagesIds],
+      ...newOrder,
+    });
+
+    console.log(saveOrder)
+
+    return saveOrder;
   }
 
   async updateOrder(
@@ -67,7 +89,7 @@ export class OrdersService {
   }
 
   getOrderStatus(status: OrderStatusDto): Promise<any> {
-    return this.orderStatusService.findAllOrderStatus()
+    return this.orderStatusService.findAllOrderStatus();
   }
 
   // remove(id: number) {

@@ -1,15 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateContactInput } from './dto/create-contact.input';
 import { UpdateContactInput } from './dto/update-contact.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ContactEntity } from './entities/contact.entity';
 import { Repository } from 'typeorm';
+import { PackagesService } from '../packages/packages.service';
+import { PackageEntity } from '../packages/entities/package.entity';
 
 @Injectable()
 export class ContactService {
   constructor(
     @InjectRepository(ContactEntity)
     public readonly contactsRepository: Repository<ContactEntity>,
+    @Inject(forwardRef(() => PackagesService))
+    private readonly packageService: PackagesService
   ) {}
 
   async findAllContact(): Promise<ContactEntity[]> {
@@ -38,6 +42,10 @@ export class ContactService {
     this.contactsRepository.merge(contact, updateContactInput);
 
     return this.contactsRepository.save(contact);
+  }
+
+  getPackage(packageid: number): Promise<PackageEntity> {
+    return this.packageService.findOnePackage(packageid)
   }
 
   // remove(id: number) {
