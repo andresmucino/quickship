@@ -71,6 +71,7 @@ type directions {
   latitude: Float!
   longitude: Float!
   order: order
+  packageId: Float!
   packages: package
   createAt: DateTime!
   updateAt: DateTime!
@@ -209,6 +210,7 @@ input updateDirectionInput {
   zipCode: Float
   latitude: Float
   longitude: Float
+  packageId: Float
 }
 
 input messengerInput {
@@ -269,6 +271,7 @@ input packagesInput {
   heigth: Float!
   legth: Float!
   contact: ContactInput!
+  direction: directionInput!
 }
 
 input ContactInput {

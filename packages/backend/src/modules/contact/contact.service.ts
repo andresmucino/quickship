@@ -13,7 +13,7 @@ export class ContactService {
     @InjectRepository(ContactEntity)
     public readonly contactsRepository: Repository<ContactEntity>,
     @Inject(forwardRef(() => PackagesService))
-    private readonly packageService: PackagesService
+    private readonly packageService: PackagesService,
   ) {}
 
   async findAllContact(): Promise<ContactEntity[]> {
@@ -30,7 +30,9 @@ export class ContactService {
     return contact;
   }
 
-  async createContact(createContactInput: CreateContactInput) {
+  async createContact(
+    createContactInput: CreateContactInput,
+  ): Promise<ContactEntity> {
     const newContact = await this.contactsRepository.create(createContactInput);
 
     return this.contactsRepository.save(newContact);
@@ -45,7 +47,7 @@ export class ContactService {
   }
 
   getPackage(packageid: number): Promise<PackageEntity> {
-    return this.packageService.findOnePackage(packageid)
+    return this.packageService.findOnePackage(packageid);
   }
 
   // remove(id: number) {

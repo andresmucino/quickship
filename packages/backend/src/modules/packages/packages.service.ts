@@ -38,11 +38,14 @@ export class PackagesService {
   async createPackage(
     createPackageInput: CreatePackageInput,
   ): Promise<PackageEntity> {
-    const { contact, ...packageData } = createPackageInput;
+    const { contact, direction, ...packageData } = createPackageInput;
 
     const idContact = await this.contactsService.createContact(contact);
+    const idDirection = await this.directionsService.createDirection(direction);
 
     this.packagesRepository.create({
+      direction: idDirection,
+      directionId: idDirection.id,
       contact: contact,
       contactId: idContact.id,
       ...packageData,
@@ -51,6 +54,8 @@ export class PackagesService {
     const guide = `OD${Math.floor(Math.random() * 100 + 1)}`;
 
     const savedPackage = await this.packagesRepository.save({
+      direction: idDirection,
+      directionId: idDirection.id,
       concat: contact,
       contactId: idContact.id,
       guide: guide,
@@ -60,6 +65,9 @@ export class PackagesService {
     await this.contactsService.updateContact(idContact.id, {
       packageId: savedPackage.id,
     });
+
+    await this.directionsService.updateDirection(idDirection.id, {packageId: savedPackage.id})
+
 
     return savedPackage;
   }

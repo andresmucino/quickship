@@ -37,6 +37,9 @@ export class DirectionsDto {
   @Field((type) => OrderDto, { nullable: true })
   order: OrderDto;
 
+  @Field()
+  packageId: number
+
   @Field((type) => PackageDto, { nullable: true })
   packages: PackageDto;
 
@@ -47,5 +50,5 @@ export class DirectionsDto {
   updateAt!: Date;
 
   @Field(() => GraphQLISODateTime, { nullable: true })
-  deleteAt!: Date;
+  deleteAt?: Date;
 }

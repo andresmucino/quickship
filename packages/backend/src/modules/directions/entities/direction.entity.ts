@@ -47,10 +47,17 @@ export class DirectionEntity {
   // })
   // recolection?: OrderEntity;
 
-  @OneToOne(() => PackageEntity, (package_) => package_.direction, {
+  @Column({
+    type: 'text',
+    name: 'package_id',
     nullable: true,
   })
-  direction?: PackageEntity;
+  packageId: number;
+
+  @OneToOne(() => PackageEntity, (packge) => packge.direction, {
+    nullable: true,
+  })
+  packge?: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -51,9 +51,9 @@ export class PackageEntity {
     name: 'direction_id',
     nullable: true,
   })
-  directionId?: string;
+  directionId: number;
 
-  @OneToOne(() => DirectionEntity, (direction) => direction.direction, {
+  @OneToOne(() => DirectionEntity, (direction) => direction.packge, {
     nullable: true,
   })
   @JoinColumn({ name: 'direction_id' })
