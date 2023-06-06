@@ -43,25 +43,18 @@ export class OrderEntity {
   @JoinTable({ name: 'statuses_order' })
   orderStatus?: OrderEntity[];
 
-  // @Column({
-  //   type: 'text',
-  //   name: 'recolection_id',
-  //   nullable: true,
-  // })
-  // recolectionId?: number;
+  @Column({
+    type: 'text',
+    name: 'direction_id',
+    nullable: true,
+  })
+  directionId?: number;
 
-  // @OneToOne(() => DirectionEntity, (direction) => direction.recolection, {
-  //   nullable: true,
-  // })
-  // @JoinColumn({ name: 'recolection_id' })
-  // recolection?: DirectionEntity;
-
-  // @Column({
-  //   type: 'text',
-  //   name: 'destination_id',
-  //   nullable: true,
-  // })
-  // destinationId?: number;
+  @OneToOne(() => DirectionEntity, (direction) => direction.order, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'direction_id' })
+  direction?: DirectionEntity;
 
   @Column({
     name: 'messenger_id',

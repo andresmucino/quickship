@@ -40,6 +40,10 @@ export class PackagesService {
   ): Promise<PackageEntity> {
     const { contact, direction, ...packageData } = createPackageInput;
 
+    const zone = {
+      CDMX: '10',
+    };
+
     const idContact = await this.contactsService.createContact(contact);
     const idDirection = await this.directionsService.createDirection(direction);
 
@@ -51,7 +55,7 @@ export class PackagesService {
       ...packageData,
     });
 
-    const guide = `OD${Math.floor(Math.random() * 100 + 1)}`;
+    const guide = `OD0623${Math.floor(Math.random() * 100 + 1)}${zone.CDMX}`;
 
     const savedPackage = await this.packagesRepository.save({
       direction: idDirection,
@@ -66,8 +70,9 @@ export class PackagesService {
       packageId: savedPackage.id,
     });
 
-    await this.directionsService.updateDirection(idDirection.id, {packageId: savedPackage.id})
-
+    await this.directionsService.updateDirection(idDirection.id, {
+      packageId: savedPackage.id,
+    });
 
     return savedPackage;
   }

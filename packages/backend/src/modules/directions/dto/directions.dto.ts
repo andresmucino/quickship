@@ -34,6 +34,9 @@ export class DirectionsDto {
   @Field()
   longitude!: number;
 
+  @Field()
+  orderId: number
+
   @Field((type) => OrderDto, { nullable: true })
   order: OrderDto;
 

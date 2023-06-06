@@ -52,4 +52,9 @@ export class UpdateDirectionInput {
   @IsNumber()
   @IsOptional()
   packageId?: number;
+
+  @Field({ nullable: true })
+  @IsNumber()
+  @IsOptional()
+  orderId?: number;
 }

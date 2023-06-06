@@ -1,35 +1,20 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType('updateOrderInput')
 export class UpdateOrderInput {
   @Field()
   @IsString()
-  @IsNotEmpty()
-  contactName?: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  contactLastName?: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  contactPhone?: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  contactEmail?: string;
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   comments?: string;
 
   @Field()
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   price?: number;
+
+  @Field()
+  @IsNumber()
+  @IsOptional()
+  messengerId?: number;
 }

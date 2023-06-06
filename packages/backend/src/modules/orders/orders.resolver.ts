@@ -54,10 +54,10 @@ export class OrdersResolver {
     return this.ordersService.getClient(clientId.clientId);
   }
 
-  @ResolveField(() => DirectionsDto, { name: 'recolection' })
-  getRecolection(@Parent() direction: OrderDto): Promise<DirectionEntity> {
-    return this.ordersService.getRecolection(direction.recolectionId);
-  }
+  // @ResolveField(() => DirectionsDto, { name: 'recolection' })
+  // getRecolection(@Parent() direction: OrderDto): Promise<DirectionEntity> {
+  //   return this.ordersService.getRecolection(direction.recolectionId);
+  // }
 
   @ResolveField(() => MessengerDto, { name: 'messenger' })
   getMessenger(@Parent() messenger: OrderDto): Promise<MessengerEntity> {

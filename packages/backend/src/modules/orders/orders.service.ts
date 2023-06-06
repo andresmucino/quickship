@@ -29,7 +29,7 @@ export class OrdersService {
 
   async findAllOrders(): Promise<OrderEntity[]> {
     const orders = await this.ordersRepository.find();
-    console.log(orders)
+    console.log(orders);
     return orders;
   }
 
@@ -40,7 +40,7 @@ export class OrdersService {
   }
 
   async createOrder(createOrderInput: CreateOrderInput): Promise<OrderEntity> {
-    const { packges, ...packageData } = createOrderInput;
+    const { packges, direction, ...packageData } = createOrderInput;
 
     const idPackages = await Promise.all(
       packges.map(
@@ -48,19 +48,29 @@ export class OrdersService {
       ),
     );
 
+    const idDirection = await this.directionService.createDirection(direction);
+
     const packagesIds = idPackages.map((prop) => prop.id);
 
     const newOrder = this.ordersRepository.create({
       packges: [...idPackages],
+      direction: idDirection,
+      directionId: idDirection.id,
       ...packageData,
     });
 
     const saveOrder = await this.ordersRepository.save({
       packagesIds: [...packagesIds],
       ...newOrder,
+      direction: idDirection,
+      directionId: idDirection.id,
     });
 
-    console.log(saveOrder)
+    console.log(saveOrder);
+
+    await this.directionService.updateDirection(idDirection.id, {
+      orderId: saveOrder.id,
+    });
 
     return saveOrder;
   }
@@ -80,9 +90,9 @@ export class OrdersService {
     return this.clientService.findOneClient(clientId);
   }
 
-  getRecolection(recolectionId: number): Promise<DirectionEntity> {
-    return this.directionService.findOneDirection(recolectionId);
-  }
+  // getRecolection(recolectionId: number): Promise<DirectionEntity> {
+  //   return this.directionService.findOneDirection(recolectionId);
+  // }
 
   getMessenger(messengerId: number): Promise<MessengerEntity> {
     return this.messengersService.findOneMessenger(messengerId);

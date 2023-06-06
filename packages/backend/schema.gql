@@ -70,6 +70,7 @@ type directions {
   zipCode: Float!
   latitude: Float!
   longitude: Float!
+  orderId: Float!
   order: order
   packageId: Float!
   packages: package
@@ -111,8 +112,8 @@ type order {
   clientId: Float
   packages: package
   client: Clients!
-  recolectionId: Float
-  recolection: directions!
+  directionId: Float
+  direction: directions
   messengerId: Float
   messenger: messenger!
   orderStatuses: orderStatus
@@ -211,6 +212,7 @@ input updateDirectionInput {
   latitude: Float
   longitude: Float
   packageId: Float
+  orderId: Float
 }
 
 input messengerInput {
@@ -292,6 +294,7 @@ input orderInput {
   comments: String!
   price: Float!
   packges: [packagesInput!]!
+  direction: directionInput!
 }
 
 input updateOrderInput {

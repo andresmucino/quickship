@@ -42,10 +42,17 @@ export class DirectionEntity {
   @Column({ name: 'longitude', type: 'float' })
   longitude: number;
 
-  // @OneToOne(() => OrderEntity, (order) => order.recolection, {
-  //   nullable: true,
-  // })
-  // recolection?: OrderEntity;
+  @Column({
+    name: 'order_id',
+    type: 'text',
+    nullable: true,
+  })
+  orderId?: number;
+
+  @OneToOne(() => OrderEntity, (order) => order.direction, {
+    nullable: true,
+  })
+  order?: OrderEntity;
 
   @Column({
     type: 'text',
