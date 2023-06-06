@@ -7,7 +7,6 @@ import { Repository } from 'typeorm';
 import { ClientsService } from '../clients/clients.service';
 import { ClientEntity } from '../clients/entities/client.entity';
 import { DirectionsService } from '../directions/directions.service';
-import { DirectionEntity } from '../directions/entities/direction.entity';
 import { MessengersService } from '../messengers/messengers.service';
 import { MessengerEntity } from '../messengers/entities/messenger.entity';
 import { OrderStatusService } from '../order-status/order-status.service';
@@ -29,7 +28,6 @@ export class OrdersService {
 
   async findAllOrders(): Promise<OrderEntity[]> {
     const orders = await this.ordersRepository.find();
-    console.log(orders);
     return orders;
   }
 
@@ -65,8 +63,6 @@ export class OrdersService {
       direction: idDirection,
       directionId: idDirection.id,
     });
-
-    console.log(saveOrder);
 
     await this.directionService.updateDirection(idDirection.id, {
       orderId: saveOrder.id,
