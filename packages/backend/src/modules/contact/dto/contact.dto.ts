@@ -1,4 +1,5 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
+import { PackageDto } from 'src/modules/packages/dto/packages.dto';
 
 @ObjectType('contact')
 export class ContactDto {
@@ -16,6 +17,12 @@ export class ContactDto {
 
   @Field()
   email!: string;
+
+  @Field()
+  packageId: number
+
+  @Field((type) => PackageDto, { nullable: true })
+  package: PackageDto;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

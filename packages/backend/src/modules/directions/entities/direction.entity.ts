@@ -42,15 +42,29 @@ export class DirectionEntity {
   @Column({ name: 'longitude', type: 'float' })
   longitude: number;
 
-  // @OneToOne(() => OrderEntity, (order) => order.recolection, {
-  //   nullable: true,
-  // })
-  // recolection?: OrderEntity;
-
-  @OneToOne(() => PackageEntity, (package_) => package_.direction, {
+  @Column({
+    name: 'order_id',
+    type: 'text',
     nullable: true,
   })
-  direction?: PackageEntity;
+  orderId?: number;
+
+  @OneToOne(() => OrderEntity, (order) => order.direction, {
+    nullable: true,
+  })
+  order?: OrderEntity;
+
+  @Column({
+    type: 'text',
+    name: 'package_id',
+    nullable: true,
+  })
+  packageId: number;
+
+  @OneToOne(() => PackageEntity, (packge) => packge.direction, {
+    nullable: true,
+  })
+  packge?: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

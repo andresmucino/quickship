@@ -11,18 +11,6 @@ export class OrderDto {
   id!: number;
 
   @Field()
-  contactName!: string;
-
-  @Field()
-  contactLastName!: string;
-
-  @Field()
-  contactPhone!: string;
-
-  @Field()
-  contactEmail!: string;
-
-  @Field()
   comments!: string;
 
   @Field()
@@ -40,19 +28,16 @@ export class OrderDto {
   client: ClientDto;
 
   @Field({ nullable: true })
-  recolectionId?: number;
+  directionId?: number;
 
   @Field((type) => DirectionsDto, { nullable: true })
-  recolection: DirectionsDto;
+  direction: DirectionsDto;
 
   @Field({ nullable: true })
   messengerId?: number;
 
   @Field((type) => MessengerDto, { nullable: true })
   messenger: MessengerDto;
-
-  @Field((type) => OrderStatusDto, {nullable: true})
-  orderStatuses: OrderStatusDto[]
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

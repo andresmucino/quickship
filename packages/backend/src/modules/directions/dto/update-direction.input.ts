@@ -1,50 +1,60 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsOptional, IsNumber, IsString } from 'class-validator';
 
 @InputType('updateDirectionInput')
 export class UpdateDirectionInput {
   @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   street?: string;
 
   @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   neigthboorhood?: string;
 
   @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   municipality?: string;
 
   @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   state?: string;
 
   @Field({ nullable: true })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   externalNumber?: number;
 
   @Field({ nullable: true })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   internalNumber?: number;
 
   @Field({ nullable: true })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   zipCode?: number;
 
   @Field({ nullable: true })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   latitude?: number;
 
   @Field({ nullable: true })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   longitude?: number;
+
+  @Field({ nullable: true })
+  @IsNumber()
+  @IsOptional()
+  packageId?: number;
+
+  @Field({ nullable: true })
+  @IsNumber()
+  @IsOptional()
+  orderId?: number;
 }

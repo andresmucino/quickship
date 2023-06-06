@@ -11,5 +11,5 @@ export class CreateOrderStatusInput {
   @Field()
   @IsString()
   @IsNotEmpty()
-  description!: string;
+  status!: string;
 }

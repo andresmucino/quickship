@@ -40,7 +40,7 @@ export class PackageEntity {
   })
   orderId?: string;
 
-  @ManyToOne(() => OrderEntity, (order) => order.packages, {
+  @ManyToOne(() => OrderEntity, (order) => order.packges, {
     nullable: true,
   })
   @JoinColumn({ name: 'order_id' })
@@ -51,9 +51,9 @@ export class PackageEntity {
     name: 'direction_id',
     nullable: true,
   })
-  directionId?: string;
+  directionId: number;
 
-  @OneToOne(() => DirectionEntity, (direction) => direction.direction, {
+  @OneToOne(() => DirectionEntity, (direction) => direction.packge, {
     nullable: true,
   })
   @JoinColumn({ name: 'direction_id' })

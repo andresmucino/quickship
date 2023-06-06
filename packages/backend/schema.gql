@@ -34,13 +34,15 @@ type contact {
   lastName: String!
   phone: String!
   email: String!
+  packageId: Float!
+  package: package!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
 }
 
 type package {
-  id: String!
+  id: Float!
   guide: String!
   weigth: Float!
   width: Float!
@@ -50,7 +52,7 @@ type package {
   order: order!
   directionId: Float
   direction: directions!
-  contactId: Float
+  contact_id: Float
   contact: contact!
   createAt: DateTime!
   updateAt: DateTime!
@@ -68,7 +70,9 @@ type directions {
   zipCode: Float!
   latitude: Float!
   longitude: Float!
+  orderId: Float!
   order: order
+  packageId: Float!
   packages: package
   createAt: DateTime!
   updateAt: DateTime!
@@ -108,8 +112,8 @@ type order {
   clientId: Float
   packages: package
   client: Clients!
-  recolectionId: Float
-  recolection: directions!
+  directionId: Float
+  direction: directions
   messengerId: Float
   messenger: messenger!
   orderStatuses: orderStatus
@@ -148,6 +152,7 @@ type Query {
   package(id: Int!): package!
   orders: [order!]!
   order(id: Int!): order!
+  contacts: [contact!]!
   contact(id: Int!): contact!
 }
 
@@ -206,6 +211,8 @@ input updateDirectionInput {
   zipCode: Float
   latitude: Float
   longitude: Float
+  packageId: Float
+  orderId: Float
 }
 
 input messengerInput {
@@ -265,7 +272,8 @@ input packagesInput {
   width: Float!
   heigth: Float!
   legth: Float!
-  contact: [ContactInput!]!
+  contact: ContactInput!
+  direction: directionInput!
 }
 
 input ContactInput {
@@ -285,9 +293,8 @@ input UpdatePackageInput {
 input orderInput {
   comments: String!
   price: Float!
-  packagesId: Float!
-  clientId: Float!
-  messengerId: Float!
+  packges: [packagesInput!]!
+  direction: directionInput!
 }
 
 input updateOrderInput {
@@ -304,4 +311,5 @@ input updateContactInput {
   lastName: String
   phone: String
   email: String
+  packageId: Float
 }
