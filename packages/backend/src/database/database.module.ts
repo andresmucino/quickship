@@ -12,18 +12,18 @@ import config from 'src/config';
         const { database, host, password, port, url, username } = configService;
 
         return {
-          type: 'mysql',
-          host: "localhost",
-          port: 3306,
-          // url: '',
-          username: "root",
-          password: "123456",
-          database: "test",
+          type: 'postgres',
+          host: host,
+          port: Number(port),
+          url: url,
+          username: username,
+          password: password,
+          database: database,
           autoLoadEntities: true,
           synchronize: true,
-          // ssl: {
-          //   rejectUnauthorized: false,
-          // },
+          ssl: {
+            rejectUnauthorized: false,
+          },
         };
       },
     }),
