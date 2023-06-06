@@ -15,10 +15,10 @@ export class CreateOrderInput {
   @IsNotEmpty()
   price!: number;
 
-  // @Field()
-  // @IsNumber()
-  // @IsNotEmpty()
-  // clientId!: number;
+  @Field()
+  @IsNumber()
+  @IsNotEmpty()
+  clientId!: number;
 
   @Field(() => [CreatePackageInput])
   packges: CreatePackageInput[];
