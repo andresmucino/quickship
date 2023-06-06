@@ -93,9 +93,7 @@ type messenger {
 
 type orderStatus {
   id: String!
-  name: String!
-  description: String!
-  orders: order
+  status: String!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
@@ -103,10 +101,6 @@ type orderStatus {
 
 type order {
   id: Float!
-  contactName: String!
-  contactLastName: String!
-  contactPhone: String!
-  contactEmail: String!
   comments: String!
   price: Float!
   clientId: Float
@@ -116,7 +110,6 @@ type order {
   direction: directions
   messengerId: Float
   messenger: messenger!
-  orderStatuses: orderStatus
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
@@ -259,12 +252,11 @@ input updateInvoiceInput {
 
 input orderStatusInput {
   name: String!
-  description: String!
+  status: String!
 }
 
 input updateOrderStatusInput {
   name: String
-  description: String
 }
 
 input packagesInput {
@@ -293,17 +285,15 @@ input UpdatePackageInput {
 input orderInput {
   comments: String!
   price: Float!
+  clientId: Float!
   packges: [packagesInput!]!
   direction: directionInput!
 }
 
 input updateOrderInput {
-  contactName: String!
-  contactLastName: String!
-  contactPhone: String!
-  contactEmail: String!
   comments: String!
   price: Float!
+  messengerId: Float!
 }
 
 input updateContactInput {
