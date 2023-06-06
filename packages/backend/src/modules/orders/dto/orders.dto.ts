@@ -39,9 +39,6 @@ export class OrderDto {
   @Field((type) => MessengerDto, { nullable: true })
   messenger: MessengerDto;
 
-  @Field((type) => OrderStatusDto, {nullable: true})
-  orderStatuses: OrderStatusDto[]
-
   @Field(() => GraphQLISODateTime)
   createAt!: Date;
 

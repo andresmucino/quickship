@@ -1,4 +1,3 @@
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
@@ -16,12 +15,6 @@ export class OrderStatusEntity {
 
   @Column({ name: 'name' })
   name: string;
-
-  @Column({ name: 'description' })
-  description: string;
-
-  @ManyToMany(() => OrderEntity, (order) => order.orderStatus)
-  orders: OrderEntity[];
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -7,11 +7,5 @@ export class UpdateOrderStatusInput {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  name?: string;
-
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  description?: string;
+  status?: string;
 }

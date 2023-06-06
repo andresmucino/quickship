@@ -7,13 +7,7 @@ export class OrderStatusDto {
   id!: string;
 
   @Field()
-  name!: string;
-
-  @Field()
-  description!: string;
-
-  @Field((type) => OrderDto, { nullable: true })
-  orders: OrderDto[];
+  status!: string;
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;

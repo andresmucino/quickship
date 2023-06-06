@@ -39,10 +39,6 @@ export class OrderEntity {
   @JoinColumn({ name: 'client_id' })
   client?: ClientEntity;
 
-  @ManyToMany(() => OrderStatusEntity, (orderStatus) => orderStatus.orders)
-  @JoinTable({ name: 'statuses_order' })
-  orderStatus?: OrderEntity[];
-
   @Column({
     type: 'text',
     name: 'direction_id',
