@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 @InputType('directionInput')
 export class CreateDirectionInput {
@@ -30,21 +30,21 @@ export class CreateDirectionInput {
 
   @Field({ nullable: true, defaultValue: 0 })
   @IsNumber()
-  @IsNotEmpty()
+  @IsOptional()
   internalNumber?: number;
 
   @Field()
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  zipCode!: number;
+  zipCode!: string;
 
-  @Field()
+  @Field({ nullable: true, defaultValue: 0 })
   @IsNumber()
-  @IsNotEmpty()
-  latitude!: number;
+  @IsOptional()
+  latitude?: number;
 
-  @Field()
+  @Field({ nullable: true, defaultValue: 0 })
   @IsNumber()
-  @IsNotEmpty()
-  longitude!: number;
+  @IsOptional()
+  longitude?: number;
 }

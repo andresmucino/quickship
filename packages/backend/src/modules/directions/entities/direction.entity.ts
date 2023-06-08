@@ -34,7 +34,7 @@ export class DirectionEntity {
   internalNumber: number;
 
   @Column({ name: 'zip_code' })
-  zipCode: number;
+  zipCode: string;
 
   @Column({ name: 'latitude', type: 'float' })
   latitude: number;

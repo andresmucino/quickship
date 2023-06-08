@@ -36,7 +36,7 @@ export class UpdateDirectionInput {
   @Field({ nullable: true })
   @IsNumber()
   @IsOptional()
-  zipCode?: number;
+  zipCode?: string;
 
   @Field({ nullable: true })
   @IsNumber()

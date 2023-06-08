@@ -45,6 +45,7 @@ export class PackagesService {
     };
 
     const idContact = await this.contactsService.createContact(contact);
+
     const idDirection = await this.directionsService.createDirection(direction);
 
     this.packagesRepository.create({

@@ -1,7 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
 
-@InputType('ContactInput')
+@InputType('CreateContactInput')
 export class CreateContactInput {
   @Field()
   @IsString()
@@ -14,7 +14,7 @@ export class CreateContactInput {
   lastName!: string;
 
   @Field()
-  @IsPhoneNumber()
+  @IsPhoneNumber('MX')
   @IsNotEmpty()
   phone!: string;
 

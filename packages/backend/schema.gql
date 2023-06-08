@@ -67,7 +67,7 @@ type directions {
   state: String!
   externalNumber: String!
   internalNumber: String!
-  zipCode: Float!
+  zipCode: String!
   latitude: Float!
   longitude: Float!
   orderId: Float!
@@ -164,7 +164,7 @@ type Mutation {
   updatePackage(updatePackageInput: UpdatePackageInput!): package!
   createOrder(createOrderInput: orderInput!): order!
   updateOrder(updateOrderInput: updateOrderInput!): order!
-  createContact(createContactInput: ContactInput!): contact!
+  createContact(createContactInput: CreateContactInput!): contact!
   updateContact(updateContactInput: updateContactInput!): contact!
 }
 
@@ -189,9 +189,9 @@ input directionInput {
   state: String!
   externalNumber: Float!
   internalNumber: Float = 0
-  zipCode: Float!
-  latitude: Float!
-  longitude: Float!
+  zipCode: String!
+  latitude: Float = 0
+  longitude: Float = 0
 }
 
 input updateDirectionInput {
@@ -201,7 +201,7 @@ input updateDirectionInput {
   state: String
   externalNumber: Float
   internalNumber: Float
-  zipCode: Float
+  zipCode: String
   latitude: Float
   longitude: Float
   packageId: Float
@@ -264,11 +264,11 @@ input packagesInput {
   width: Float!
   heigth: Float!
   legth: Float!
-  contact: ContactInput!
+  contact: CreateContactInput!
   direction: directionInput!
 }
 
-input ContactInput {
+input CreateContactInput {
   firstName: String!
   lastName: String!
   phone: String!

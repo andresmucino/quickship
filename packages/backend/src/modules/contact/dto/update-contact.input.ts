@@ -1,10 +1,12 @@
 import { Field, InputType } from '@nestjs/graphql';
 import {
   IsEmail,
+  IsMobilePhone,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
   IsString,
+  minLength,
 } from 'class-validator';
 
 @InputType('updateContactInput')
@@ -12,29 +14,24 @@ export class UpdateContactInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   firstName?: string;
 
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   lastName?: string;
 
   @Field({ nullable: true })
   @IsOptional()
-  @IsPhoneNumber()
-  @IsNotEmpty()
+  @IsPhoneNumber('MX')
   phone?: string;
 
   @Field({ nullable: true })
   @IsOptional()
-  @IsEmail()
-  @IsNotEmpty()
+  @IsEmail({}, { message: 'esta mal tu correo' })
   email?: string;
 
   @Field({ nullable: true })
   @IsOptional()
-  @IsNotEmpty()
   packageId?: number;
 }

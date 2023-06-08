@@ -24,7 +24,7 @@ export class OrderEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'price' })
+  @Column({ name: 'price', type: 'float' })
   price: number;
 
   @Column({
@@ -66,15 +66,15 @@ export class OrderEntity {
 
   @Column({
     type: 'simple-array',
-    name:'packages_id',
-    nullable: true
+    name: 'packages_id',
+    nullable: true,
   })
-  packagesIds: PackageEntity[]
+  packagesIds: PackageEntity[];
 
   @OneToMany(() => PackageEntity, (package_) => package_.order, {
     nullable: true,
   })
-  @JoinColumn({name: 'packages_id'})
+  @JoinColumn({ name: 'packages_id' })
   packges?: PackageEntity[];
 
   @OneToOne(() => InvoiceEntity, (invoice) => invoice.order)

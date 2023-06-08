@@ -21,16 +21,16 @@ export class PackageEntity {
   @Column({ name: 'guide' })
   guide: string;
 
-  @Column({ name: 'weigth' })
+  @Column({ name: 'weigth', type: 'float' })
   weigth: number;
 
-  @Column({ name: 'width' })
+  @Column({ name: 'width', type: 'float' })
   width: number;
 
-  @Column({ name: 'heigth' })
+  @Column({ name: 'heigth', type: 'float' })
   heigth: number;
 
-  @Column({ name: 'length' })
+  @Column({ name: 'length', type: 'float' })
   legth: number;
 
   @Column({

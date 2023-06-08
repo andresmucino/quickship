@@ -26,7 +26,7 @@ export class DirectionsDto {
   internalNumber?: string;
 
   @Field()
-  zipCode!: number;
+  zipCode!: string;
 
   @Field()
   latitude!: number;
