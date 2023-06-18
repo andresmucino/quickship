@@ -1,6 +1,6 @@
 "use client";
 
-import { API_URL, CreateClientType } from "@/common";
+import { API_URL, CreateMessengerType } from "@/common";
 import { GeneralForm, Header } from "@/components";
 import {
   EuiButton,
@@ -14,9 +14,9 @@ import { useMutation } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 import { useForm } from "react-hook-form";
 
-const CreateClientQuery = gql`
-  mutation createClient($input: ClientInput!) {
-    createClient(createClient: $input) {
+const CreateMessengerQuery = gql`
+  mutation createMessenger($input: messengerInput!) {
+    createMessenger(createMessengerInput: $input) {
       id
     }
   }
@@ -24,13 +24,14 @@ const CreateClientQuery = gql`
 
 const graphQLClient = new GraphQLClient(`${API_URL}/graphql`);
 
-export default function CreateClient() {
+export default function CreateMessenger() {
   const mutation = useMutation({
-    mutationKey: ["createClient"],
-    mutationFn: (client: CreateClientType) => {
-      return graphQLClient.request(CreateClientQuery, client);
+    mutationKey: ["createMessenger"],
+    mutationFn: (messenger: CreateMessengerType) => {
+      return graphQLClient.request(CreateMessengerQuery, messenger);
     },
   });
+
   const {
     register,
     formState: { errors },
@@ -39,7 +40,9 @@ export default function CreateClient() {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    mutation.mutate({ input: data });
+    console.log(data);
+    const los = mutation.mutate({ input: data });
+    console.log(los);
   };
 
   if (mutation.isLoading) return <p>loading</p>;
@@ -48,12 +51,12 @@ export default function CreateClient() {
     <EuiPageHeaderContent>
       <EuiPanel style={{ margin: "2vh" }}>
         <EuiForm component="form" onSubmit={handleSubmit(onSubmit)}>
-          <Header title={`Crear cliente`}>
+          <Header title={`Crear Mensajero`}>
             <EuiButton
               fill
               type="submit"
-              onClick={() => "/clients"}
-              href="/clients"
+              //   onClick={() => "/messengers"}
+              //   href="/messengers"
             >
               Guardar
             </EuiButton>
