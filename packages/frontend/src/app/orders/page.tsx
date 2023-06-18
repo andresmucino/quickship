@@ -1,10 +1,9 @@
 "use client";
 
 import { API_URL } from "@/common";
-import { ErrorPage, Header, Table } from "@/components";
+import { Header, Table } from "@/components";
 import {
   EuiBasicTableColumn,
-  EuiButton,
   EuiHorizontalRule,
   EuiPageHeader,
   EuiPageHeaderContent,
@@ -15,27 +14,27 @@ import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 
 const ClientsQuery = gql`
-  query getClients {
-    clients {
+  query getOrders {
+    orders {
       id
-      firstName
-      lastName
-      phone
-      email
+      price
+      clientId
+      directionId
+      createAt
     }
   }
 `;
 
 const graphQLClient = new GraphQLClient(`${API_URL}/graphql`);
 
-const fetchClients = async () => {
+const fetchOrders = async () => {
   return await graphQLClient.request(ClientsQuery);
 };
 
-export default function Clients() {
-  const { isLoading, error, data, isFetching }: any = useQuery({
-    queryKey: ["clients"],
-    queryFn: fetchClients,
+export default function Orders() {
+  const { data, isLoading, error }: any = useQuery({
+    queryKey: ["getOrders"],
+    queryFn: fetchOrders,
   });
 
   const columns: Array<EuiBasicTableColumn<any>> = [
@@ -44,22 +43,12 @@ export default function Clients() {
       name: "ID",
     },
     {
-      field: "firstName",
-      name: "Nombre",
-    },
-    {
-      field: "lastName",
-      name: "Apellido",
-    },
-    {
-      field: "phone",
-      name: "Telefono",
-    },
-    {
-      field: "email",
-      name: "Correo",
+      field: "createAt",
+      name: "Creada",
     },
   ];
+
+  console.log(data);
 
   return (
     <EuiPageHeaderContent>
@@ -80,18 +69,17 @@ export default function Clients() {
         </EuiPanel>
       ) : (
         <EuiPanel style={{ margin: "2vh" }}>
-          <Header title={`Clientes (${data?.clients.length})`}>
-            <EuiButton onClick={() => "/createClient"} href="/createClient">
-              Crear cliente
-            </EuiButton>
+          <Header title={`Clientes ()`}>
+            {/* <EuiButton onClick={() => "/"} href="/">
+                    Crear cliente
+                  </EuiButton> */}
           </Header>
           <EuiHorizontalRule />
           <EuiPanel>
-            <Table items={data?.clients} columns={columns} />
+            <Table items={data?.orders} columns={columns} />
           </EuiPanel>
         </EuiPanel>
       )}
-      {error && <ErrorPage message="Error al cargar clientes" />}
     </EuiPageHeaderContent>
   );
 }
