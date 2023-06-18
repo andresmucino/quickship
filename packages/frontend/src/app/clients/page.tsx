@@ -1,20 +1,20 @@
 "use client";
 
 import { API_URL } from "@/common";
-import { Table } from "@/components";
+import { ErrorPage, Header, Table } from "@/components";
 import {
   EuiBasicTableColumn,
+  EuiButton,
   EuiHorizontalRule,
   EuiPageHeader,
   EuiPageHeaderContent,
   EuiPanel,
   EuiSkeletonText,
-  EuiText,
 } from "@elastic/eui";
 import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 
-const UserQuery = gql`
+const ClientsQuery = gql`
   query getUser {
     clients {
       id
@@ -26,14 +26,14 @@ const UserQuery = gql`
 
 const graphQLClient = new GraphQLClient(`${API_URL}/graphql`);
 
-const fetchUser = async () => {
-  return await graphQLClient.request(UserQuery);
+const fetchClients = async () => {
+  return await graphQLClient.request(ClientsQuery);
 };
 
 export default function Clients() {
   const { isLoading, error, data, isFetching }: any = useQuery({
     queryKey: ["clients"],
-    queryFn: fetchUser,
+    queryFn: fetchClients,
   });
 
   const columns: Array<EuiBasicTableColumn<any>> = [
@@ -70,17 +70,18 @@ export default function Clients() {
         </EuiPanel>
       ) : (
         <EuiPanel style={{ margin: "2vh" }}>
-          <EuiPageHeader>
-            <EuiText>
-              <h1>{`Clientes (${data?.clients.length})`}</h1>
-            </EuiText>
-          </EuiPageHeader>
+          <Header title={`Clientes (${data?.clients.length})`}>
+            <EuiButton onClick={() => "/createClient"} href="/createClient">
+              Crear cliente
+            </EuiButton>
+          </Header>
           <EuiHorizontalRule />
           <EuiPanel>
             <Table items={data?.clients} columns={columns} />
           </EuiPanel>
         </EuiPanel>
       )}
+      {error && <ErrorPage message="Error al cargar clientes" />}
     </EuiPageHeaderContent>
   );
 }

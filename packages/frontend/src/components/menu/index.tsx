@@ -1,4 +1,8 @@
-import { EuiListGroup, EuiListGroupItem } from "@elastic/eui";
+import {
+  EuiHorizontalRule,
+  EuiListGroup,
+  EuiListGroupItem,
+} from "@elastic/eui";
 
 export const Menu = () => {
   return (
@@ -10,32 +14,32 @@ export const Menu = () => {
         isActive
         href="/"
       />
-
+      <EuiHorizontalRule />
       <EuiListGroupItem
-        iconType="visualizeApp"
+        iconType="users"
         onClick={() => "/clients"}
         label="Clientes"
         href="/clients"
       />
-
+      <EuiHorizontalRule />
       <EuiListGroupItem
-        iconType="lensApp"
+        iconType="visMapRegion"
         iconProps={{ color: "default" }}
         onClick={() => "/createOrders"}
         label="Crear Ordenes"
         href="/createOrders"
       />
-
+      <EuiHorizontalRule />
       <EuiListGroupItem
-        iconType="brush"
+        iconType="dotInCircle"
         label="Ordenes"
         onClick={() => "/orders"}
         href="/orders"
       />
-
+      <EuiHorizontalRule />
       <EuiListGroupItem
         onClick={() => "/messengers"}
-        iconType="broom"
+        iconType="dotInCircle"
         label="Mensajeros"
         href="/messengers"
       />
