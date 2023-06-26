@@ -54,7 +54,7 @@ export default function Home() {
   // ];
   return (
     <div>
-      <h1>home</h1>
+      <p>home</p>
       <Link href="/about">Link to Home about</Link>
     </div>
   );

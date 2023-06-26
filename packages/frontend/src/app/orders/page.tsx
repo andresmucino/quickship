@@ -47,9 +47,7 @@ export default function Orders() {
       name: "Creada",
     },
   ];
-
-  console.log(data);
-
+  
   return (
     <EuiPageHeaderContent>
       {isLoading ? (
@@ -69,7 +67,7 @@ export default function Orders() {
         </EuiPanel>
       ) : (
         <EuiPanel style={{ margin: "2vh" }}>
-          <Header title={`Clientes ()`}>
+          <Header title={`Ordenes (${data?.orders.length})`}>
             {/* <EuiButton onClick={() => "/"} href="/">
                     Crear cliente
                   </EuiButton> */}

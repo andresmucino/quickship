@@ -25,9 +25,9 @@ export const Menu = () => {
       <EuiListGroupItem
         iconType="visMapRegion"
         iconProps={{ color: "default" }}
-        onClick={() => "/createOrders"}
-        label="Crear Ordenes"
-        href="/createOrders"
+        onClick={() => "/createOrder"}
+        label="Crear Orden"
+        href="/createOrder"
       />
       <EuiHorizontalRule />
       <EuiListGroupItem
