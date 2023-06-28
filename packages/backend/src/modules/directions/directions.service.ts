@@ -29,7 +29,9 @@ export class DirectionsService {
   async createDirection(
     createDirectionInput: CreateDirectionInput,
   ): Promise<DirectionEntity> {
-    const newDirection = await this.directionsRepository.create(createDirectionInput);
+    const newDirection = await this.directionsRepository.create(
+      createDirectionInput,
+    );
 
     return this.directionsRepository.save(newDirection);
   }

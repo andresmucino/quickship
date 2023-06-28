@@ -44,7 +44,7 @@ export class InvoiceDto {
   })
   clientId?: number;
 
-  @Field((type) => ClientDto, { nullable: true })
+  @Field(() => ClientDto, { nullable: true })
   client: ClientDto;
 
   @Field(() => GraphQLISODateTime)

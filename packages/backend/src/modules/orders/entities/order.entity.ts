@@ -2,7 +2,6 @@ import { ClientEntity } from 'src/modules/clients/entities/client.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
 import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
 import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
-import { OrderStatusEntity } from 'src/modules/order-status/entities/order-status.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
@@ -10,8 +9,6 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   OneToMany,
   OneToOne,

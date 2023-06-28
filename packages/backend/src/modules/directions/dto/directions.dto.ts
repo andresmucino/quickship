@@ -35,15 +35,15 @@ export class DirectionsDto {
   longitude!: number;
 
   @Field()
-  orderId: number
+  orderId: number;
 
-  @Field((type) => OrderDto, { nullable: true })
+  @Field(() => OrderDto, { nullable: true })
   order: OrderDto;
 
   @Field()
-  packageId: number
+  packageId: number;
 
-  @Field((type) => PackageDto, { nullable: true })
+  @Field(() => PackageDto, { nullable: true })
   packages: PackageDto;
 
   @Field(() => GraphQLISODateTime)

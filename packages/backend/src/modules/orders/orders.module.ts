@@ -17,7 +17,7 @@ import { PackagesModule } from '../packages/packages.module';
     MessengersModule,
     OrderStatusModule,
     // PackagesModule
-    forwardRef(() => PackagesModule)
+    forwardRef(() => PackagesModule),
   ],
   providers: [OrdersResolver, OrdersService],
   exports: [OrdersService],

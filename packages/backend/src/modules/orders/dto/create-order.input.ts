@@ -24,5 +24,5 @@ export class CreateOrderInput {
   packges: CreatePackageInput[];
 
   @Field(() => CreateDirectionInput)
-  direction: CreateDirectionInput
+  direction: CreateDirectionInput;
 }
