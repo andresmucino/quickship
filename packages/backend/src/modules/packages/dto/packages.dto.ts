@@ -26,7 +26,7 @@ export class PackageDto {
   @Field({ nullable: true })
   orderId: number;
 
-  @Field((type) => OrderDto, { nullable: true })
+  @Field(() => OrderDto, { nullable: true })
   order: OrderDto;
 
   @Field({ nullable: true })

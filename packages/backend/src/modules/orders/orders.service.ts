@@ -44,7 +44,7 @@ export class OrdersService {
       packges.map(
         async (packg) => await this.packgeService.createPackage(packg),
       ),
-    )
+    );
 
     const idDirection = await this.directionService.createDirection(direction);
 

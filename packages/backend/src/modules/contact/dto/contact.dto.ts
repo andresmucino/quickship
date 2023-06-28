@@ -19,9 +19,9 @@ export class ContactDto {
   email!: string;
 
   @Field()
-  packageId: number
+  packageId: number;
 
-  @Field((type) => PackageDto, { nullable: true })
+  @Field(() => PackageDto, { nullable: true })
   package: PackageDto;
 
   @Field(() => GraphQLISODateTime)

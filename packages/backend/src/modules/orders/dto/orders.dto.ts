@@ -2,7 +2,6 @@ import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
 import { ClientDto } from 'src/modules/clients/dto/client.dto';
 import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
 import { MessengerDto } from 'src/modules/messengers/dto/messenger.dto';
-import { OrderStatusDto } from 'src/modules/order-status/dto/order-status.dto';
 import { PackageDto } from 'src/modules/packages/dto/packages.dto';
 
 @ObjectType('order')
@@ -21,22 +20,22 @@ export class OrderDto {
   })
   clientId?: number;
 
-  @Field((type) => PackageDto, { nullable: true })
+  @Field(() => PackageDto, { nullable: true })
   packages: PackageDto[];
 
-  @Field((type) => ClientDto, { nullable: true })
+  @Field(() => ClientDto, { nullable: true })
   client: ClientDto;
 
   @Field({ nullable: true })
   directionId?: number;
 
-  @Field((type) => DirectionsDto, { nullable: true })
+  @Field(() => DirectionsDto, { nullable: true })
   direction: DirectionsDto;
 
   @Field({ nullable: true })
   messengerId?: number;
 
-  @Field((type) => MessengerDto, { nullable: true })
+  @Field(() => MessengerDto, { nullable: true })
   messenger: MessengerDto;
 
   @Field(() => GraphQLISODateTime)

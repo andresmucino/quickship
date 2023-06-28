@@ -7,6 +7,6 @@ import { MessengerEntity } from './entities/messenger.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([MessengerEntity])],
   providers: [MessengersResolver, MessengersService],
-  exports: [MessengersService]
+  exports: [MessengersService],
 })
 export class MessengersModule {}
