@@ -19,10 +19,10 @@ export class ClientDto {
   @Field()
   email!: string;
 
-  @Field((type) => OrderDto, { nullable: true })
+  @Field(() => OrderDto, { nullable: true })
   orders?: OrderDto[];
 
-  @Field((type) => InvoiceDto, { nullable: true })
+  @Field(() => InvoiceDto, { nullable: true })
   invoices?: InvoiceDto[];
 
   @Field(() => GraphQLISODateTime)

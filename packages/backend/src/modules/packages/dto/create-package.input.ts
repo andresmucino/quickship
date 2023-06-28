@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsNumber, IsObject } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 import { CreateContactInput } from 'src/modules/contact/dto/create-contact.input';
 import { CreateDirectionInput } from 'src/modules/directions/dto/create-direction.input';
 
@@ -25,9 +25,9 @@ export class CreatePackageInput {
   @IsNotEmpty()
   legth!: number;
 
-  @Field(() => CreateContactInput!)
-  contact: CreateContactInput
+  @Field(() => CreateContactInput, { nullable: false })
+  contact: CreateContactInput;
 
-  @Field(() => CreateDirectionInput!)
+  @Field(() => CreateDirectionInput, { nullable: false })
   direction: CreateDirectionInput;
 }

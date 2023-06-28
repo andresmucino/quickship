@@ -13,14 +13,10 @@ import { UpdateOrderInput } from './dto/update-order.input';
 import { OrderDto } from './dto/orders.dto';
 import { ClientDto } from '../clients/dto/client.dto';
 import { ClientEntity } from '../clients/entities/client.entity';
-import { DirectionsDto } from '../directions/dto/directions.dto';
-import { DirectionEntity } from '../directions/entities/direction.entity';
 import { MessengerDto } from '../messengers/dto/messenger.dto';
 import { MessengerEntity } from '../messengers/entities/messenger.entity';
 import { OrderStatusDto } from '../order-status/dto/order-status.dto';
 import { OrderStatusEntity } from '../order-status/entities/order-status.entity';
-import { PackageDto } from '../packages/dto/packages.dto';
-import { PackageEntity } from '../packages/entities/package.entity';
 
 @Resolver(() => OrderDto)
 export class OrdersResolver {

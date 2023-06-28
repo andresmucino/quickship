@@ -18,8 +18,8 @@ export class MessengerDto {
   @Field()
   email!: string;
 
-  @Field(() => OrderDto,{nullable: true})
-  orders?: OrderDto[]
+  @Field(() => OrderDto, { nullable: true })
+  orders?: OrderDto[];
 
   @Field(() => GraphQLISODateTime)
   createAt!: Date;
