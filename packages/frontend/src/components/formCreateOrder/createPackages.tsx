@@ -71,7 +71,7 @@ export const options = [
 ];
 
 export interface CreatePackagesProps {
-  addPackage: PackageDataProps;
+  addPackage: any;
   setAddPackage: React.Dispatch<React.SetStateAction<PackageDataProps>>;
   onSubmit: (e: any) => void;
   titleButton: string;
@@ -91,6 +91,7 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
     const { name, value } = e.target;
 
     setAddPackage({ ...addPackage, [name]: value });
+    console.log(name, value);
   };
 
   return (
@@ -114,7 +115,7 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
                   name="street"
                   placeholder="Calle"
                   onChange={handleChange}
-                  value={addPackage.street}
+                  defaultValue={addPackage.street}
                 />
               </EuiFormRow>
               <EuiFormRow id="2">
@@ -143,13 +144,21 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
               </EuiFormRow>
               <EuiFormRow id="5">
                 <EuiFieldText
+                  name="zipCode"
+                  placeholder="Codigo postal"
+                  onChange={handleChange}
+                  value={addPackage.zipCode}
+                />
+              </EuiFormRow>
+              <EuiFormRow id="6">
+                <EuiFieldText
                   name="externalNumber"
                   placeholder="numero exterior"
                   onChange={handleChange}
                   value={addPackage.externalNumber}
                 />
               </EuiFormRow>
-              <EuiFormRow id="6">
+              <EuiFormRow id="7">
                 <EuiFieldText
                   name="internalNumber"
                   placeholder="numero interior"
@@ -159,15 +168,15 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
               </EuiFormRow>
             </EuiFlexItem>
             <EuiFlexItem>
-              <EuiFormRow id="1">
+              <EuiFormRow id="8">
                 <EuiFieldText
-                  name="firstName"
+                  name="contact"
                   placeholder="Nombre de contacto"
                   onChange={handleChange}
                   value={addPackage.firstName}
                 />
               </EuiFormRow>
-              <EuiFormRow id="2">
+              <EuiFormRow id="9">
                 <EuiFieldText
                   name="lastName"
                   placeholder="apellido de contacto"
@@ -175,7 +184,7 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
                   value={addPackage.lastName}
                 />
               </EuiFormRow>
-              <EuiFormRow id="3">
+              <EuiFormRow id="10">
                 <EuiFieldText
                   name="phone"
                   placeholder="telefono contacto"
@@ -183,7 +192,7 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
                   value={addPackage.phone}
                 />
               </EuiFormRow>
-              <EuiFormRow id="4">
+              <EuiFormRow id="11">
                 <EuiFieldText
                   name="email"
                   placeholder="Correo contacto"
@@ -213,16 +222,25 @@ export const CreatePackages: React.FC<CreatePackagesProps> = ({
                 onChangeSelect("");
                 setAddPackage({
                   id: "",
-                  street: "",
-                  externalNumber: "",
-                  internalNumber: "",
-                  neigthboorhood: "",
-                  municipality: "",
-                  state: "",
-                  firstName: "",
-                  lastName: "",
-                  phone: "",
-                  email: "",
+                  // direction: {
+                  //   street: "",
+                  //   externalNumber: "",
+                  //   internalNumber: "",
+                  //   neigthboorhood: "",
+                  //   municipality: "",
+                  //   state: "",
+                  //   zipCode: "",
+                  // },
+                  // contact: {
+                  //   firstName: "",
+                  //   lastName: "",
+                  //   phone: "",
+                  //   email: "",
+                  // },
+                  weigth: 0,
+                  width: 0,
+                  heigth: 0,
+                  length: 0,
                 });
               }}
             >

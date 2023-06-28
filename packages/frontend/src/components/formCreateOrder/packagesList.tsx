@@ -18,16 +18,27 @@ export interface PackagesListProps {
 
 export interface PackageDataProps {
   id: string;
+  weigth: number;
+  width: number;
+  heigth: number;
+  length: number;
+}
+
+export interface ContactPackagesData {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+}
+
+export interface DirectionPackagesData {
   street: string;
   externalNumber: string;
   internalNumber: string;
   neigthboorhood: string;
   municipality: string;
   state: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  zipCode: string;
 }
 
 export const PackagesList: React.FC<PackagesListProps> = ({
@@ -72,16 +83,20 @@ export const PackagesList: React.FC<PackagesListProps> = ({
                         <EuiText>
                           <div>
                             <h4>Dirección:</h4>
-                            {pack.street} {pack.externalNumber},{" "}
-                            {pack.internalNumber}, {pack.neigthboorhood},{" "}
-                            {pack.municipality}, {pack.state}
+                            {/* {pack.direction.street}{" "}
+                            {pack.direction.externalNumber},{" "}
+                            {pack.direction.internalNumber},{" "}
+                            {pack.direction.neigthboorhood},{" "}
+                            {pack.direction.municipality},{" "}
+                            {pack.direction.state}, {pack.direction.zipCode} */}
                           </div>
                         </EuiText>
                         <EuiSpacer />
                         <EuiText>
                           <div>
-                            <h4>Contacto:</h4> {pack.firstName} {pack.lastName},{" "}
-                            {pack.email}, {pack.phone}
+                            <h4>Contacto:</h4>
+                            {/* {pack.contact.firstName} {pack.contact.lastName},{" "}
+                            {pack.contact.email}, {pack.contact.phone} */}
                           </div>
                         </EuiText>
                         <EuiHorizontalRule />

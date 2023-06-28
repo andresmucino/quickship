@@ -83,14 +83,23 @@ export const FormCreateOrder: React.FC<FormCreateOrderProps> = ({
             </EuiFormRow>
             <EuiFormRow id="5">
               <EuiFieldText
+                name="zipCode"
+                placeholder="Codigo postal"
+                onChange={handleChange}
+                //   inputRef={register("", { required: inputValue.state === "" })}
+              />
+            </EuiFormRow>
+            <EuiFormRow id="6">
+              <EuiFieldText
                 name="externalNumber"
                 placeholder="numero exterior"
                 onChange={handleChange}
                 //   inputRef={register()}
               />
             </EuiFormRow>
-            <EuiFormRow id="6">
+            <EuiFormRow id="7">
               <EuiFieldText
+              type='int'
                 name="internalNumber"
                 placeholder="numero interior"
                 onChange={handleChange}

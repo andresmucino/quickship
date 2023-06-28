@@ -12,21 +12,30 @@ export type CreateOrderContextType = {
   >;
   createPackage: (
     id: string,
-    street: string,
-    externalNumber: string,
-    internalNumber: string,
-    neigthboorhood: string,
-    municipality: string,
-    state: string,
-    firstName: string,
-    lastName: string,
-    phone: string,
-    email: string
+    // direction: {
+    //   street: string;
+    //   externalNumber: string;
+    //   internalNumber: string;
+    //   neigthboorhood: string;
+    //   municipality: string;
+    //   state: string;
+    //   zipCode: string;
+    // },
+    // contact: {
+    //   firstName: string;
+    //   lastName: string;
+    //   phone: string;
+    //   email: string;
+    // },
+    weigth: number,
+    width: number,
+    heigth: number,
+    length: number
   ) => void;
   deletePackage: (id: string) => void;
   updatePackage: (id: string, updatedPackage: PackageDataProps) => void;
   selectOption: string;
-  onChangeSelect: (value: string) => void
+  onChangeSelect: (value: string) => void;
 };
 
 export const CreateOrderContext = createContext<CreateOrderContextType>(null!);
@@ -53,31 +62,36 @@ export const CreateOrderProvider: React.FC<Props> = ({ children }) => {
 
   const createPackage = (
     id: string,
-    street: string,
-    externalNumber: string,
-    internalNumber: string,
-    neigthboorhood: string,
-    municipality: string,
-    state: string,
-    firstName: string,
-    lastName: string,
-    phone: string,
-    email: string
+    // direction: {
+    //   street: string;
+    //   externalNumber: string;
+    //   internalNumber: string;
+    //   neigthboorhood: string;
+    //   municipality: string;
+    //   state: string;
+    //   zipCode: string;
+    // },
+    // contact: {
+    //   firstName: string;
+    //   lastName: string;
+    //   phone: string;
+    //   email: string;
+    // },
+    weigth: number,
+    width: number,
+    heigth: number,
+    length: number
   ) => {
     setPackagesData([
       ...packagesData,
       {
         id,
-        street,
-        externalNumber,
-        internalNumber,
-        neigthboorhood,
-        municipality,
-        state,
-        firstName,
-        lastName,
-        phone,
-        email,
+        // direction,
+        // contact,
+        weigth,
+        width,
+        heigth,
+        length,
       },
     ]);
   };
@@ -94,12 +108,11 @@ export const CreateOrderProvider: React.FC<Props> = ({ children }) => {
     setPackagesData([...packagesData.filter((pack) => pack.id !== id)]);
   };
 
-    const [selectOption, setSelectOption] = useState<any>(options[1].value);
+  const [selectOption, setSelectOption] = useState<any>(options[1].value);
 
-    const onChangeSelect = (value: any) => {  
-      setSelectOption(value);
-    };
-
+  const onChangeSelect = (value: any) => {
+    setSelectOption(value);
+  };
 
   return (
     <CreateOrderContext.Provider
@@ -111,7 +124,7 @@ export const CreateOrderProvider: React.FC<Props> = ({ children }) => {
         deletePackage,
         updatePackage,
         onChangeSelect,
-        selectOption
+        selectOption,
       }}
     >
       {children}
