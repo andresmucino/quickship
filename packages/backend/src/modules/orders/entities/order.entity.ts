@@ -66,13 +66,13 @@ export class OrderEntity {
     name: 'packages_id',
     nullable: true,
   })
-  packagesIds: PackageEntity[];
+  packagesIds?: PackageEntity[];
 
   @OneToMany(() => PackageEntity, (package_) => package_.order, {
     nullable: true,
   })
   @JoinColumn({ name: 'packages_id' })
-  packges?: PackageEntity[];
+  packages?: PackageEntity[];
 
   @OneToOne(() => InvoiceEntity, (invoice) => invoice.order)
   invoice?: InvoiceEntity;

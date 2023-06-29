@@ -24,10 +24,13 @@ export class PackageDto {
   legth!: number;
 
   @Field({ nullable: true })
-  orderId: number;
+  packageStatus?: string;
+
+  @Field({ nullable: true })
+  orderId?: number;
 
   @Field(() => OrderDto, { nullable: true })
-  order: OrderDto;
+  order?: OrderDto;
 
   @Field({ nullable: true })
   directionId: number;
