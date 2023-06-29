@@ -48,6 +48,7 @@ type package {
   width: Float!
   heigth: Float!
   legth: Float!
+  packageStatus: String
   orderId: Float
   order: order!
   directionId: Float
@@ -91,14 +92,6 @@ type messenger {
   deleteAt: DateTime
 }
 
-type orderStatus {
-  id: String!
-  status: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
 type order {
   id: Float!
   comments: String!
@@ -129,6 +122,24 @@ type Clients {
   deleteAt: DateTime
 }
 
+type orderStatus {
+  id: String!
+  status: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type PackageHistory {
+  id: Float!
+  packagaStatus: String!
+  idPackage: Float!
+  clientDescription: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
 type Query {
   sayHello: String!
   clients: [Clients!]!
@@ -147,6 +158,8 @@ type Query {
   order(id: Int!): order!
   contacts: [contact!]!
   contact(id: Int!): contact!
+  packageHistories: [PackageHistory!]!
+  packageHistory(id: Int!): PackageHistory!
 }
 
 type Mutation {
@@ -166,6 +179,8 @@ type Mutation {
   updateOrder(updateOrderInput: updateOrderInput!): order!
   createContact(createContactInput: CreateContactInput!): contact!
   updateContact(updateContactInput: updateContactInput!): contact!
+  createPackageHistory(CreatePackageHistory: CreatePackageHistory!): PackageHistory!
+  updatePackageHistory(UpdatePackageHistory: UpdatePackageHistory!): PackageHistory!
 }
 
 input ClientInput {
@@ -284,16 +299,14 @@ input UpdatePackageInput {
 
 input orderInput {
   comments: String!
-  price: Float!
   clientId: Float!
-  packges: [packagesInput!]!
   direction: directionInput!
 }
 
 input updateOrderInput {
-  comments: String!
-  price: Float!
-  messengerId: Float!
+  comments: String
+  messengerId: Float
+  packges: [packagesInput!]
 }
 
 input updateContactInput {
@@ -302,4 +315,16 @@ input updateContactInput {
   phone: String
   email: String
   packageId: Float
+}
+
+input CreatePackageHistory {
+  packagaStatus: String!
+  idPackage: Float!
+  clientDescription: String!
+}
+
+input UpdatePackageHistory {
+  packagaStatus: String
+  idPackage: Float
+  clientDescription: String
 }

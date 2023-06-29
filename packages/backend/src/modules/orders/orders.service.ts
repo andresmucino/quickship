@@ -38,27 +38,17 @@ export class OrdersService {
   }
 
   async createOrder(createOrderInput: CreateOrderInput): Promise<OrderEntity> {
-    const { packges, direction, ...packageData } = createOrderInput;
-
-    const idPackages = await Promise.all(
-      packges.map(
-        async (packg) => await this.packgeService.createPackage(packg),
-      ),
-    );
+    const { direction, ...packageData } = createOrderInput;
 
     const idDirection = await this.directionService.createDirection(direction);
 
-    const packagesIds = idPackages.map((prop) => prop.id);
-
     const newOrder = this.ordersRepository.create({
-      packges: [...idPackages],
       direction: idDirection,
       directionId: idDirection.id,
       ...packageData,
     });
 
     const saveOrder = await this.ordersRepository.save({
-      packagesIds: [...packagesIds],
       ...newOrder,
       direction: idDirection,
       directionId: idDirection.id,
@@ -71,7 +61,7 @@ export class OrdersService {
     return saveOrder;
   }
 
-  async updateOrder(
+  public async updateOrder(
     id: number,
     updateOrderInput: UpdateOrderInput,
   ): Promise<OrderEntity> {

@@ -18,8 +18,11 @@ export class PackageEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'guide' })
+  @Column({ name: 'guide', primary: true })
   guide: string;
+
+  @Column({ name: 'package_status', type: 'text', nullable: true })
+  packageStatus: string;
 
   @Column({ name: 'weigth', type: 'float' })
   weigth: number;
@@ -40,7 +43,7 @@ export class PackageEntity {
   })
   orderId?: string;
 
-  @ManyToOne(() => OrderEntity, (order) => order.packges, {
+  @ManyToOne(() => OrderEntity, (order) => order.packages, {
     nullable: true,
   })
   @JoinColumn({ name: 'order_id' })

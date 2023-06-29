@@ -15,6 +15,7 @@ import { OrderStatusModule } from './modules/order-status/order-status.module';
 import { PackagesModule } from './modules/packages/packages.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ContactModule } from './modules/contact/contact.module';
+import { PackagesHistoryModule } from './modules/package-history/package-history.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { ContactModule } from './modules/contact/contact.module';
     PackagesModule,
     OrdersModule,
     ContactModule,
+    PackagesHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
