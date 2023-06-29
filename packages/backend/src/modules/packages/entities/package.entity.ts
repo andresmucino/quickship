@@ -13,7 +13,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('Packages')
+@Entity('packages')
 export class PackageEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -37,11 +37,11 @@ export class PackageEntity {
   legth: number;
 
   @Column({
-    type: 'text',
+    type: 'int64',
     name: 'order_id',
     nullable: true,
   })
-  orderId?: string;
+  orderId?: number;
 
   @ManyToOne(() => OrderEntity, (order) => order.packages, {
     nullable: true,

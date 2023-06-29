@@ -12,6 +12,8 @@ import { MessengerEntity } from '../messengers/entities/messenger.entity';
 import { OrderStatusService } from '../order-status/order-status.service';
 import { OrderStatusDto } from '../order-status/dto/order-status.dto';
 import { PackagesService } from '../packages/packages.service';
+import { PackagesHistoryService } from '../package-history/package-history.service';
+import { ContactService } from '../contact/contact.service';
 
 @Injectable()
 export class OrdersService {
@@ -24,6 +26,8 @@ export class OrdersService {
     private orderStatusService: OrderStatusService,
     @Inject(forwardRef(() => PackagesService))
     private readonly packgeService: PackagesService,
+    private packageHistoryService: PackagesHistoryService,
+    private contacService: ContactService,
   ) {}
 
   async findAllOrders(): Promise<OrderEntity[]> {
@@ -67,7 +71,12 @@ export class OrdersService {
   ): Promise<OrderEntity> {
     const order = await this.findOneOrder(id);
 
-    this.ordersRepository.merge(order, updateOrderInput);
+    const packages = await Promise.all(
+      updateOrderInput.packges.map(async (pack) => {
+        const createPack = await this.packgeService.createPackage(pack);
+        await this.packgeService.updatePackage(createPack.id, { orderId: order.id });
+      }),
+    );
 
     return order;
   }
@@ -75,10 +84,6 @@ export class OrdersService {
   getClient(clientId: number): Promise<ClientEntity> {
     return this.clientService.findOneClient(clientId);
   }
-
-  // getRecolection(recolectionId: number): Promise<DirectionEntity> {
-  //   return this.directionService.findOneDirection(recolectionId);
-  // }
 
   getMessenger(messengerId: number): Promise<MessengerEntity> {
     return this.messengersService.findOneMessenger(messengerId);

@@ -27,11 +27,11 @@ export class DirectionEntity {
   @Column({ name: 'state' })
   state: string;
 
-  @Column({ name: 'external_number' })
-  externalNumber: number;
+  @Column({ name: 'external_number', nullable: false })
+  externalNumber: string;
 
-  @Column({ name: 'internal_number' })
-  internalNumber: number;
+  @Column({ name: 'internal_number', nullable: true })
+  internalNumber: string;
 
   @Column({ name: 'zip_code' })
   zipCode: string;

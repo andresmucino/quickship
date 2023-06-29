@@ -48,13 +48,13 @@ export class PackagesService {
 
     const idDirection = await this.directionsService.createDirection(direction);
 
-    this.packagesRepository.create({
-      direction: idDirection,
-      directionId: idDirection.id,
-      contact: contact,
-      contactId: idContact.id,
-      ...packageData,
-    });
+    // this.packagesRepository.create({
+    //   direction: idDirection,
+    //   directionId: idDirection.id,
+    //   contact: contact,
+    //   contactId: idContact.id,
+    //   ...packageData,
+    // });
 
     const guide = `OD0623${Math.floor(Math.random() * 100 + 1)}${zone.CDMX}`;
 
@@ -81,7 +81,7 @@ export class PackagesService {
   async updatePackage(
     id: number,
     updatePackageInput: UpdatePackageInput,
-  ): Promise<any> {
+  ): Promise<PackageEntity> {
     const updatePackage = await this.findOnePackage(id);
 
     this.packagesRepository.merge(updatePackage, updatePackageInput);

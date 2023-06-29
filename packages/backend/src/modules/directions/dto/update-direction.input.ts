@@ -24,14 +24,13 @@ export class UpdateDirectionInput {
   state?: string;
 
   @Field({ nullable: true })
-  @IsNumber()
-  @IsOptional()
-  externalNumber?: number;
+  @IsString()
+  externalNumber?: string;
 
   @Field({ nullable: true })
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  internalNumber?: number;
+  internalNumber?: string;
 
   @Field({ nullable: true })
   @IsNumber()

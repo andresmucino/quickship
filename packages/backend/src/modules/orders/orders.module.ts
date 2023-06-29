@@ -8,6 +8,8 @@ import { DirectionsModule } from '../directions/directions.module';
 import { MessengersModule } from '../messengers/messengers.module';
 import { OrderStatusModule } from '../order-status/order-status.module';
 import { PackagesModule } from '../packages/packages.module';
+import { PackageHistoryModule } from '../package-history/package-history.module';
+import { ContactModule } from '../contact/contact.module';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { PackagesModule } from '../packages/packages.module';
     DirectionsModule,
     MessengersModule,
     OrderStatusModule,
-    // PackagesModule
     forwardRef(() => PackagesModule),
+    PackageHistoryModule,
+    ContactModule
   ],
   providers: [OrdersResolver, OrdersService],
   exports: [OrdersService],

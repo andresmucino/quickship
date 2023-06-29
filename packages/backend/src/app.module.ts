@@ -15,7 +15,7 @@ import { OrderStatusModule } from './modules/order-status/order-status.module';
 import { PackagesModule } from './modules/packages/packages.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ContactModule } from './modules/contact/contact.module';
-import { PackagesHistoryModule } from './modules/package-history/package-history.module';
+import { PackageHistoryModule } from './modules/package-history/package-history.module';
 
 @Module({
   imports: [
@@ -39,7 +39,7 @@ import { PackagesHistoryModule } from './modules/package-history/package-history
     PackagesModule,
     OrdersModule,
     ContactModule,
-    PackagesHistoryModule,
+    PackageHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

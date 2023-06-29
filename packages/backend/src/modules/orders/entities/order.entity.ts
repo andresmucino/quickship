@@ -21,7 +21,7 @@ export class OrderEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'price', type: 'float' })
+  @Column({ name: 'price', type: 'float', default: 0 })
   price: number;
 
   @Column({

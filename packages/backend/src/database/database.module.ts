@@ -20,6 +20,9 @@ import config from 'src/config';
           password: password,
           database: database,
           autoLoadEntities: true,
+          migrationsRun: true,
+          logging: true,
+          entities: [__dirname + '/../**/*.entity{.ts,.js}'],
           synchronize: true,
           ssl: {
             rejectUnauthorized: false,

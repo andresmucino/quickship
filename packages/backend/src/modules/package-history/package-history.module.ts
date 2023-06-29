@@ -9,4 +9,4 @@ import { PackagesHistoryService } from './package-history.service';
   providers: [PackageHistoryResolver, PackagesHistoryService],
   exports: [PackagesHistoryService],
 })
-export class PackagesHistoryModule {}
+export class PackageHistoryModule {}

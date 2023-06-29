@@ -94,7 +94,7 @@ type messenger {
 
 type order {
   id: Float!
-  comments: String!
+  comments: String
   price: Float!
   clientId: Float
   packages: package
@@ -176,7 +176,7 @@ type Mutation {
   createPackage(createPackageInput: packagesInput!): package!
   updatePackage(updatePackageInput: UpdatePackageInput!): package!
   createOrder(createOrderInput: orderInput!): order!
-  updateOrder(updateOrderInput: updateOrderInput!): order!
+  updateOrder(id: Int!, updateOrderInput: updateOrderInput!): order!
   createContact(createContactInput: CreateContactInput!): contact!
   updateContact(updateContactInput: updateContactInput!): contact!
   createPackageHistory(CreatePackageHistory: CreatePackageHistory!): PackageHistory!
@@ -202,8 +202,8 @@ input directionInput {
   neigthboorhood: String!
   municipality: String!
   state: String!
-  externalNumber: Float!
-  internalNumber: Float = 0
+  externalNumber: String!
+  internalNumber: String = "0"
   zipCode: String!
   latitude: Float = 0
   longitude: Float = 0
@@ -214,8 +214,8 @@ input updateDirectionInput {
   neigthboorhood: String
   municipality: String
   state: String
-  externalNumber: Float
-  internalNumber: Float
+  externalNumber: String
+  internalNumber: String
   zipCode: String
   latitude: Float
   longitude: Float
@@ -291,6 +291,7 @@ input CreateContactInput {
 }
 
 input UpdatePackageInput {
+  orderId: Float
   weigth: Float!
   width: Float!
   heigth: Float!

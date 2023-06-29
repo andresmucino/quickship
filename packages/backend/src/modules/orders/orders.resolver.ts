@@ -40,7 +40,7 @@ export class OrdersResolver {
   @Mutation(() => OrderDto)
   updateOrder(
     @Args('updateOrderInput') updateOrderInput: UpdateOrderInput,
-    id: number,
+    @Args('id', { type: () => Int }) id: number,
   ) {
     return this.ordersService.updateOrder(id, updateOrderInput);
   }
