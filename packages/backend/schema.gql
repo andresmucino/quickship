@@ -91,14 +91,6 @@ type messenger {
   deleteAt: DateTime
 }
 
-type orderStatus {
-  id: String!
-  status: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
 type order {
   id: Float!
   comments: String!
@@ -124,6 +116,14 @@ type Clients {
   email: String!
   orders: order
   invoices: invoice
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type orderStatus {
+  id: String!
+  status: String!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
