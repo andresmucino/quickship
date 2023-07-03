@@ -17,6 +17,7 @@ import { InvoiceDTO } from './dto/invoice.dto';
       services: [InvoicesService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: InvoiceDTO,
           EntityClass: InvoiceEntity,
           ServiceClass: InvoicesService,

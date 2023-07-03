@@ -17,6 +17,7 @@ import { InputUpdateClientDTO } from './dto/update-client.input';
       services: [ClientService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: ClientDTO,
           EntityClass: ClientEntity,
           ServiceClass: ClientService,

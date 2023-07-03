@@ -1,8 +1,18 @@
 import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
-import { FilterableField, KeySet } from '@nestjs-query/query-graphql';
+import {
+  FilterableField,
+  KeySet,
+  PagingStrategies,
+  QueryOptions,
+} from '@nestjs-query/query-graphql';
 
 @ObjectType('Client')
 @KeySet(['id'])
+@QueryOptions({
+  defaultResultSize: 100,
+  maxResultsSize: 500,
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class ClientDTO {
   @Field(() => ID)
   id!: number;

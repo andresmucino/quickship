@@ -17,6 +17,7 @@ import { InputUpdateDirectionDTO } from './dto/update-direction.input';
       services: [DirectionsService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: DirectionDTO,
           EntityClass: DirectionEntity,
           ServiceClass: DirectionsService,
@@ -29,4 +30,4 @@ import { InputUpdateDirectionDTO } from './dto/update-direction.input';
   providers: [DirectionsResolver, DirectionsService],
   exports: [DirectionsService],
 })
-export class DirectionsModule {}
+export class DirectionModule { }

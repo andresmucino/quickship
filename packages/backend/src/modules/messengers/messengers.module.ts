@@ -17,6 +17,7 @@ import { InputUpdateMessengerDTO } from './dto/update-messenger.input';
       services: [MessengersService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: MessengerDTO,
           EntityClass: MessengerEntity,
           ServiceClass: MessengersService,

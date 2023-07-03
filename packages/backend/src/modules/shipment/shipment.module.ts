@@ -14,9 +14,10 @@ import { InputUpdateShipmentDTO } from './dto/update-shipment.input';
   imports: [
     NestjsQueryGraphQLModule.forFeature({
       imports: [NestjsQueryTypeOrmModule.forFeature([ShipmentEntity])],
-      //services: [ShipmentService],
+      services: [ShipmentService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: ShipmentDTO,
           EntityClass: ShipmentEntity,
           ServiceClass: ShipmentService,

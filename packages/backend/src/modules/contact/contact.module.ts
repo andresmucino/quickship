@@ -17,6 +17,7 @@ import { InputUpdateContactDTO } from './dto/update-contact.input';
       services: [ContactService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: ContactDTO,
           EntityClass: ContactEntity,
           ServiceClass: ContactService,

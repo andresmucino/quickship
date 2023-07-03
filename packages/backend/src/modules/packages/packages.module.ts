@@ -17,6 +17,7 @@ import { InputUpdatePackageDTO } from './dto/update-package.input';
       services: [PackagesService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: PackageDTO,
           EntityClass: PackageEntity,
           ServiceClass: PackagesService,

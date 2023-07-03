@@ -17,6 +17,7 @@ import { InputUpdateShipmentStatusDTO } from './dto/update-shipment-status.input
       services: [ShipmentStatusService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: ShipmentStatusDTO,
           EntityClass: ShipmentStatusEntity,
           ServiceClass: ShipmentStatusService,

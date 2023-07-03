@@ -17,6 +17,7 @@ import { InputUpdatePackageHistoryDTO } from './dtos/upate-package-history.dto';
       services: [PackagesHistoryService],
       resolvers: [
         {
+          delete: { disabled: true },
           DTOClass: PackageHistoryDTO,
           EntityClass: PackageHistoryEntity,
           ServiceClass: PackagesHistoryService,
