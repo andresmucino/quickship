@@ -50,7 +50,7 @@ type package {
   legth: Float!
   packageStatus: String
   orderId: Float
-  order: order!
+  order: shipment!
   directionId: Float
   direction: directions!
   contact_id: Float
@@ -72,7 +72,7 @@ type directions {
   latitude: Float!
   longitude: Float!
   orderId: Float!
-  order: order
+  order: shipment
   packageId: Float!
   packages: package
   createAt: DateTime!
@@ -86,13 +86,13 @@ type messenger {
   lastName: String!
   phone: String!
   email: String!
-  orders: order
+  orders: shipment
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
 }
 
-type order {
+type shipment {
   id: ID!
   comments: String
   price: Float!
@@ -114,7 +114,7 @@ type Clients {
   lastName: String!
   phone: String!
   email: String!
-  orders: order
+  orders: shipment
   invoices: invoice
   createAt: DateTime!
   updateAt: DateTime!
@@ -153,8 +153,8 @@ type Query {
   orderStatus(id: Int!): orderStatus!
   packages: [package!]!
   package(id: Int!): package!
-  orders: [order!]!
-  order(id: Int!): order!
+  orders: [shipment!]!
+  order(id: Int!): shipment!
   contacts: [contact!]!
   contact(id: Int!): contact!
   packageHistories: [PackageHistory!]!
@@ -174,8 +174,8 @@ type Mutation {
   updateOrderStatus(updateOrderStatusInput: updateOrderStatusInput!): orderStatus!
   createPackage(createPackageInput: packagesInput!): package!
   updatePackage(updatePackageInput: UpdatePackageInput!): package!
-  createOrder(createOrderInput: orderInput!): order!
-  updateOrder(id: Int!, updateOrderInput: updateOrderInput!): order!
+  createOrder(createOrderInput: InputCreateShipment!): shipment!
+  updateOrder(id: Int!, input: InputUpdateShipment!): shipment!
   createContact(createContactInput: CreateContactInput!): contact!
   updateContact(updateContactInput: updateContactInput!): contact!
   createPackageHistory(CreatePackageHistory: CreatePackageHistory!): PackageHistory!
@@ -297,13 +297,13 @@ input UpdatePackageInput {
   legth: Float!
 }
 
-input orderInput {
+input InputCreateShipment {
   comments: String!
   clientId: Float!
   direction: directionInput!
 }
 
-input updateOrderInput {
+input InputUpdateShipment {
   comments: String
   messengerId: Float
   packges: [packagesInput!]

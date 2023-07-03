@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('packagesHistory')
+@Entity('package_history')
 export class PackageHistoryEntity {
   @PrimaryGeneratedColumn()
   id: number;

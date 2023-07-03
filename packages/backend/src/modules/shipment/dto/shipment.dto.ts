@@ -2,13 +2,21 @@ import {
   FilterableField,
   KeySet,
   QueryOptions,
+  PagingStrategies,
 } from '@nestjs-query/query-graphql';
+
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import { ClientDto } from 'src/modules/clients/dto/client.dto';
 import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
 import { MessengerDto } from 'src/modules/messengers/dto/messenger.dto';
 
 @ObjectType('shipment')
+@KeySet(['id'])
+@QueryOptions({
+  maxResultsSize: 100,
+  enableTotalCount: true,
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class ShipmentDTO {
   @Field(() => ID)
   id!: number;
