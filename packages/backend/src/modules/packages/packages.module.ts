@@ -3,14 +3,14 @@ import { PackagesService } from './packages.service';
 import { PackagesResolver } from './packages.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PackageEntity } from './entities/package.entity';
-import { OrdersModule } from '../orders/orders.module';
+import { ShipmentModule } from '../shipment/shipment.module';
 import { DirectionsModule } from '../directions/directions.module';
 import { ContactModule } from '../contact/contact.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([PackageEntity]),
-    OrdersModule,
+    ShipmentModule,
     DirectionsModule,
     ContactModule,
   ],

@@ -1,11 +1,15 @@
-import { FilterableField, KeySet, QueryOptions } from '@nestjs-query/query-graphql';
+import {
+  FilterableField,
+  KeySet,
+  QueryOptions,
+} from '@nestjs-query/query-graphql';
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import { ClientDto } from 'src/modules/clients/dto/client.dto';
 import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
 import { MessengerDto } from 'src/modules/messengers/dto/messenger.dto';
 
-@ObjectType('order')
-export class OrderDto {
+@ObjectType('shipment')
+export class ShipmentDTO {
   @Field(() => ID)
   id!: number;
 

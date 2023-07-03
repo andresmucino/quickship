@@ -1,5 +1,5 @@
 import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
-import { OrderDto } from 'src/modules/orders/dto/orders.dto';
+import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 import { PackageDto } from 'src/modules/packages/dto/packages.dto';
 
 @ObjectType('directions')
@@ -37,8 +37,8 @@ export class DirectionsDto {
   @Field()
   orderId: number;
 
-  @Field(() => OrderDto, { nullable: true })
-  order: OrderDto;
+  @Field(() => ShipmentDTO, { nullable: true })
+  order: ShipmentDTO;
 
   @Field()
   packageId: number;

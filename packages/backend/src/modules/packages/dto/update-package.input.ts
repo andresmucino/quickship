@@ -3,12 +3,10 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 
 @InputType()
 export class UpdatePackageInput {
-
   @Field({ nullable: true })
   @IsNumber()
   @IsNotEmpty()
   orderId?: number;
-
 
   @Field()
   @IsNumber()

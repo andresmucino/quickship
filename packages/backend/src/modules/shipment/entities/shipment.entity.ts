@@ -16,8 +16,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'orders' })
-export class OrderEntity {
+@Entity({ name: 'shipment' })
+export class ShipmentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -68,7 +68,7 @@ export class OrderEntity {
   })
   packagesIds?: PackageEntity[];
 
-  @OneToMany(() => PackageEntity, (package_) => package_.order, {
+  @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
     nullable: true,
   })
   @JoinColumn({ name: 'packages_id' })

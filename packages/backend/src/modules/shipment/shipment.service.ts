@@ -1,8 +1,8 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
-import { CreateOrderInput } from './dto/create-order.input';
-import { UpdateOrderInput } from './dto/update-order.input';
+import { InputCreateShipmentDTO } from './dto/create-shipment.input';
+import { InputUpdateShipmentDTO } from './dto/update-shipment.input';
 import { InjectRepository } from '@nestjs/typeorm';
-import { OrderEntity } from './entities/order.entity';
+import { ShipmentEntity } from './entities/shipment.entity';
 import { Repository } from 'typeorm';
 import { ClientsService } from '../clients/clients.service';
 import { ClientEntity } from '../clients/entities/client.entity';
@@ -16,10 +16,10 @@ import { PackagesHistoryService } from '../package-history/package-history.servi
 import { ContactService } from '../contact/contact.service';
 
 @Injectable()
-export class OrdersService {
+export class ShipmentService {
   constructor(
-    @InjectRepository(OrderEntity)
-    private readonly ordersRepository: Repository<OrderEntity>,
+    @InjectRepository(ShipmentEntity)
+    private readonly ordersRepository: Repository<ShipmentEntity>,
     private clientService: ClientsService,
     private directionService: DirectionsService,
     private messengersService: MessengersService,
@@ -30,18 +30,20 @@ export class OrdersService {
     private contacService: ContactService,
   ) {}
 
-  async findAllOrders(): Promise<OrderEntity[]> {
+  async findAllOrders(): Promise<ShipmentEntity[]> {
     const orders = await this.ordersRepository.find();
     return orders;
   }
 
-  async findOneOrder(id: number): Promise<OrderEntity> {
+  async findOneOrder(id: number): Promise<ShipmentEntity> {
     const order = await this.ordersRepository.findOne({ where: { id: id } });
 
     return order;
   }
 
-  async createOrder(createOrderInput: CreateOrderInput): Promise<OrderEntity> {
+  async createOrder(
+    createOrderInput: InputCreateShipmentDTO,
+  ): Promise<ShipmentEntity> {
     const { direction, ...packageData } = createOrderInput;
 
     const idDirection = await this.directionService.createDirection(direction);
@@ -67,14 +69,16 @@ export class OrdersService {
 
   public async updateOrder(
     id: number,
-    updateOrderInput: UpdateOrderInput,
-  ): Promise<OrderEntity> {
+    updateOrderInput: InputUpdateShipmentDTO,
+  ): Promise<ShipmentEntity> {
     const order = await this.findOneOrder(id);
 
     const packages = await Promise.all(
       updateOrderInput.packges.map(async (pack) => {
         const createPack = await this.packgeService.createPackage(pack);
-        await this.packgeService.updatePackage(createPack.id, { orderId: order.id });
+        await this.packgeService.updatePackage(createPack.id, {
+          orderId: order.id,
+        });
       }),
     );
 

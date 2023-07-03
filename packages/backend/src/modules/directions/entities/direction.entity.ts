@@ -1,4 +1,3 @@
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
@@ -9,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 
 @Entity({ name: 'directions' })
 export class DirectionEntity {
@@ -49,10 +49,10 @@ export class DirectionEntity {
   })
   orderId?: number;
 
-  @OneToOne(() => OrderEntity, (order) => order.direction, {
+  @OneToOne(() => ShipmentEntity, (order) => order.direction, {
     nullable: true,
   })
-  order?: OrderEntity;
+  order?: ShipmentEntity;
 
   @Column({
     type: 'text',

@@ -13,7 +13,7 @@ import { MessengersModule } from './modules/messengers/messengers.module';
 import { InvoicesModule } from './modules/invoices/invoices.module';
 import { OrderStatusModule } from './modules/order-status/order-status.module';
 import { PackagesModule } from './modules/packages/packages.module';
-import { OrdersModule } from './modules/orders/orders.module';
+import { ShipmentModule } from './modules/shipment/shipment.module';
 import { ContactModule } from './modules/contact/contact.module';
 import { PackageHistoryModule } from './modules/package-history/package-history.module';
 
@@ -37,7 +37,7 @@ import { PackageHistoryModule } from './modules/package-history/package-history.
     InvoicesModule,
     OrderStatusModule,
     PackagesModule,
-    OrdersModule,
+    ShipmentModule,
     ContactModule,
     PackageHistoryModule,
   ],

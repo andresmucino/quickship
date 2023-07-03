@@ -7,10 +7,10 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import { OrdersService } from './orders.service';
-import { CreateOrderInput } from './dto/create-order.input';
-import { UpdateOrderInput } from './dto/update-order.input';
-import { OrderDto } from './dto/orders.dto';
+import { ShipmentService } from './shipment.service';
+import { InputCreateShipmentDTO } from './dto/create-shipment.input';
+import { InputUpdateShipmentDTO } from './dto/update-shipment.input';
+import { ShipmentDTO } from './dto/shipment.dto';
 import { ClientDto } from '../clients/dto/client.dto';
 import { ClientEntity } from '../clients/entities/client.entity';
 import { MessengerDto } from '../messengers/dto/messenger.dto';
@@ -18,35 +18,37 @@ import { MessengerEntity } from '../messengers/entities/messenger.entity';
 import { OrderStatusDto } from '../order-status/dto/order-status.dto';
 import { OrderStatusEntity } from '../order-status/entities/order-status.entity';
 
-@Resolver(() => OrderDto)
-export class OrdersResolver {
-  constructor(private readonly ordersService: OrdersService) {}
+@Resolver(() => ShipmentDTO)
+export class ShipmentResolver {
+  constructor(private readonly ordersService: ShipmentService) {}
 
-  @Query(() => [OrderDto], { name: 'orders' })
+  @Query(() => [ShipmentDTO], { name: 'orders' })
   findAll() {
     return this.ordersService.findAllOrders();
   }
 
-  @Query(() => OrderDto, { name: 'order' })
+  @Query(() => ShipmentDTO, { name: 'order' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.ordersService.findOneOrder(id);
   }
 
-  @Mutation(() => OrderDto)
-  createOrder(@Args('createOrderInput') createOrderInput: CreateOrderInput) {
+  @Mutation(() => ShipmentDTO)
+  createOrder(
+    @Args('createOrderInput') createOrderInput: InputCreateShipmentDTO,
+  ) {
     return this.ordersService.createOrder(createOrderInput);
   }
 
-  @Mutation(() => OrderDto)
+  @Mutation(() => ShipmentDTO)
   updateOrder(
-    @Args('updateOrderInput') updateOrderInput: UpdateOrderInput,
+    @Args('input') input: InputUpdateShipmentDTO,
     @Args('id', { type: () => Int }) id: number,
   ) {
-    return this.ordersService.updateOrder(id, updateOrderInput);
+    return this.ordersService.updateOrder(id, input);
   }
 
   @ResolveField(() => ClientDto, { name: 'client' })
-  getClient(@Parent() clientId: OrderDto): Promise<ClientEntity> {
+  getClient(@Parent() clientId: ShipmentDTO): Promise<ClientEntity> {
     return this.ordersService.getClient(clientId.clientId);
   }
 
@@ -56,12 +58,12 @@ export class OrdersResolver {
   // }
 
   @ResolveField(() => MessengerDto, { name: 'messenger' })
-  getMessenger(@Parent() messenger: OrderDto): Promise<MessengerEntity> {
+  getMessenger(@Parent() messenger: ShipmentDTO): Promise<MessengerEntity> {
     return this.ordersService.getMessenger(messenger.messengerId);
   }
 
   @ResolveField(() => OrderStatusDto)
-  getOrderStatus(status: OrderDto): Promise<OrderStatusEntity> {
+  getOrderStatus(status: ShipmentDTO): Promise<OrderStatusEntity> {
     //@ts-ignore
     return this.ordersService.getOrderStatus(status.orderStatuses);
   }

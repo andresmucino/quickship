@@ -1,6 +1,6 @@
 import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -38,16 +38,16 @@ export class PackageEntity {
 
   @Column({
     type: 'int64',
-    name: 'order_id',
+    name: 'shipment_id',
     nullable: true,
   })
-  orderId?: number;
+  shipmentId?: number;
 
-  @ManyToOne(() => OrderEntity, (order) => order.packages, {
+  @ManyToOne(() => ShipmentEntity, (order) => order.packages, {
     nullable: true,
   })
-  @JoinColumn({ name: 'order_id' })
-  order?: OrderEntity;
+  @JoinColumn({ name: 'shipment_id' })
+  shipment?: ShipmentEntity;
 
   @Column({
     type: 'text',

@@ -1,4 +1,4 @@
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -26,10 +26,10 @@ export class MessengerEntity {
   @Column({ name: 'phone' })
   phone: string;
 
-  @OneToMany(() => OrderEntity, (order) => order.messenger, {
+  @OneToMany(() => ShipmentEntity, (order) => order.messenger, {
     nullable: true,
   })
-  orders?: OrderEntity[];
+  orders?: ShipmentEntity[];
 
   @CreateDateColumn({
     type: 'timestamp',

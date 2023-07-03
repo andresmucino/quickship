@@ -1,5 +1,5 @@
 import { ClientEntity } from 'src/modules/clients/entities/client.entity';
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -70,9 +70,9 @@ export class InvoiceEntity {
   })
   orderId?: string;
 
-  @OneToOne(() => OrderEntity, (order) => order.invoice)
+  @OneToOne(() => ShipmentEntity, (order) => order.invoice)
   @JoinColumn({ name: 'order_id' })
-  order: OrderEntity;
+  order: ShipmentEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

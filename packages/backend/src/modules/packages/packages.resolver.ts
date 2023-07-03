@@ -11,8 +11,8 @@ import { PackagesService } from './packages.service';
 import { CreatePackageInput } from './dto/create-package.input';
 import { UpdatePackageInput } from './dto/update-package.input';
 import { PackageDto } from './dto/packages.dto';
-import { OrderDto } from '../orders/dto/orders.dto';
-import { OrderEntity } from '../orders/entities/order.entity';
+import { ShipmentDTO } from '../shipment/dto/shipment.dto';
+import { ShipmentEntity } from '../shipment/entities/shipment.entity';
 import { DirectionsDto } from '../directions/dto/directions.dto';
 import { DirectionEntity } from '../directions/entities/direction.entity';
 import { ContactDto } from '../contact/dto/contact.dto';
@@ -47,8 +47,8 @@ export class PackagesResolver {
     return this.packagesService.updatePackage(id, updatePackageInput);
   }
 
-  @ResolveField(() => OrderDto, { name: 'order' })
-  getOrder(@Parent() orderId: PackageDto): Promise<OrderEntity> {
+  @ResolveField(() => ShipmentDTO, { name: 'order' })
+  getOrder(@Parent() orderId: PackageDto): Promise<ShipmentEntity> {
     return this.packagesService.getOrder(orderId.orderId);
   }
 

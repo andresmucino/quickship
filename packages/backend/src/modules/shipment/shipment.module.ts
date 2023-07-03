@@ -1,8 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common';
-import { OrdersService } from './orders.service';
-import { OrdersResolver } from './orders.resolver';
+import { ShipmentService } from './shipment.service';
+import { ShipmentResolver } from './shipment.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrderEntity } from './entities/order.entity';
+import { ShipmentEntity } from './entities/shipment.entity';
 import { ClientsModule } from '../clients/clients.module';
 import { DirectionsModule } from '../directions/directions.module';
 import { MessengersModule } from '../messengers/messengers.module';
@@ -13,16 +13,16 @@ import { ContactModule } from '../contact/contact.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([OrderEntity]),
+    TypeOrmModule.forFeature([ShipmentEntity]),
     ClientsModule,
     DirectionsModule,
     MessengersModule,
     OrderStatusModule,
     forwardRef(() => PackagesModule),
     PackageHistoryModule,
-    ContactModule
+    ContactModule,
   ],
-  providers: [OrdersResolver, OrdersService],
-  exports: [OrdersService],
+  providers: [ShipmentResolver, ShipmentService],
+  exports: [ShipmentService],
 })
-export class OrdersModule {}
+export class ShipmentModule {}

@@ -4,8 +4,8 @@ import { UpdatePackageInput } from './dto/update-package.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PackageEntity } from './entities/package.entity';
 import { Repository } from 'typeorm';
-import { OrdersService } from '../orders/orders.service';
-import { OrderEntity } from '../orders/entities/order.entity';
+import { ShipmentService } from '../shipment/shipment.service';
+import { ShipmentEntity } from '../shipment/entities/shipment.entity';
 import { DirectionsService } from '../directions/directions.service';
 import { DirectionEntity } from '../directions/entities/direction.entity';
 import { ContactEntity } from '../contact/entities/contact.entity';
@@ -16,7 +16,7 @@ export class PackagesService {
   constructor(
     @InjectRepository(PackageEntity)
     private readonly packagesRepository: Repository<PackageEntity>,
-    private ordersService: OrdersService,
+    private ordersService: ShipmentService,
     private directionsService: DirectionsService,
     private contactsService: ContactService,
   ) {}
@@ -89,7 +89,7 @@ export class PackagesService {
     return this.packagesRepository.save(updatePackage);
   }
 
-  getOrder(orderId: number): Promise<OrderEntity> {
+  getOrder(orderId: number): Promise<ShipmentEntity> {
     return this.ordersService.findOneOrder(orderId);
   }
 

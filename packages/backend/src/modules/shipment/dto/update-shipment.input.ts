@@ -2,8 +2,8 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
 import { CreatePackageInput } from 'src/modules/packages/dto/create-package.input';
 
-@InputType('updateOrderInput')
-export class UpdateOrderInput {
+@InputType('InputUpdateShipment')
+export class InputUpdateShipmentDTO {
   @Field({ nullable: true })
   @IsString()
   @IsOptional()

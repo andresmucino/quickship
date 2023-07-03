@@ -1,5 +1,5 @@
 import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -33,10 +33,10 @@ export class ClientEntity {
   })
   createAt!: Date;
 
-  @OneToMany(() => OrderEntity, (order) => order.client, {
+  @OneToMany(() => ShipmentEntity, (order) => order.client, {
     nullable: true,
   })
-  orders?: OrderEntity[];
+  orders?: ShipmentEntity[];
 
   @OneToMany(() => InvoiceEntity, (invoice) => invoice.client, {
     nullable: true,
