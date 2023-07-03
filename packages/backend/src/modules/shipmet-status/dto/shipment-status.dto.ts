@@ -6,20 +6,20 @@ import {
   PagingStrategies,
 } from '@nestjs-query/query-graphql';
 
-@ObjectType('PackageHistory')
+@ObjectType('ShipmentStatus')
 @KeySet(['id'])
-export class PackageHistoryDTO {
+export class ShipmentStatusDTO {
   @Field(() => ID)
   id!: number;
 
   @FilterableField()
-  status: string;
+  name!: string;
 
   @FilterableField()
-  idPackage: number;
+  status!: string;
 
   @Field()
-  description: string;
+  description!: string;
 
   @FilterableField(() => GraphQLISODateTime)
   createAt!: Date;

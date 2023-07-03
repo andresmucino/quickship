@@ -1,26 +1,30 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { NestjsQueryGraphQLModule } from '@nestjs-query/query-graphql';
+import { NestjsQueryTypeOrmModule } from '@nestjs-query/query-typeorm';
+
+/*Local Imports */
 import { ShipmentService } from './shipment.service';
 import { ShipmentResolver } from './shipment.resolver';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ShipmentEntity } from './entities/shipment.entity';
-import { ClientsModule } from '../clients/clients.module';
-import { DirectionsModule } from '../directions/directions.module';
-import { MessengersModule } from '../messengers/messengers.module';
-import { OrderStatusModule } from '../order-status/order-status.module';
-import { PackagesModule } from '../packages/packages.module';
-import { PackageHistoryModule } from '../package-history/package-history.module';
-import { ContactModule } from '../contact/contact.module';
+import { ShipmentDTO } from './dto/shipment.dto';
+import { InputCreateShipmentDTO } from './dto/create-shipment.input';
+import { InputUpdateShipmentDTO } from './dto/update-shipment.input';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ShipmentEntity]),
-    ClientsModule,
-    DirectionsModule,
-    MessengersModule,
-    OrderStatusModule,
-    forwardRef(() => PackagesModule),
-    PackageHistoryModule,
-    ContactModule,
+    NestjsQueryGraphQLModule.forFeature({
+      imports: [NestjsQueryTypeOrmModule.forFeature([ShipmentEntity])],
+      //services: [ShipmentService],
+      resolvers: [
+        {
+          DTOClass: ShipmentDTO,
+          EntityClass: ShipmentEntity,
+          ServiceClass: ShipmentService,
+          CreateDTOClass: InputCreateShipmentDTO,
+          UpdateDTOClass: InputUpdateShipmentDTO,
+        },
+      ],
+    }),
   ],
   providers: [ShipmentResolver, ShipmentService],
   exports: [ShipmentService],

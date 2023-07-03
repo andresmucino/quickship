@@ -1,8 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsString } from 'class-validator';
 
-@InputType('orderStatusInput')
-export class CreateOrderStatusInput {
+@InputType('InputCreateShipmentStatus')
+export class InputCreateShipmentStatusDTO {
   @Field()
   @IsString()
   @IsNotEmpty()
@@ -12,4 +12,9 @@ export class CreateOrderStatusInput {
   @IsString()
   @IsNotEmpty()
   status!: string;
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  description!: string;
 }

@@ -21,8 +21,8 @@ export class PackageEntity {
   @Column({ name: 'guide', primary: true })
   guide: string;
 
-  @Column({ name: 'package_status', type: 'text', nullable: true })
-  packageStatus: string;
+  // @Column({ name: 'package_status', type: 'text', nullable: true })
+  // packageStatus: string;
 
   @Column({ name: 'weigth', type: 'float' })
   weigth: number;
@@ -36,44 +36,45 @@ export class PackageEntity {
   @Column({ name: 'length', type: 'float' })
   legth: number;
 
-  @Column({
-    type: 'int64',
-    name: 'shipment_id',
-    nullable: true,
-  })
-  shipmentId?: number;
+  // @Column({
+  //   type: 'int64',
+  //   name: 'shipment_id',
+  //   nullable: true,
+  // })
+  // shipmentId?: number;
 
-  @ManyToOne(() => ShipmentEntity, (order) => order.packages, {
-    nullable: true,
-  })
-  @JoinColumn({ name: 'shipment_id' })
-  shipment?: ShipmentEntity;
+  // @ManyToOne(() => ShipmentEntity, (shipment) => shipment.id, {
+  //   nullable: true,
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'shipment_id' })
+  // shipment?: ShipmentEntity;
 
-  @Column({
-    type: 'text',
-    name: 'direction_id',
-    nullable: true,
-  })
-  directionId: number;
+  // @Column({
+  //   type: 'text',
+  //   name: 'direction_id',
+  //   nullable: true,
+  // })
+  // directionId: number;
 
-  @OneToOne(() => DirectionEntity, (direction) => direction.packge, {
-    nullable: true,
-  })
-  @JoinColumn({ name: 'direction_id' })
-  direction?: DirectionEntity;
+  // @OneToOne(() => DirectionEntity, (direction) => direction.packge, {
+  //   nullable: true,
+  // })
+  // @JoinColumn({ name: 'direction_id' })
+  // direction?: DirectionEntity;
 
-  @Column({
-    type: 'text',
-    name: 'contact_id',
-    nullable: true,
-  })
-  contactId: number;
+  // @Column({
+  //   type: 'text',
+  //   name: 'contact_id',
+  //   nullable: true,
+  // })
+  // contactId: number;
 
-  @OneToOne(() => ContactEntity, (contact) => contact.package, {
-    nullable: true,
-  })
-  @JoinColumn({ name: 'contact_id' })
-  contact: ContactEntity;
+  // @OneToOne(() => ContactEntity, (contact) => contact.package, {
+  //   nullable: true,
+  // })
+  // @JoinColumn({ name: 'contact_id' })
+  // contact: ContactEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

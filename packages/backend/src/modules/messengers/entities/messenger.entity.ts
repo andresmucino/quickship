@@ -1,10 +1,8 @@
-import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,11 +23,6 @@ export class MessengerEntity {
 
   @Column({ name: 'phone' })
   phone: string;
-
-  @OneToMany(() => ShipmentEntity, (order) => order.messenger, {
-    nullable: true,
-  })
-  orders?: ShipmentEntity[];
 
   @CreateDateColumn({
     type: 'timestamp',

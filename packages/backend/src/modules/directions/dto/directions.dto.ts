@@ -1,10 +1,15 @@
-import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
-import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
-import { PackageDto } from 'src/modules/packages/dto/packages.dto';
+import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
+import {
+  FilterableField,
+  FilterableRelation,
+  KeySet,
+  PagingStrategies,
+} from '@nestjs-query/query-graphql';
 
-@ObjectType('directions')
-export class DirectionsDto {
-  @Field()
+@ObjectType('direction')
+@KeySet(['id'])
+export class DirectionDTO {
+  @Field(() => ID)
   id!: number;
 
   @Field()
@@ -25,7 +30,7 @@ export class DirectionsDto {
   @Field()
   internalNumber?: string;
 
-  @Field()
+  @FilterableField()
   zipCode!: string;
 
   @Field()
@@ -34,24 +39,12 @@ export class DirectionsDto {
   @Field()
   longitude!: number;
 
-  @Field()
-  orderId: number;
-
-  @Field(() => ShipmentDTO, { nullable: true })
-  order: ShipmentDTO;
-
-  @Field()
-  packageId: number;
-
-  @Field(() => PackageDto, { nullable: true })
-  packages: PackageDto;
-
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   createAt!: Date;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   updateAt!: Date;
 
-  @Field(() => GraphQLISODateTime, { nullable: true })
+  @FilterableField(() => GraphQLISODateTime, { nullable: true })
   deleteAt?: Date;
 }

@@ -1,14 +1,11 @@
-import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 
 @Entity({ name: 'directions' })
 export class DirectionEntity {
@@ -41,30 +38,6 @@ export class DirectionEntity {
 
   @Column({ name: 'longitude', type: 'float' })
   longitude: number;
-
-  @Column({
-    name: 'order_id',
-    type: 'text',
-    nullable: true,
-  })
-  orderId?: number;
-
-  @OneToOne(() => ShipmentEntity, (order) => order.direction, {
-    nullable: true,
-  })
-  order?: ShipmentEntity;
-
-  @Column({
-    type: 'text',
-    name: 'package_id',
-    nullable: true,
-  })
-  packageId: number;
-
-  @OneToOne(() => PackageEntity, (packge) => packge.direction, {
-    nullable: true,
-  })
-  packge?: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

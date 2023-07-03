@@ -1809,17 +1809,6 @@
     tslib "^2.1.0"
     upper-case-first "^2.0.1"
 
-"@nestjs-query/query-mongoose@0.30.0":
-  version "0.30.0"
-  resolved "https://registry.yarnpkg.com/@nestjs-query/query-mongoose/-/query-mongoose-0.30.0.tgz#faf105f3475a144e2b197940e5bfa809654095aa"
-  integrity sha512-oxFUq6KzJaFkTE16Kfro+F4lyJl7QP/IwyQddMVk7hhEufrF5pjzJCFV5JFQoKoUs9QNMpOziolNF/QmZUCM9g==
-  dependencies:
-    "@nestjs-query/core" "0.30.0"
-    camel-case "^4.1.2"
-    lodash.escaperegexp "^4.1.2"
-    lodash.merge "^4.6.2"
-    tslib "^2.1.0"
-
 "@nestjs-query/query-typeorm@0.30.0":
   version "0.30.0"
   resolved "https://registry.yarnpkg.com/@nestjs-query/query-typeorm/-/query-typeorm-0.30.0.tgz#1707e87e6e209fa3c6c881674563e90ee663cf18"
@@ -1958,10 +1947,10 @@
     optional "0.1.4"
     tslib "2.3.0"
 
-"@nestjs/typeorm@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-9.0.1.tgz#f78bfc00e71731ea860288e4a03830107daf3d9c"
-  integrity sha512-A2BgLIPsMtmMI0bPKEf4bmzgFPsnvHqNBx3KkvaJ7hJrBQy0OqYOb+Rr06ifblKWDWS2tUPNrAFQbZjtk3PI+g==
+"@nestjs/typeorm@8.1.2":
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/typeorm/-/typeorm-8.1.2.tgz#11e353fa8e969c2fafb6bbc136bfe95e39cc9a67"
+  integrity sha512-LULAYHQ57vN1R4QhPO6UjbAROssvLn9sTIGjfh3Fjbnu9NT0C5oioQbX+DYe5fGr8MMygs5ZzGTFPG5NdILrpg==
   dependencies:
     uuid "8.3.2"
 
@@ -7901,11 +7890,6 @@ locate-path@^6.0.0:
   integrity sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==
   dependencies:
     p-locate "^5.0.0"
-
-lodash.escaperegexp@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
-  integrity sha512-TM9YBvyC84ZxE3rgfefxUWiQKLilstD6k7PTGt6wfbtXF8ixIJLOL3VYyV/z+ZiPLsVxAsKAFVwWlWeb2Y8Yyw==
 
 lodash.filter@^4.6.0:
   version "4.6.0"

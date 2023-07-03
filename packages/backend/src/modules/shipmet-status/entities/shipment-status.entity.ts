@@ -7,13 +7,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'order_status' })
-export class OrderStatusEntity {
+@Entity({ name: 'shipment_status' })
+export class ShipmentStatusEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ name: 'name' })
   name: string;
+
+  @Column({ name: 'status' })
+  status: string;
+
+  @Column({ name: 'description' })
+  description: string;
 
   @CreateDateColumn({
     type: 'timestamp',

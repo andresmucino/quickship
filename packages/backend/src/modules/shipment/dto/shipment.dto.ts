@@ -3,20 +3,29 @@ import {
   KeySet,
   QueryOptions,
   PagingStrategies,
+  FilterableCursorConnection,
 } from '@nestjs-query/query-graphql';
 
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
-import { ClientDto } from 'src/modules/clients/dto/client.dto';
-import { DirectionsDto } from 'src/modules/directions/dto/directions.dto';
-import { MessengerDto } from 'src/modules/messengers/dto/messenger.dto';
+import { ClientDTO } from 'src/modules/client/dto/client.dto';
+import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
+import { MessengerDTO } from 'src/modules/messengers/dto/messenger.dto';
+import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 
 @ObjectType('shipment')
 @KeySet(['id'])
 @QueryOptions({
-  maxResultsSize: 100,
+  defaultResultSize: 200,
+  maxResultsSize: 500,
   enableTotalCount: true,
   pagingStrategy: PagingStrategies.OFFSET,
 })
+// @FilterableCursorConnection('packages', () => PackageDTO, {
+//   defaultResultSize: 200,
+//   maxResultsSize: 500,
+//   //defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+//   pagingStrategy: PagingStrategies.OFFSET,
+// })
 export class ShipmentDTO {
   @Field(() => ID)
   id!: number;
@@ -27,27 +36,27 @@ export class ShipmentDTO {
   @Field({ defaultValue: 0 })
   price!: number;
 
-  @Field({
-    nullable: true,
-  })
-  clientId?: number;
+  // @Field({
+  //   nullable: true,
+  // })
+  // clientId?: number;
 
-  @Field(() => ClientDto, { nullable: true })
-  client: ClientDto;
+  // @Field(() => ClientDTO, { nullable: true })
+  // client: ClientDTO;
 
-  @Field({ nullable: true })
-  directionId?: number;
+  // @Field({ nullable: true })
+  // directionId?: number;
 
-  @Field(() => DirectionsDto, { nullable: true })
-  direction: DirectionsDto;
+  // @Field(() => DirectionsDTO, { nullable: true })
+  // direction: DirectionsDTO;
 
-  @Field({ nullable: true })
-  messengerId?: number;
+  // @Field({ nullable: true })
+  // messengerId?: number;
 
-  @Field(() => MessengerDto, { nullable: true })
-  messenger?: MessengerDto;
+  // @Field(() => MessengerDto, { nullable: true })
+  // messenger?: MessengerDto;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   createAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime)

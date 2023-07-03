@@ -1,8 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-@InputType('directionInput')
-export class CreateDirectionInput {
+@InputType('InputCreateDirection')
+export class InputCreateDirectionDTO {
   @Field()
   @IsString()
   @IsNotEmpty()

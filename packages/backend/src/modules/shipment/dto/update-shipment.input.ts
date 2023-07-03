@@ -1,6 +1,6 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
-import { CreatePackageInput } from 'src/modules/packages/dto/create-package.input';
+import { InputCreatePackageDTO } from 'src/modules/packages/dto/create-package.input';
 
 @InputType('InputUpdateShipment')
 export class InputUpdateShipmentDTO {
@@ -14,6 +14,6 @@ export class InputUpdateShipmentDTO {
   @IsOptional()
   messengerId?: number;
 
-  @Field(() => [CreatePackageInput], { nullable: true })
-  packges?: CreatePackageInput[];
+  // @Field(() => [InputCreatePackageDTO], { nullable: true })
+  // packages?: InputCreatePackageDTO[];
 }

@@ -7,8 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'contact' })
-export class ContactEntity {
+@Entity({ name: 'client' })
+export class ClientEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -26,19 +26,19 @@ export class ContactEntity {
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'create_at',
+    name: 'created_at',
   })
-  createAt!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    name: 'update_at',
+    name: 'updated_at',
   })
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    name: 'delete_at',
+    name: 'deleted_at',
   })
-  deleteAt!: Date;
+  deletedAt!: Date;
 }

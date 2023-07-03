@@ -1,8 +1,8 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsOptional, IsNumber, IsString } from 'class-validator';
 
-@InputType('updateDirectionInput')
-export class UpdateDirectionInput {
+@InputType('InputUpdateDirection')
+export class InputUpdateDirectionDTO {
   @Field({ nullable: true })
   @IsString()
   @IsOptional()
@@ -46,14 +46,4 @@ export class UpdateDirectionInput {
   @IsNumber()
   @IsOptional()
   longitude?: number;
-
-  @Field({ nullable: true })
-  @IsNumber()
-  @IsOptional()
-  packageId?: number;
-
-  @Field({ nullable: true })
-  @IsNumber()
-  @IsOptional()
-  orderId?: number;
 }
