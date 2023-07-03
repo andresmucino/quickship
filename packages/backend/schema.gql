@@ -93,11 +93,10 @@ type messenger {
 }
 
 type order {
-  id: Float!
+  id: ID!
   comments: String
   price: Float!
   clientId: Float
-  packages: package
   client: Clients!
   directionId: Float
   direction: directions
