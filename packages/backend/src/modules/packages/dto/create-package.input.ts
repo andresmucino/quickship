@@ -1,10 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber } from 'class-validator';
-import { CreateContactInput } from 'src/modules/contact/dto/create-contact.input';
-import { CreateDirectionInput } from 'src/modules/directions/dto/create-direction.input';
+import { InputCreateContactDTO } from 'src/modules/contact/dto/create-contact.input';
+import { InputCreateDirectionDTO } from 'src/modules/directions/dto/create-direction.input';
 
-@InputType('packagesInput')
-export class CreatePackageInput {
+@InputType('InputCreatePackage')
+export class InputCreatePackageDTO {
   @Field()
   @IsNumber()
   @IsNotEmpty()
@@ -25,9 +25,9 @@ export class CreatePackageInput {
   @IsNotEmpty()
   legth!: number;
 
-  @Field(() => CreateContactInput, { nullable: false })
-  contact: CreateContactInput;
+  // @Field(() => InputCreateContactDTO, { nullable: false })
+  // contact: InputCreateContactDTO;
 
-  @Field(() => CreateDirectionInput, { nullable: false })
-  direction: CreateDirectionInput;
+  // @Field(() => InputCreateDirectionDTO, { nullable: false })
+  // direction: InputCreateDirectionDTO;
 }

@@ -1,10 +1,8 @@
-import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,18 +23,6 @@ export class ContactEntity {
 
   @Column({ name: 'phone' })
   phone: string;
-
-  @Column({
-    type: 'text',
-    name: 'package_id',
-    nullable: true,
-  })
-  packageId: number;
-
-  @OneToOne(() => PackageEntity, (package_) => package_.contact, {
-    nullable: true,
-  })
-  package: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

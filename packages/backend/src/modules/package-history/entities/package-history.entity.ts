@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity('PackagesHistory')
+@Entity('package_history')
 export class PackageHistoryEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,7 +15,7 @@ export class PackageHistoryEntity {
     name: 'package_status',
     nullable: true,
   })
-  packagaStatus: string;
+  status: string;
 
   @Column({
     name: 'id_package',
@@ -27,7 +27,7 @@ export class PackageHistoryEntity {
     name: 'client_description',
     nullable: true,
   })
-  clientDescription: string;
+  description: string;
 
   @CreateDateColumn({
     type: 'timestamp',
