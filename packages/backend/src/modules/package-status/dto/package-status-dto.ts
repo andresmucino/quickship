@@ -1,29 +1,28 @@
 import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
 import {
+  FilterableCursorConnection,
   FilterableField,
+  FilterableRelation,
   KeySet,
   PagingStrategies,
-  QueryOptions,
 } from '@nestjs-query/query-graphql';
+import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 import { SortDirection } from '@nestjs-query/core';
 
-@ObjectType('PackageHistory')
+@ObjectType('PackageStatus')
 @KeySet(['id'])
-@QueryOptions({
-  defaultResultSize: 100,
-  maxResultsSize: 200,
-  defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],
-  pagingStrategy: PagingStrategies.OFFSET
+@FilterableCursorConnection('package', () => PackageDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
 })
-export class PackageHistoryDTO {
+export class PackageStatusDTO {
   @Field(() => ID)
   id!: number;
 
   @FilterableField()
   status: string;
-
-  @FilterableField()
-  idPackage: number;
 
   @Field()
   description: string;

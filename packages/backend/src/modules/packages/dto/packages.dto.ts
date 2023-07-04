@@ -10,6 +10,7 @@ import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
 import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 import { SortDirection } from '@nestjs-query/core';
 import { ClientDTO } from 'src/modules/client/dto/client.dto';
+import { PackageStatusDTO } from 'src/modules/package-status/dto/package-status-dto';
 
 @ObjectType('package')
 @KeySet(['id'])
@@ -37,6 +38,12 @@ import { ClientDTO } from 'src/modules/client/dto/client.dto';
     defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
     pagingStrategy: PagingStrategies.OFFSET,
   })
+@FilterableRelation('status', () => PackageStatusDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class PackageDTO {
   @Field()
   id!: number;

@@ -1,6 +1,7 @@
 import { ClientEntity } from 'src/modules/client/entities/client.entity';
 import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
+import { PackageStatusEntity } from 'src/modules/package-status/entities/package-status.entity';
 import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
@@ -20,11 +21,8 @@ export class PackageEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'guide', primary: true })
+  @Column({ name: 'guide', primary: true, unique: true })
   guide: string;
-
-  // @Column({ name: 'package_status', type: 'text', nullable: true })
-  // status: string;
 
   @Column({ name: 'weigth', type: 'float', default: 1.0 })
   weigth: number;
@@ -87,12 +85,25 @@ export class PackageEntity {
   })
   clientId: number;
 
-  @OneToOne(() => ClientEntity, (client) => client.id, {
+  @ManyToOne(() => ClientEntity, (client) => client.id, {
     nullable: true,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'client_id' })
   client: ClientEntity;
+
+  @Column({
+    type: 'text',
+    name: 'status_id',
+    nullable: true,
+  })
+  statusId: number;
+  @ManyToOne(() => PackageStatusEntity, (status) => status.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'status_id' })
+  status?: PackageStatusEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

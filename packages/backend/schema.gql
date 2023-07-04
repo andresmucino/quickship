@@ -63,6 +63,7 @@ input packageFilter {
   createdAt: DateFieldComparison
   updatedAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  status: packageFilterPackageStatusFilter
   client: packageFilterClientFilter
   contact: packageFilterContactFilter
   direction: packageFilterdirectionFilter
@@ -104,6 +105,15 @@ input DateFieldComparison {
 input DateFieldComparisonBetween {
   lower: DateTime!
   upper: DateTime!
+}
+
+input packageFilterPackageStatusFilter {
+  and: [packageFilterPackageStatusFilter!]
+  or: [packageFilterPackageStatusFilter!]
+  status: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input packageFilterClientFilter {
@@ -225,6 +235,25 @@ type direction {
   package: package!
 }
 
+type PackageStatus {
+  id: ID!
+  status: String!
+  description: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  packages(
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 200}
+
+    """Specify to filter the records returned."""
+    filter: packageFilter = {}
+
+    """Specify to sort results."""
+    sorting: [packageSort!] = [{field: createdAt, direction: DESC}]
+  ): PackageStatusPackagesConnection!
+}
+
 type package {
   id: Float!
   guide: String!
@@ -239,6 +268,7 @@ type package {
   direction: direction!
   contact: Contact!
   client: Client!
+  status: PackageStatus!
 }
 
 type Client {
@@ -617,9 +647,9 @@ type PackageHistory {
   status: String!
   idPackage: Float!
   description: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
 }
 
 type PackageHistoryDeleteResponse {
@@ -627,41 +657,33 @@ type PackageHistoryDeleteResponse {
   status: String
   idPackage: Float
   description: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
-}
-
-type PackageHistoryEdge {
-  """The node containing the PackageHistory"""
-  node: PackageHistory!
-
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type PackageHistoryConnection {
   """Paging information"""
-  pageInfo: PageInfo!
+  pageInfo: OffsetPageInfo!
 
-  """Array of edges."""
-  edges: [PackageHistoryEdge!]!
+  """Array of nodes."""
+  nodes: [PackageHistory!]!
 }
 
 type PackageHistoryAggregateGroupBy {
   status: String
   idPackage: Float
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type PackageHistoryCountAggregate {
   status: Int
   idPackage: Int
-  createAt: Int
-  updateAt: Int
-  deleteAt: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
 }
 
 type PackageHistorySumAggregate {
@@ -675,17 +697,17 @@ type PackageHistoryAvgAggregate {
 type PackageHistoryMinAggregate {
   status: String
   idPackage: Float
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type PackageHistoryMaxAggregate {
   status: String
   idPackage: Float
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type PackageDeleteResponse {
@@ -872,6 +894,67 @@ type ShipmentStatusMaxAggregate {
   deleteAt: DateTime
 }
 
+type PackageStatusDeleteResponse {
+  id: ID
+  status: String
+  description: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type PackageStatusEdge {
+  """The node containing the PackageStatus"""
+  node: PackageStatus!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type PackageStatusConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [PackageStatusEdge!]!
+}
+
+type PackageStatusAggregateGroupBy {
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type PackageStatusCountAggregate {
+  status: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
+}
+
+type PackageStatusMinAggregate {
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type PackageStatusMaxAggregate {
+  status: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type PackageStatusPackagesConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [package!]!
+}
+
 type Query {
   sayHello: String!
   client(
@@ -950,13 +1033,13 @@ type Query {
   ): PackageHistory
   packageHistories(
     """Limit or page results."""
-    paging: CursorPaging = {first: 10}
+    paging: OffsetPaging = {limit: 100}
 
     """Specify to filter the records returned."""
     filter: PackageHistoryFilter = {}
 
     """Specify to sort results."""
-    sorting: [PackageHistorySort!] = []
+    sorting: [PackageHistorySort!] = [{field: createdAt, direction: ASC}]
   ): PackageHistoryConnection!
   package(
     """The id of the record to find."""
@@ -1000,6 +1083,20 @@ type Query {
     """Specify to sort results."""
     sorting: [ShipmentStatusSort!] = []
   ): ShipmentStatusConnection!
+  packageStatus(
+    """The id of the record to find."""
+    id: ID!
+  ): PackageStatus
+  packageStatuses(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: PackageStatusFilter = {}
+
+    """Specify to sort results."""
+    sorting: [PackageStatusSort!] = []
+  ): PackageStatusConnection!
 }
 
 input ClientFilter {
@@ -1153,9 +1250,9 @@ input PackageHistoryFilter {
   or: [PackageHistoryFilter!]
   status: StringFieldComparison
   idPackage: NumberFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input PackageHistorySort {
@@ -1167,9 +1264,9 @@ input PackageHistorySort {
 enum PackageHistorySortFields {
   status
   idPackage
-  createAt
-  updateAt
-  deleteAt
+  createdAt
+  updatedAt
+  deletedAt
 }
 
 input shipmentFilter {
@@ -1236,6 +1333,38 @@ enum ShipmentStatusSortFields {
   deleteAt
 }
 
+input PackageStatusFilter {
+  and: [PackageStatusFilter!]
+  or: [PackageStatusFilter!]
+  status: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  package: PackageStatusFilterpackageFilter
+}
+
+input PackageStatusFilterpackageFilter {
+  and: [PackageStatusFilterpackageFilter!]
+  or: [PackageStatusFilterpackageFilter!]
+  guide: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+}
+
+input PackageStatusSort {
+  field: PackageStatusSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum PackageStatusSortFields {
+  status
+  createdAt
+  updatedAt
+  deletedAt
+}
+
 type Mutation {
   setPackagesOnClient(input: SetPackagesOnClientInput!): Client!
   removePackagesFromClient(input: RemovePackagesFromClientInput!): Client!
@@ -1285,10 +1414,12 @@ type Mutation {
   setDirectionOnPackage(input: SetDirectionOnPackageInput!): package!
   setContactOnPackage(input: SetContactOnPackageInput!): package!
   setClientOnPackage(input: SetClientOnPackageInput!): package!
+  setStatusOnPackage(input: SetStatusOnPackageInput!): package!
   removeShipmentFromPackage(input: RemoveShipmentFromPackageInput!): package!
   removeDirectionFromPackage(input: RemoveDirectionFromPackageInput!): package!
   removeContactFromPackage(input: RemoveContactFromPackageInput!): package!
   removeClientFromPackage(input: RemoveClientFromPackageInput!): package!
+  removeStatusFromPackage(input: RemoveStatusFromPackageInput!): package!
   createOnePackage(input: CreateOnePackageInput!): package!
   createManyPackages(input: CreateManyPackagesInput!): [package!]!
   updateOnePackage(input: UpdateOnePackageInput!): package!
@@ -1315,6 +1446,15 @@ type Mutation {
   updateManyShipmentStatuses(input: UpdateManyShipmentStatusesInput!): UpdateManyResponse!
   deleteOneShipmentStatus(input: DeleteOneShipmentStatusInput!): ShipmentStatusDeleteResponse!
   deleteManyShipmentStatuses(input: DeleteManyShipmentStatusesInput!): DeleteManyResponse!
+  addPackagesToPackageStatus(input: AddPackagesToPackageStatusInput!): PackageStatus!
+  setPackagesOnPackageStatus(input: SetPackagesOnPackageStatusInput!): PackageStatus!
+  removePackagesFromPackageStatus(input: RemovePackagesFromPackageStatusInput!): PackageStatus!
+  createOnePackageStatus(input: CreateOnePackageStatusInput!): PackageStatus!
+  createManyPackageStatuses(input: CreateManyPackageStatusesInput!): [PackageStatus!]!
+  updateOnePackageStatus(input: UpdateOnePackageStatusInput!): PackageStatus!
+  updateManyPackageStatuses(input: UpdateManyPackageStatusesInput!): UpdateManyResponse!
+  deleteOnePackageStatus(input: DeleteOnePackageStatusInput!): PackageStatusDeleteResponse!
+  deleteManyPackageStatuses(input: DeleteManyPackageStatusesInput!): DeleteManyResponse!
 }
 
 input SetPackagesOnClientInput {
@@ -1792,9 +1932,9 @@ input PackageHistoryUpdateFilter {
   or: [PackageHistoryUpdateFilter!]
   status: StringFieldComparison
   idPackage: NumberFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input DeleteOnePackageHistoryInput {
@@ -1812,9 +1952,9 @@ input PackageHistoryDeleteFilter {
   or: [PackageHistoryDeleteFilter!]
   status: StringFieldComparison
   idPackage: NumberFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input SetShipmentOnPackageInput {
@@ -1849,6 +1989,14 @@ input SetClientOnPackageInput {
   relationId: ID!
 }
 
+input SetStatusOnPackageInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input RemoveShipmentFromPackageInput {
   """The id of the record."""
   id: ID!
@@ -1874,6 +2022,14 @@ input RemoveContactFromPackageInput {
 }
 
 input RemoveClientFromPackageInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveStatusFromPackageInput {
   """The id of the record."""
   id: ID!
 
@@ -2138,4 +2294,92 @@ input ShipmentStatusDeleteFilter {
   createAt: DateFieldComparison
   updateAt: DateFieldComparison
   deleteAt: DateFieldComparison
+}
+
+input AddPackagesToPackageStatusInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetPackagesOnPackageStatusInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemovePackagesFromPackageStatusInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input CreateOnePackageStatusInput {
+  """The record to create"""
+  packageStatus: InputCreatePackageStatus!
+}
+
+input InputCreatePackageStatus {
+  status: String!
+  description: String!
+}
+
+input CreateManyPackageStatusesInput {
+  """Array of records to create"""
+  packageStatuses: [InputCreatePackageStatus!]!
+}
+
+input UpdateOnePackageStatusInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdatePackageStatusDTO!
+}
+
+input InputUpdatePackageStatusDTO {
+  status: String!
+  description: String!
+}
+
+input UpdateManyPackageStatusesInput {
+  """Filter used to find fields to update"""
+  filter: PackageStatusUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdatePackageStatusDTO!
+}
+
+input PackageStatusUpdateFilter {
+  and: [PackageStatusUpdateFilter!]
+  or: [PackageStatusUpdateFilter!]
+  status: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+}
+
+input DeleteOnePackageStatusInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyPackageStatusesInput {
+  """Filter to find records to delete"""
+  filter: PackageStatusDeleteFilter!
+}
+
+input PackageStatusDeleteFilter {
+  and: [PackageStatusDeleteFilter!]
+  or: [PackageStatusDeleteFilter!]
+  status: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }

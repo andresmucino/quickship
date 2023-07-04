@@ -18,6 +18,7 @@ import { PackageHistoryModule } from './modules/package-history/package-history.
 import { PackagesModule } from './modules/packages/packages.module';
 import { ShipmentModule } from './modules/shipment/shipment.module';
 import { ShipmentStatusModule } from './modules/shipmet-status/shipment-status.module';
+import { PackageStatusModule } from './modules/package-status/package-status.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ShipmentStatusModule } from './modules/shipmet-status/shipment-status.m
     PackagesModule,
     ShipmentModule,
     ShipmentStatusModule,
+    PackageStatusModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
