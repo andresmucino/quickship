@@ -8,7 +8,7 @@ import {
 } from '@nestjs-query/query-graphql';
 import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 
-@ObjectType('messenger')
+@ObjectType('Messenger')
 @KeySet(['id'])
 export class MessengerDTO {
   @Field()

@@ -6,7 +6,7 @@ import {
   PagingStrategies,
 } from '@nestjs-query/query-graphql';
 
-@ObjectType('invoice')
+@ObjectType('Invoice')
 @KeySet(['id'])
 export class InvoiceDTO {
   @Field()

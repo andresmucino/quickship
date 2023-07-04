@@ -10,7 +10,7 @@ import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 import { SortDirection } from '@nestjs-query/core';
 import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 
-@ObjectType('direction')
+@ObjectType('Direction')
 @KeySet(['id'])
 @FilterableRelation('shipment', () => ShipmentDTO, {
   defaultResultSize: 200,

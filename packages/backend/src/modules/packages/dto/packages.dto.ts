@@ -12,7 +12,7 @@ import { SortDirection } from '@nestjs-query/core';
 import { ClientDTO } from 'src/modules/client/dto/client.dto';
 import { PackageStatusDTO } from 'src/modules/package-status/dto/package-status-dto';
 
-@ObjectType('package')
+@ObjectType('Package')
 @KeySet(['id'])
 @FilterableRelation('shipment', () => ShipmentDTO, {
   defaultResultSize: 200,
@@ -32,12 +32,12 @@ import { PackageStatusDTO } from 'src/modules/package-status/dto/package-status-
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
-  @FilterableRelation('client', () => ClientDTO, {
-    defaultResultSize: 200,
-    maxResultsSize: 500,
-    defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
-    pagingStrategy: PagingStrategies.OFFSET,
-  })
+@FilterableRelation('client', () => ClientDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 @FilterableRelation('status', () => PackageStatusDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,

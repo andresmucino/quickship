@@ -11,7 +11,7 @@ import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
 import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 
-@ObjectType('shipment')
+@ObjectType('Shipment')
 @KeySet(['id'])
 @QueryOptions({
   defaultResultSize: 200,

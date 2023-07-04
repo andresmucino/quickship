@@ -13,7 +13,7 @@ import { SortDirection } from '@nestjs-query/core';
   defaultResultSize: 100,
   maxResultsSize: 200,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],
-  pagingStrategy: PagingStrategies.OFFSET
+  pagingStrategy: PagingStrategies.OFFSET,
 })
 export class PackageHistoryDTO {
   @Field()

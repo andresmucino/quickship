@@ -43,7 +43,7 @@ export class PackagesService extends TypeOrmQueryService<PackageEntity> {
       await queryRunner.manager.save(PackageHistoryEntity, {
         status: 'CREATED',
         idPackage: packages.id,
-        description: 'Delivery Creado'
+        description: 'Delivery Creado',
       });
 
       await queryRunner.commitTransaction();
