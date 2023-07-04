@@ -4,10 +4,26 @@ import {
   FilterableRelation,
   KeySet,
   PagingStrategies,
+  Relation,
 } from '@nestjs-query/query-graphql';
+import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
+import { SortDirection } from '@nestjs-query/core';
+import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 
 @ObjectType('direction')
 @KeySet(['id'])
+@FilterableRelation('shipment', () => ShipmentDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@FilterableRelation('package', () => PackageDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class DirectionDTO {
   @Field(() => ID)
   id!: number;
@@ -40,11 +56,11 @@ export class DirectionDTO {
   longitude!: number;
 
   @FilterableField(() => GraphQLISODateTime)
-  createAt!: Date;
+  createdAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime)
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime, { nullable: true })
-  deleteAt?: Date;
+  deletedAt?: Date;
 }

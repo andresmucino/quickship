@@ -8,15 +8,28 @@ import {
 import { ContactDTO } from 'src/modules/contact/dto/contact.dto';
 import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
 import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
+import { SortDirection } from '@nestjs-query/core';
 
 @ObjectType('package')
 @KeySet(['id'])
-// @FilterableRelation('shipment', () => ShipmentDTO, {
-//   defaultResultSize: 200,
-//   maxResultsSize: 500,
-//   // defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],
-//   pagingStrategy: PagingStrategies.OFFSET,
-// })
+@FilterableRelation('shipment', () => ShipmentDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@FilterableRelation('direction', () => DirectionDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@FilterableRelation('contact', () => ContactDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class PackageDTO {
   @Field()
   id!: number;
@@ -36,30 +49,12 @@ export class PackageDTO {
   @Field()
   legth!: number;
 
-  // @Field({ nullable: true })
-  // packageStatus?: string;
-
-  // @Field({ nullable: true })
-  // orderId?: number;
-
-  // @Field({ nullable: true })
-  // directionId: number;
-
-  // @Field(() => DirectionsDTO, { nullable: true })
-  // direction: DirectionsDTO;
-
-  // @Field({ nullable: true, name: 'contact_id' })
-  // contactId: number;
-
-  // @Field(() => ContactDTO, { nullable: true })
-  // contact: ContactDTO;
+  @FilterableField(() => GraphQLISODateTime)
+  createdAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime)
-  createAt!: Date;
-
-  @FilterableField(() => GraphQLISODateTime)
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime, { nullable: true })
-  deleteAt?: Date;
+  deletedAt?: Date;
 }

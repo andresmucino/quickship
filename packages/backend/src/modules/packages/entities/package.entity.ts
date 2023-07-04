@@ -8,6 +8,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -36,61 +37,63 @@ export class PackageEntity {
   @Column({ name: 'length', type: 'float' })
   legth: number;
 
-  // @Column({
-  //   type: 'int64',
-  //   name: 'shipment_id',
-  //   nullable: true,
-  // })
-  // shipmentId?: number;
+  @Column({
+    type: 'int',
+    name: 'shipment_id',
+    nullable: true,
+  })
+  shipmentId?: number;
 
-  // @ManyToOne(() => ShipmentEntity, (shipment) => shipment.id, {
-  //   nullable: true,
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'shipment_id' })
-  // shipment?: ShipmentEntity;
+  @ManyToOne(() => ShipmentEntity, (shipment) => shipment.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'shipment_id' })
+  shipment?: ShipmentEntity;
 
-  // @Column({
-  //   type: 'text',
-  //   name: 'direction_id',
-  //   nullable: true,
-  // })
-  // directionId: number;
+  @Column({
+    type: 'text',
+    name: 'direction_id',
+    nullable: true,
+  })
+  directionId: number;
 
-  // @OneToOne(() => DirectionEntity, (direction) => direction.packge, {
-  //   nullable: true,
-  // })
-  // @JoinColumn({ name: 'direction_id' })
-  // direction?: DirectionEntity;
+  @ManyToOne(() => DirectionEntity, (direction) => direction.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'direction_id' })
+  direction?: DirectionEntity;
 
-  // @Column({
-  //   type: 'text',
-  //   name: 'contact_id',
-  //   nullable: true,
-  // })
-  // contactId: number;
+  @Column({
+    type: 'text',
+    name: 'contact_id',
+    nullable: true,
+  })
+  contactId: number;
 
-  // @OneToOne(() => ContactEntity, (contact) => contact.package, {
-  //   nullable: true,
-  // })
-  // @JoinColumn({ name: 'contact_id' })
-  // contact: ContactEntity;
+  @OneToOne(() => ContactEntity, (contact) => contact.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'contact_id' })
+  contact: ContactEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'create_at',
+    name: 'created_at',
   })
-  createAt!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    name: 'update_at',
+    name: 'updated_at',
   })
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    name: 'delete_at',
+    name: 'deleted_at',
   })
-  deleteAt!: Date;
+  deletedAt!: Date;
 }

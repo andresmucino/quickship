@@ -27,27 +27,35 @@ export class ShipmentEntity {
   @Column({ name: 'comments', type: 'text', default: 0 })
   comments: string;
 
-  // @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
-  //   nullable: true,
-  // })
-  // @JoinColumn()
-  // packages?: PackageEntity[];
+  @OneToMany(() => PackageEntity, (package_) => package_.shipment.packages, {
+    nullable: true,
+  })
+  packages?: PackageEntity[];
+
+  @OneToMany(
+    () => DirectionEntity,
+    (direction) => direction.shipment.direction,
+    {
+      nullable: true,
+    },
+  )
+  direction?: DirectionEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'create_at',
+    name: 'created_at',
   })
-  createAt!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    name: 'update_at',
+    name: 'updated_at',
   })
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    name: 'delete_at',
+    name: 'deleted_at',
   })
-  deleteAt!: Date;
+  deletedAt!: Date;
 }

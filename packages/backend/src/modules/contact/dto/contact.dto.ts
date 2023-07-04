@@ -5,9 +5,17 @@ import {
   KeySet,
   PagingStrategies,
 } from '@nestjs-query/query-graphql';
+import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
+import { SortDirection } from '@nestjs-query/core';
 
 @ObjectType('Contact')
 @KeySet(['id'])
+@FilterableRelation('packages', () => PackageDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class ContactDTO {
   @Field(() => ID)
   id!: number;
@@ -25,11 +33,11 @@ export class ContactDTO {
   email!: string;
 
   @FilterableField(() => GraphQLISODateTime)
-  createAt!: Date;
+  createdAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime)
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime, { nullable: true })
-  deleteAt?: Date;
+  deletedAt?: Date;
 }

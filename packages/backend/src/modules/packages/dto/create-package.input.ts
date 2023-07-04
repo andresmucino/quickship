@@ -25,9 +25,9 @@ export class InputCreatePackageDTO {
   @IsNotEmpty()
   legth!: number;
 
-  // @Field(() => InputCreateContactDTO, { nullable: false })
-  // contact: InputCreateContactDTO;
+  @Field(() => InputCreateContactDTO, { nullable: false })
+  contact: InputCreateContactDTO;
 
-  // @Field(() => InputCreateDirectionDTO, { nullable: false })
-  // direction: InputCreateDirectionDTO;
+  @Field(() => InputCreateDirectionDTO, { nullable: false })
+  direction: InputCreateDirectionDTO;
 }

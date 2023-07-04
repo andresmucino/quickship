@@ -9,11 +9,19 @@ import { ShipmentEntity } from './entities/shipment.entity';
 import { ShipmentDTO } from './dto/shipment.dto';
 import { InputCreateShipmentDTO } from './dto/create-shipment.input';
 import { InputUpdateShipmentDTO } from './dto/update-shipment.input';
+import { DirectionModule } from '../directions/directions.module';
+import { PackagesModule } from '../packages/packages.module';
+import { ContactModule } from '../contact/contact.module';
 
 @Module({
   imports: [
     NestjsQueryGraphQLModule.forFeature({
-      imports: [NestjsQueryTypeOrmModule.forFeature([ShipmentEntity])],
+      imports: [
+        NestjsQueryTypeOrmModule.forFeature([ShipmentEntity]),
+        DirectionModule,
+        PackagesModule,
+        ContactModule,
+      ],
       services: [ShipmentService],
       resolvers: [
         {

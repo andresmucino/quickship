@@ -30,4 +30,4 @@ import { InputUpdateClientDTO } from './dto/update-client.input';
   providers: [ClientResolver, ClientService],
   exports: [ClientService],
 })
-export class ClientModule { }
+export class ClientModule {}
