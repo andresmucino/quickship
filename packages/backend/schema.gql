@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Client {
+type Contact {
   id: ID!
   firstName: String!
   lastName: String!
@@ -11,77 +11,13 @@ type Client {
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime
+  packages: package!
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
-
-type DeleteManyResponse {
-  """The number of records deleted."""
-  deletedCount: Int!
-}
-
-type ClientDeleteResponse {
-  id: ID
-  firstName: String
-  lastName: String
-  phone: String
-  email: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-}
-
-type UpdateManyResponse {
-  """The number of records updated."""
-  updatedCount: Int!
-}
-
-type OffsetPageInfo {
-  """true if paging forward and there are more records."""
-  hasNextPage: Boolean
-
-  """true if paging backwards and there are more records."""
-  hasPreviousPage: Boolean
-}
-
-type ClientConnection {
-  """Paging information"""
-  pageInfo: OffsetPageInfo!
-
-  """Array of nodes."""
-  nodes: [Client!]!
-}
-
-type ClientAggregateGroupBy {
-  email: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-}
-
-type ClientCountAggregate {
-  email: Int
-  createdAt: Int
-  updatedAt: Int
-  deletedAt: Int
-}
-
-type ClientMinAggregate {
-  email: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-}
-
-type ClientMaxAggregate {
-  email: String
-  createdAt: DateTime
-  updatedAt: DateTime
-  deletedAt: DateTime
-}
 
 type shipment {
   id: ID!
@@ -127,6 +63,7 @@ input packageFilter {
   createdAt: DateFieldComparison
   updatedAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  client: packageFilterClientFilter
   contact: packageFilterContactFilter
   direction: packageFilterdirectionFilter
   shipment: packageFiltershipmentFilter
@@ -167,6 +104,15 @@ input DateFieldComparison {
 input DateFieldComparisonBetween {
   lower: DateTime!
   upper: DateTime!
+}
+
+input packageFilterClientFilter {
+  and: [packageFilterClientFilter!]
+  or: [packageFilterClientFilter!]
+  email: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input packageFilterContactFilter {
@@ -285,16 +231,17 @@ type package {
   weigth: Float!
   width: Float!
   heigth: Float!
-  legth: Float!
+  length: Float!
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime
   shipment: shipment!
   direction: direction!
   contact: Contact!
+  client: Client!
 }
 
-type Contact {
+type Client {
   id: ID!
   firstName: String!
   lastName: String!
@@ -304,6 +251,71 @@ type Contact {
   updatedAt: DateTime!
   deletedAt: DateTime
   packages: package!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+type ClientDeleteResponse {
+  id: ID
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+type ClientConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [Client!]!
+}
+
+type ClientAggregateGroupBy {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type ClientCountAggregate {
+  email: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
+}
+
+type ClientMinAggregate {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type ClientMaxAggregate {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type ContactDeleteResponse {
@@ -682,7 +694,7 @@ type PackageDeleteResponse {
   weigth: Float
   width: Float
   heigth: Float
-  legth: Float
+  length: Float
   createdAt: DateTime
   updatedAt: DateTime
   deletedAt: DateTime
@@ -997,6 +1009,16 @@ input ClientFilter {
   createdAt: DateFieldComparison
   updatedAt: DateFieldComparison
   deletedAt: DateFieldComparison
+  packages: ClientFilterpackageFilter
+}
+
+input ClientFilterpackageFilter {
+  and: [ClientFilterpackageFilter!]
+  or: [ClientFilterpackageFilter!]
+  guide: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input ClientSort {
@@ -1215,6 +1237,8 @@ enum ShipmentStatusSortFields {
 }
 
 type Mutation {
+  setPackagesOnClient(input: SetPackagesOnClientInput!): Client!
+  removePackagesFromClient(input: RemovePackagesFromClientInput!): Client!
   createOneClient(input: CreateOneClientInput!): Client!
   createManyClients(input: CreateManyClientsInput!): [Client!]!
   updateOneClient(input: UpdateOneClientInput!): Client!
@@ -1260,15 +1284,18 @@ type Mutation {
   setShipmentOnPackage(input: SetShipmentOnPackageInput!): package!
   setDirectionOnPackage(input: SetDirectionOnPackageInput!): package!
   setContactOnPackage(input: SetContactOnPackageInput!): package!
+  setClientOnPackage(input: SetClientOnPackageInput!): package!
   removeShipmentFromPackage(input: RemoveShipmentFromPackageInput!): package!
   removeDirectionFromPackage(input: RemoveDirectionFromPackageInput!): package!
   removeContactFromPackage(input: RemoveContactFromPackageInput!): package!
+  removeClientFromPackage(input: RemoveClientFromPackageInput!): package!
   createOnePackage(input: CreateOnePackageInput!): package!
   createManyPackages(input: CreateManyPackagesInput!): [package!]!
   updateOnePackage(input: UpdateOnePackageInput!): package!
   updateManyPackages(input: UpdateManyPackagesInput!): UpdateManyResponse!
   deleteOnePackage(input: DeleteOnePackageInput!): PackageDeleteResponse!
   deleteManyPackages(input: DeleteManyPackagesInput!): DeleteManyResponse!
+  createDelivery(input: InputCreatePackage!): package!
   addPackagesToShipment(input: AddPackagesToShipmentInput!): shipment!
   setPackagesOnShipment(input: SetPackagesOnShipmentInput!): shipment!
   addDirectionsToShipment(input: AddDirectionsToShipmentInput!): shipment!
@@ -1288,6 +1315,22 @@ type Mutation {
   updateManyShipmentStatuses(input: UpdateManyShipmentStatusesInput!): UpdateManyResponse!
   deleteOneShipmentStatus(input: DeleteOneShipmentStatusInput!): ShipmentStatusDeleteResponse!
   deleteManyShipmentStatuses(input: DeleteManyShipmentStatusesInput!): DeleteManyResponse!
+}
+
+input SetPackagesOnClientInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemovePackagesFromClientInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
 }
 
 input CreateOneClientInput {
@@ -1798,6 +1841,14 @@ input SetContactOnPackageInput {
   relationId: ID!
 }
 
+input SetClientOnPackageInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input RemoveShipmentFromPackageInput {
   """The id of the record."""
   id: ID!
@@ -1822,18 +1873,28 @@ input RemoveContactFromPackageInput {
   relationId: ID!
 }
 
+input RemoveClientFromPackageInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input CreateOnePackageInput {
   """The record to create"""
   package: InputCreatePackage!
 }
 
 input InputCreatePackage {
-  weigth: Float!
-  width: Float!
-  heigth: Float!
-  legth: Float!
+  weigth: Float = 1
+  width: Float = 1
+  heigth: Float = 1
+  length: Float = 1
+  guide: String!
   contact: InputCreateContact!
   direction: InputCreateDirection!
+  idClient: Float!
 }
 
 input CreateManyPackagesInput {

@@ -19,9 +19,6 @@ import { PackageEntity } from '../packages/entities/package.entity';
 export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
   constructor(
     @InjectRepository(ShipmentEntity) repo: Repository<ShipmentEntity>,
-    private readonly directionService: DirectionsService,
-    private readonly packageService: PackagesService,
-    private readonly contactService: ContactService,
   ) {
     super(repo);
   }
@@ -53,7 +50,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
           const guide = nanoid();
           console.log(index, {
             heigth: pack.heigth,
-            legth: pack.legth,
+            legth: pack.length,
             weigth: pack.weigth,
             width: pack.width,
             guide: guide,
@@ -63,7 +60,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
           });
           await queryRunner.manager.save(PackageEntity, {
             heigth: pack.heigth,
-            legth: pack.legth,
+            length: pack.length,
             weigth: pack.weigth,
             width: pack.width,
             guide: guide,

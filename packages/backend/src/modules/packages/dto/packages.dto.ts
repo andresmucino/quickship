@@ -9,6 +9,7 @@ import { ContactDTO } from 'src/modules/contact/dto/contact.dto';
 import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
 import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 import { SortDirection } from '@nestjs-query/core';
+import { ClientDTO } from 'src/modules/client/dto/client.dto';
 
 @ObjectType('package')
 @KeySet(['id'])
@@ -30,6 +31,12 @@ import { SortDirection } from '@nestjs-query/core';
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
+  @FilterableRelation('client', () => ClientDTO, {
+    defaultResultSize: 200,
+    maxResultsSize: 500,
+    defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+    pagingStrategy: PagingStrategies.OFFSET,
+  })
 export class PackageDTO {
   @Field()
   id!: number;
@@ -47,7 +54,7 @@ export class PackageDTO {
   heigth!: number;
 
   @Field()
-  legth!: number;
+  length!: number;
 
   @FilterableField(() => GraphQLISODateTime)
   createdAt!: Date;

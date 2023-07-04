@@ -1,16 +1,25 @@
 import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
 import {
   FilterableField,
+  FilterableRelation,
   KeySet,
   PagingStrategies,
   QueryOptions,
 } from '@nestjs-query/query-graphql';
+import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
+import { SortDirection } from '@nestjs-query/core';
 
 @ObjectType('Client')
 @KeySet(['id'])
 @QueryOptions({
   defaultResultSize: 100,
   maxResultsSize: 500,
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@FilterableRelation('packages', () => PackageDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
 export class ClientDTO {

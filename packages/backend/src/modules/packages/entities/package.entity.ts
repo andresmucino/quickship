@@ -1,3 +1,4 @@
+import { ClientEntity } from 'src/modules/client/entities/client.entity';
 import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
 import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
@@ -23,19 +24,19 @@ export class PackageEntity {
   guide: string;
 
   // @Column({ name: 'package_status', type: 'text', nullable: true })
-  // packageStatus: string;
+  // status: string;
 
-  @Column({ name: 'weigth', type: 'float' })
+  @Column({ name: 'weigth', type: 'float', default: 1.0 })
   weigth: number;
 
-  @Column({ name: 'width', type: 'float' })
+  @Column({ name: 'width', type: 'float', default: 1.0 })
   width: number;
 
-  @Column({ name: 'heigth', type: 'float' })
+  @Column({ name: 'heigth', type: 'float', default: 1.0 })
   heigth: number;
 
-  @Column({ name: 'length', type: 'float' })
-  legth: number;
+  @Column({ name: 'length', type: 'float', default: 1.0 })
+  length: number;
 
   @Column({
     type: 'int',
@@ -78,6 +79,20 @@ export class PackageEntity {
   })
   @JoinColumn({ name: 'contact_id' })
   contact: ContactEntity;
+
+  @Column({
+    type: 'text',
+    name: 'client_id',
+    nullable: true,
+  })
+  clientId: number;
+
+  @OneToOne(() => ClientEntity, (client) => client.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'client_id' })
+  client: ClientEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
