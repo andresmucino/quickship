@@ -9,7 +9,7 @@ import {
 @ObjectType('invoice')
 @KeySet(['id'])
 export class InvoiceDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @Field()

@@ -25,7 +25,7 @@ import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
   pagingStrategy: PagingStrategies.OFFSET,
 })
 export class DirectionDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @Field()

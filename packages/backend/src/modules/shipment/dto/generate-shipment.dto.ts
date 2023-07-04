@@ -17,7 +17,4 @@ export class InputGenerateShipmentDTO {
 
   @Field(() => InputCreateDirectionDTO)
   direction: InputCreateDirectionDTO;
-
-  @Field(() => [InputCreatePackageDTO]!)
-  packages: InputCreatePackageDTO[];
 }

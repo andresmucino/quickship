@@ -18,7 +18,7 @@ import { SortDirection } from '@nestjs-query/core';
   pagingStrategy: PagingStrategies.OFFSET,
 })
 export class PackageStatusDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @FilterableField()

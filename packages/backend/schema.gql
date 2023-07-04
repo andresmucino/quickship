@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Contact {
-  id: ID!
+  id: Float!
   firstName: String!
   lastName: String!
   phone: String!
@@ -218,7 +218,7 @@ enum directionSortFields {
 }
 
 type direction {
-  id: ID!
+  id: Float!
   street: String!
   neigthboorhood: String!
   municipality: String!
@@ -236,7 +236,7 @@ type direction {
 }
 
 type PackageStatus {
-  id: ID!
+  id: Float!
   status: String!
   description: String!
   createdAt: DateTime!
@@ -272,7 +272,7 @@ type package {
 }
 
 type Client {
-  id: ID!
+  id: Float!
   firstName: String!
   lastName: String!
   phone: String!
@@ -289,7 +289,7 @@ type DeleteManyResponse {
 }
 
 type ClientDeleteResponse {
-  id: ID
+  id: Float
   firstName: String
   lastName: String
   phone: String
@@ -349,7 +349,7 @@ type ClientMaxAggregate {
 }
 
 type ContactDeleteResponse {
-  id: ID
+  id: Float
   firstName: String
   lastName: String
   phone: String
@@ -421,7 +421,7 @@ type ContactMaxAggregate {
 }
 
 type DirectionDeleteResponse {
-  id: ID
+  id: Float
   street: String
   neigthboorhood: String
   municipality: String
@@ -481,7 +481,7 @@ type directionMaxAggregate {
 }
 
 type invoice {
-  id: ID!
+  id: Float!
   socialReazon: String!
   rfc: String!
   street: String!
@@ -499,7 +499,7 @@ type invoice {
 }
 
 type InvoiceDeleteResponse {
-  id: ID
+  id: Float
   socialReazon: String
   rfc: String
   street: String
@@ -573,7 +573,7 @@ type invoiceMaxAggregate {
 }
 
 type messenger {
-  id: ID!
+  id: Float!
   firstName: String!
   lastName: String!
   phone: String!
@@ -584,7 +584,7 @@ type messenger {
 }
 
 type MessengerDeleteResponse {
-  id: ID
+  id: Float
   firstName: String
   lastName: String
   phone: String
@@ -643,7 +643,7 @@ type messengerMaxAggregate {
 }
 
 type PackageHistory {
-  id: ID!
+  id: Float!
   status: String!
   idPackage: Float!
   description: String!
@@ -653,7 +653,7 @@ type PackageHistory {
 }
 
 type PackageHistoryDeleteResponse {
-  id: ID
+  id: Float
   status: String
   idPackage: Float
   description: String
@@ -895,7 +895,7 @@ type ShipmentStatusMaxAggregate {
 }
 
 type PackageStatusDeleteResponse {
-  id: ID
+  id: Float
   status: String
   description: String
   createdAt: DateTime
@@ -2225,7 +2225,6 @@ input InputGenerateShipment {
   comments: String!
   clientId: Float!
   direction: InputCreateDirection!
-  packages: [InputCreatePackage!]!
 }
 
 input CreateOneShipmentStatusInput {

@@ -23,7 +23,7 @@ import { SortDirection } from '@nestjs-query/core';
   pagingStrategy: PagingStrategies.OFFSET,
 })
 export class ClientDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @Field()

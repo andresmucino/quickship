@@ -11,7 +11,7 @@ import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 @ObjectType('messenger')
 @KeySet(['id'])
 export class MessengerDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @Field()

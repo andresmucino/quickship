@@ -14,6 +14,7 @@ import { nanoid } from 'nanoid';
 import { DirectionEntity } from '../directions/entities/direction.entity';
 import { ContactEntity } from '../contact/entities/contact.entity';
 import { PackageEntity } from '../packages/entities/package.entity';
+import { PackageHistoryDTO } from '../package-history/dtos/package-history.dto';
 
 @QueryService(ShipmentEntity)
 export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
@@ -38,38 +39,43 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
         shipmentId: shipment.id,
       });
 
-      await Promise.all(
-        input.packages.map(async (pack, index) => {
-          const direction = await queryRunner.manager.save(DirectionEntity, {
-            ...pack.direction,
-            shipmentId: shipment.id,
-          });
-          const contact = await queryRunner.manager.save(ContactEntity, {
-            ...pack.contact,
-          });
-          const guide = nanoid();
-          console.log(index, {
-            heigth: pack.heigth,
-            legth: pack.length,
-            weigth: pack.weigth,
-            width: pack.width,
-            guide: guide,
-            directionId: direction.id,
-            contactId: contact.id,
-            shipmentId: shipment.id,
-          });
-          await queryRunner.manager.save(PackageEntity, {
-            heigth: pack.heigth,
-            length: pack.length,
-            weigth: pack.weigth,
-            width: pack.width,
-            guide: guide,
-            directionId: direction.id,
-            contactId: contact.id,
-            shipmentId: shipment.id,
-          });
-        }),
-      );
+      // await Promise.all(
+      //   input.packages.map(async (pack, index) => {
+      //     const direction = await queryRunner.manager.save(DirectionEntity, {
+      //       ...pack.direction,
+      //       shipmentId: shipment.id,
+      //     });
+      //     const contact = await queryRunner.manager.save(ContactEntity, {
+      //       ...pack.contact,
+      //     });
+      //     const guide = nanoid();
+      //     console.log(index, {
+      //       heigth: pack.heigth,
+      //       legth: pack.length,
+      //       weigth: pack.weigth,
+      //       width: pack.width,
+      //       guide: guide,
+      //       directionId: direction.id,
+      //       contactId: contact.id,
+      //       shipmentId: shipment.id,
+      //     });
+      //     const createPack = await queryRunner.manager.save(PackageEntity, {
+      //       heigth: pack.heigth,
+      //       length: pack.length,
+      //       weigth: pack.weigth,
+      //       width: pack.width,
+      //       guide: guide,
+      //       directionId: direction.id,
+      //       contactId: contact.id,
+      //       shipmentId: shipment.id,
+      //     });
+      //     await queryRunner.manager.save(PackageHistoryDTO, {
+      //       status: 'COLLECTED',
+      //       idPackage: createPack.id,
+      //       description: 'Delivery Recolectado'
+      //     });
+      //   }),
+      // );
 
       await queryRunner.commitTransaction();
 
