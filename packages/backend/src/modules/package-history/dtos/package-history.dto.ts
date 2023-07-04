@@ -1,25 +1,32 @@
-import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
+import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
+import {
+  FilterableField,
+  FilterableRelation,
+  KeySet,
+  PagingStrategies,
+} from '@nestjs-query/query-graphql';
 
 @ObjectType('PackageHistory')
+@KeySet(['id'])
 export class PackageHistoryDTO {
-  @Field()
+  @Field(() => ID)
   id!: number;
 
-  @Field()
-  packagaStatus: string;
+  @FilterableField()
+  status: string;
 
-  @Field()
+  @FilterableField()
   idPackage: number;
 
   @Field()
-  clientDescription: string;
+  description: string;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   createAt!: Date;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   updateAt!: Date;
 
-  @Field(() => GraphQLISODateTime, { nullable: true })
+  @FilterableField(() => GraphQLISODateTime, { nullable: true })
   deleteAt?: Date;
 }

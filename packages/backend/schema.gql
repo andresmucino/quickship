@@ -2,8 +2,248 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Client {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+type ClientDeleteResponse {
+  id: ID
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+type ClientConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [Client!]!
+}
+
+type ClientAggregateGroupBy {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type ClientCountAggregate {
+  email: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
+}
+
+type ClientMinAggregate {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type ClientMaxAggregate {
+  email: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type Contact {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type ContactDeleteResponse {
+  id: ID
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ContactEdge {
+  """The node containing the Contact"""
+  node: Contact!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+"""Cursor for paging through collections"""
+scalar ConnectionCursor
+
+type PageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+
+  """The cursor of the first returned record."""
+  startCursor: ConnectionCursor
+
+  """The cursor of the last returned record."""
+  endCursor: ConnectionCursor
+}
+
+type ContactConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [ContactEdge!]!
+}
+
+type ContactAggregateGroupBy {
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ContactCountAggregate {
+  email: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type ContactMinAggregate {
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ContactMaxAggregate {
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type direction {
+  id: ID!
+  street: String!
+  neigthboorhood: String!
+  municipality: String!
+  state: String!
+  externalNumber: String!
+  internalNumber: String!
+  zipCode: String!
+  latitude: Float!
+  longitude: Float!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type DirectionDeleteResponse {
+  id: ID
+  street: String
+  neigthboorhood: String
+  municipality: String
+  state: String
+  externalNumber: String
+  internalNumber: String
+  zipCode: String
+  latitude: Float
+  longitude: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type directionEdge {
+  """The node containing the direction"""
+  node: direction!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type DirectionConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [directionEdge!]!
+}
+
+type directionAggregateGroupBy {
+  zipCode: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type directionCountAggregate {
+  zipCode: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type directionMinAggregate {
+  zipCode: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type directionMaxAggregate {
+  zipCode: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
 type invoice {
-  id: Float!
+  id: ID!
   socialReazon: String!
   rfc: String!
   street: String!
@@ -15,29 +255,82 @@ type invoice {
   zipCode: Float!
   taxRegimen: Float!
   cfdi: String!
-  clientId: Float
-  client: Clients
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
-  getClient: Clients!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+type InvoiceDeleteResponse {
+  id: ID
+  socialReazon: String
+  rfc: String
+  street: String
+  neigthboorhood: String
+  municipality: String
+  state: String
+  externalNumber: Float
+  internalNumber: Float
+  zipCode: Float
+  taxRegimen: Float
+  cfdi: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
 
-type contact {
-  id: Float!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  packageId: Float!
-  package: package!
-  createAt: DateTime!
-  updateAt: DateTime!
+type invoiceEdge {
+  """The node containing the invoice"""
+  node: invoice!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type InvoiceConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [invoiceEdge!]!
+}
+
+type invoiceAggregateGroupBy {
+  rfc: String
+  zipCode: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type invoiceCountAggregate {
+  rfc: Int
+  zipCode: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type invoiceSumAggregate {
+  zipCode: Float
+}
+
+type invoiceAvgAggregate {
+  zipCode: Float
+}
+
+type invoiceMinAggregate {
+  rfc: String
+  zipCode: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type invoiceMaxAggregate {
+  rfc: String
+  zipCode: Float
+  createAt: DateTime
+  updateAt: DateTime
   deleteAt: DateTime
 }
 
@@ -48,196 +341,1036 @@ type package {
   width: Float!
   heigth: Float!
   legth: Float!
-  packageStatus: String
-  orderId: Float
-  order: order!
-  directionId: Float
-  direction: directions!
-  contact_id: Float
-  contact: contact!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
 }
 
-type directions {
-  id: Float!
-  street: String!
-  neigthboorhood: String!
-  municipality: String!
-  state: String!
-  externalNumber: String!
-  internalNumber: String!
-  zipCode: String!
-  latitude: Float!
-  longitude: Float!
-  orderId: Float!
-  order: order
-  packageId: Float!
-  packages: package
+type shipment {
+  id: ID!
+  comments: String
+  price: Float!
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
 }
 
 type messenger {
-  id: String!
+  id: ID!
   firstName: String!
   lastName: String!
   phone: String!
   email: String!
-  orders: order
   createAt: DateTime!
   updateAt: DateTime!
   deleteAt: DateTime
 }
 
-type order {
-  id: Float!
-  comments: String!
-  price: Float!
-  clientId: Float
-  packages: package
-  client: Clients!
-  directionId: Float
-  direction: directions
-  messengerId: Float
-  messenger: messenger!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-  getOrderStatus: orderStatus!
-}
-
-type Clients {
-  id: Float!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  orders: order
-  invoices: invoice
-  createAt: DateTime!
-  updateAt: DateTime!
+type MessengerDeleteResponse {
+  id: ID
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
   deleteAt: DateTime
 }
 
-type orderStatus {
-  id: String!
-  status: String!
-  createAt: DateTime!
-  updateAt: DateTime!
+type messengerEdge {
+  """The node containing the messenger"""
+  node: messenger!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type MessengerConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [messengerEdge!]!
+}
+
+type messengerAggregateGroupBy {
+  phone: String
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type messengerCountAggregate {
+  phone: Int
+  email: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type messengerMinAggregate {
+  phone: String
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type messengerMaxAggregate {
+  phone: String
+  email: String
+  createAt: DateTime
+  updateAt: DateTime
   deleteAt: DateTime
 }
 
 type PackageHistory {
-  id: Float!
-  packagaStatus: String!
+  id: ID!
+  status: String!
   idPackage: Float!
-  clientDescription: String!
+  description: String!
   createAt: DateTime!
   updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type PackageHistoryDeleteResponse {
+  id: ID
+  status: String
+  idPackage: Float
+  description: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type PackageHistoryEdge {
+  """The node containing the PackageHistory"""
+  node: PackageHistory!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type PackageHistoryConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [PackageHistoryEdge!]!
+}
+
+type PackageHistoryAggregateGroupBy {
+  status: String
+  idPackage: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type PackageHistoryCountAggregate {
+  status: Int
+  idPackage: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type PackageHistorySumAggregate {
+  idPackage: Float
+}
+
+type PackageHistoryAvgAggregate {
+  idPackage: Float
+}
+
+type PackageHistoryMinAggregate {
+  status: String
+  idPackage: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type PackageHistoryMaxAggregate {
+  status: String
+  idPackage: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type PackageDeleteResponse {
+  id: Float
+  guide: String
+  weigth: Float
+  width: Float
+  heigth: Float
+  legth: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type packageEdge {
+  """The node containing the package"""
+  node: package!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type PackageConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [packageEdge!]!
+}
+
+type packageAggregateGroupBy {
+  guide: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type packageCountAggregate {
+  guide: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type packageMinAggregate {
+  guide: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type packageMaxAggregate {
+  guide: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ShipmentDeleteResponse {
+  id: ID
+  comments: String
+  price: Float
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ShipmentConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [shipment!]!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type shipmentAggregateGroupBy {
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type shipmentCountAggregate {
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type shipmentMinAggregate {
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type shipmentMaxAggregate {
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ShipmentStatus {
+  id: ID!
+  name: String!
+  status: String!
+  description: String!
+  createAt: DateTime!
+  updateAt: DateTime!
+  deleteAt: DateTime
+}
+
+type ShipmentStatusDeleteResponse {
+  id: ID
+  name: String
+  status: String
+  description: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ShipmentStatusEdge {
+  """The node containing the ShipmentStatus"""
+  node: ShipmentStatus!
+
+  """Cursor for this node."""
+  cursor: ConnectionCursor!
+}
+
+type ShipmentStatusConnection {
+  """Paging information"""
+  pageInfo: PageInfo!
+
+  """Array of edges."""
+  edges: [ShipmentStatusEdge!]!
+}
+
+type ShipmentStatusAggregateGroupBy {
+  name: String
+  status: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ShipmentStatusCountAggregate {
+  name: Int
+  status: Int
+  createAt: Int
+  updateAt: Int
+  deleteAt: Int
+}
+
+type ShipmentStatusMinAggregate {
+  name: String
+  status: String
+  createAt: DateTime
+  updateAt: DateTime
+  deleteAt: DateTime
+}
+
+type ShipmentStatusMaxAggregate {
+  name: String
+  status: String
+  createAt: DateTime
+  updateAt: DateTime
   deleteAt: DateTime
 }
 
 type Query {
   sayHello: String!
-  clients: [Clients!]!
-  client(client: Int!): Clients!
-  directions: [directions!]!
-  direction(id: Int!): directions!
-  messengers: [messenger!]!
-  messenger(id: Int!): messenger!
-  invoices: [invoice!]!
-  invoice(id: Int!): invoice!
-  orderStatuses: [orderStatus!]!
-  orderStatus(id: Int!): orderStatus!
-  packages: [package!]!
-  package(id: Int!): package!
-  orders: [order!]!
-  order(id: Int!): order!
-  contacts: [contact!]!
-  contact(id: Int!): contact!
-  packageHistories: [PackageHistory!]!
-  packageHistory(id: Int!): PackageHistory!
+  client(
+    """The id of the record to find."""
+    id: ID!
+  ): Client
+  clients(
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 100}
+
+    """Specify to filter the records returned."""
+    filter: ClientFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ClientSort!] = []
+  ): ClientConnection!
+  contact(
+    """The id of the record to find."""
+    id: ID!
+  ): Contact
+  contacts(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: ContactFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ContactSort!] = []
+  ): ContactConnection!
+  direction(
+    """The id of the record to find."""
+    id: ID!
+  ): direction
+  directions(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: directionFilter = {}
+
+    """Specify to sort results."""
+    sorting: [directionSort!] = []
+  ): DirectionConnection!
+  invoice(
+    """The id of the record to find."""
+    id: ID!
+  ): invoice
+  invoices(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: invoiceFilter = {}
+
+    """Specify to sort results."""
+    sorting: [invoiceSort!] = []
+  ): InvoiceConnection!
+  messenger(
+    """The id of the record to find."""
+    id: ID!
+  ): messenger
+  messengers(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: messengerFilter = {}
+
+    """Specify to sort results."""
+    sorting: [messengerSort!] = []
+  ): MessengerConnection!
+  packageHistory(
+    """The id of the record to find."""
+    id: ID!
+  ): PackageHistory
+  packageHistories(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: PackageHistoryFilter = {}
+
+    """Specify to sort results."""
+    sorting: [PackageHistorySort!] = []
+  ): PackageHistoryConnection!
+  package(
+    """The id of the record to find."""
+    id: ID!
+  ): package
+  packages(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: packageFilter = {}
+
+    """Specify to sort results."""
+    sorting: [packageSort!] = []
+  ): PackageConnection!
+  shipment(
+    """The id of the record to find."""
+    id: ID!
+  ): shipment
+  shipments(
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 200}
+
+    """Specify to filter the records returned."""
+    filter: shipmentFilter = {}
+
+    """Specify to sort results."""
+    sorting: [shipmentSort!] = []
+  ): ShipmentConnection!
+  shipmentStatus(
+    """The id of the record to find."""
+    id: ID!
+  ): ShipmentStatus
+  shipmentStatuses(
+    """Limit or page results."""
+    paging: CursorPaging = {first: 10}
+
+    """Specify to filter the records returned."""
+    filter: ShipmentStatusFilter = {}
+
+    """Specify to sort results."""
+    sorting: [ShipmentStatusSort!] = []
+  ): ShipmentStatusConnection!
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
+input ClientFilter {
+  and: [ClientFilter!]
+  or: [ClientFilter!]
+  email: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+}
+
+input StringFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: String
+  neq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  like: String
+  notLike: String
+  iLike: String
+  notILike: String
+  in: [String!]
+  notIn: [String!]
+}
+
+input DateFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: DateTime
+  neq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  in: [DateTime!]
+  notIn: [DateTime!]
+  between: DateFieldComparisonBetween
+  notBetween: DateFieldComparisonBetween
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+input ClientSort {
+  field: ClientSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum ClientSortFields {
+  email
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input CursorPaging {
+  """Paginate before opaque cursor"""
+  before: ConnectionCursor
+
+  """Paginate after opaque cursor"""
+  after: ConnectionCursor
+
+  """Paginate first"""
+  first: Int
+
+  """Paginate last"""
+  last: Int
+}
+
+input ContactFilter {
+  and: [ContactFilter!]
+  or: [ContactFilter!]
+  email: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input ContactSort {
+  field: ContactSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum ContactSortFields {
+  email
+  createAt
+  updateAt
+  deleteAt
+}
+
+input directionFilter {
+  and: [directionFilter!]
+  or: [directionFilter!]
+  zipCode: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input directionSort {
+  field: directionSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum directionSortFields {
+  zipCode
+  createAt
+  updateAt
+  deleteAt
+}
+
+input invoiceFilter {
+  and: [invoiceFilter!]
+  or: [invoiceFilter!]
+  rfc: StringFieldComparison
+  zipCode: NumberFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input NumberFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: Float
+  neq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  in: [Float!]
+  notIn: [Float!]
+  between: NumberFieldComparisonBetween
+  notBetween: NumberFieldComparisonBetween
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
+}
+
+input invoiceSort {
+  field: invoiceSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum invoiceSortFields {
+  rfc
+  zipCode
+  createAt
+  updateAt
+  deleteAt
+}
+
+input messengerFilter {
+  and: [messengerFilter!]
+  or: [messengerFilter!]
+  phone: StringFieldComparison
+  email: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input messengerSort {
+  field: messengerSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum messengerSortFields {
+  phone
+  email
+  createAt
+  updateAt
+  deleteAt
+}
+
+input PackageHistoryFilter {
+  and: [PackageHistoryFilter!]
+  or: [PackageHistoryFilter!]
+  status: StringFieldComparison
+  idPackage: NumberFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input PackageHistorySort {
+  field: PackageHistorySortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum PackageHistorySortFields {
+  status
+  idPackage
+  createAt
+  updateAt
+  deleteAt
+}
+
+input packageFilter {
+  and: [packageFilter!]
+  or: [packageFilter!]
+  guide: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input packageSort {
+  field: packageSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum packageSortFields {
+  guide
+  createAt
+  updateAt
+  deleteAt
+}
+
+input shipmentFilter {
+  and: [shipmentFilter!]
+  or: [shipmentFilter!]
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input shipmentSort {
+  field: shipmentSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum shipmentSortFields {
+  createAt
+  updateAt
+  deleteAt
+}
+
+input ShipmentStatusFilter {
+  and: [ShipmentStatusFilter!]
+  or: [ShipmentStatusFilter!]
+  name: StringFieldComparison
+  status: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input ShipmentStatusSort {
+  field: ShipmentStatusSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum ShipmentStatusSortFields {
+  name
+  status
+  createAt
+  updateAt
+  deleteAt
 }
 
 type Mutation {
-  createClient(createClient: ClientInput!): Clients!
-  updateClient(updateClient: updateClientInput!): Clients!
-  createDirection(createDirectionInput: directionInput!): directions!
-  updateDirection(updateDirectionInput: updateDirectionInput!): directions!
-  createMessenger(createMessengerInput: messengerInput!): messenger!
-  updateMessenger(updateMessengerInput: updateMessengerInput!): messenger!
-  createInvoice(createInvoiceInput: invoiceInput!): invoice!
-  updateInvoice(updateInvoiceInput: updateInvoiceInput!): invoice!
-  createOrderStatus(createOrderStatusInput: orderStatusInput!): orderStatus!
-  updateOrderStatus(updateOrderStatusInput: updateOrderStatusInput!): orderStatus!
-  createPackage(createPackageInput: packagesInput!): package!
-  updatePackage(updatePackageInput: UpdatePackageInput!): package!
-  createOrder(createOrderInput: orderInput!): order!
-  updateOrder(updateOrderInput: updateOrderInput!): order!
-  createContact(createContactInput: CreateContactInput!): contact!
-  updateContact(updateContactInput: updateContactInput!): contact!
-  createPackageHistory(CreatePackageHistory: CreatePackageHistory!): PackageHistory!
-  updatePackageHistory(UpdatePackageHistory: UpdatePackageHistory!): PackageHistory!
+  createOneClient(input: CreateOneClientInput!): Client!
+  createManyClients(input: CreateManyClientsInput!): [Client!]!
+  updateOneClient(input: UpdateOneClientInput!): Client!
+  updateManyClients(input: UpdateManyClientsInput!): UpdateManyResponse!
+  deleteOneClient(input: DeleteOneClientInput!): ClientDeleteResponse!
+  deleteManyClients(input: DeleteManyClientsInput!): DeleteManyResponse!
+  createOneContact(input: CreateOneContactInput!): Contact!
+  createManyContacts(input: CreateManyContactsInput!): [Contact!]!
+  updateOneContact(input: UpdateOneContactInput!): Contact!
+  updateManyContacts(input: UpdateManyContactsInput!): UpdateManyResponse!
+  deleteOneContact(input: DeleteOneContactInput!): ContactDeleteResponse!
+  deleteManyContacts(input: DeleteManyContactsInput!): DeleteManyResponse!
+  createOneDirection(input: CreateOneDirectionInput!): direction!
+  createManyDirections(input: CreateManyDirectionsInput!): [direction!]!
+  updateOneDirection(input: UpdateOneDirectionInput!): direction!
+  updateManyDirections(input: UpdateManyDirectionsInput!): UpdateManyResponse!
+  deleteOneDirection(input: DeleteOneDirectionInput!): DirectionDeleteResponse!
+  deleteManyDirections(input: DeleteManyDirectionsInput!): DeleteManyResponse!
+  createOneInvoice(input: CreateOneInvoiceInput!): invoice!
+  createManyInvoices(input: CreateManyInvoicesInput!): [invoice!]!
+  updateOneInvoice(input: UpdateOneInvoiceInput!): invoice!
+  updateManyInvoices(input: UpdateManyInvoicesInput!): UpdateManyResponse!
+  deleteOneInvoice(input: DeleteOneInvoiceInput!): InvoiceDeleteResponse!
+  deleteManyInvoices(input: DeleteManyInvoicesInput!): DeleteManyResponse!
+  createOneMessenger(input: CreateOneMessengerInput!): messenger!
+  createManyMessengers(input: CreateManyMessengersInput!): [messenger!]!
+  updateOneMessenger(input: UpdateOneMessengerInput!): messenger!
+  updateManyMessengers(input: UpdateManyMessengersInput!): UpdateManyResponse!
+  deleteOneMessenger(input: DeleteOneMessengerInput!): MessengerDeleteResponse!
+  deleteManyMessengers(input: DeleteManyMessengersInput!): DeleteManyResponse!
+  createOnePackageHistory(input: CreateOnePackageHistoryInput!): PackageHistory!
+  createManyPackageHistories(input: CreateManyPackageHistoriesInput!): [PackageHistory!]!
+  updateOnePackageHistory(input: UpdateOnePackageHistoryInput!): PackageHistory!
+  updateManyPackageHistories(input: UpdateManyPackageHistoriesInput!): UpdateManyResponse!
+  deleteOnePackageHistory(input: DeleteOnePackageHistoryInput!): PackageHistoryDeleteResponse!
+  deleteManyPackageHistories(input: DeleteManyPackageHistoriesInput!): DeleteManyResponse!
+  createOnePackage(input: CreateOnePackageInput!): package!
+  createManyPackages(input: CreateManyPackagesInput!): [package!]!
+  updateOnePackage(input: UpdateOnePackageInput!): package!
+  updateManyPackages(input: UpdateManyPackagesInput!): UpdateManyResponse!
+  deleteOnePackage(input: DeleteOnePackageInput!): PackageDeleteResponse!
+  deleteManyPackages(input: DeleteManyPackagesInput!): DeleteManyResponse!
+  createOneShipment(input: CreateOneShipmentInput!): shipment!
+  createManyShipments(input: CreateManyShipmentsInput!): [shipment!]!
+  updateOneShipment(input: UpdateOneShipmentInput!): shipment!
+  updateManyShipments(input: UpdateManyShipmentsInput!): UpdateManyResponse!
+  deleteOneShipment(input: DeleteOneShipmentInput!): ShipmentDeleteResponse!
+  deleteManyShipments(input: DeleteManyShipmentsInput!): DeleteManyResponse!
+  createOneShipmentStatus(input: CreateOneShipmentStatusInput!): ShipmentStatus!
+  createManyShipmentStatuses(input: CreateManyShipmentStatusesInput!): [ShipmentStatus!]!
+  updateOneShipmentStatus(input: UpdateOneShipmentStatusInput!): ShipmentStatus!
+  updateManyShipmentStatuses(input: UpdateManyShipmentStatusesInput!): UpdateManyResponse!
+  deleteOneShipmentStatus(input: DeleteOneShipmentStatusInput!): ShipmentStatusDeleteResponse!
+  deleteManyShipmentStatuses(input: DeleteManyShipmentStatusesInput!): DeleteManyResponse!
 }
 
-input ClientInput {
+input CreateOneClientInput {
+  """The record to create"""
+  client: InputCreateClient!
+}
+
+input InputCreateClient {
   firstName: String!
   lastName: String!
   phone: String!
   email: String!
 }
 
-input updateClientInput {
+input CreateManyClientsInput {
+  """Array of records to create"""
+  clients: [InputCreateClient!]!
+}
+
+input UpdateOneClientInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateClient!
+}
+
+input InputUpdateClient {
   firstName: String
   lastName: String
   phone: String
   email: String
 }
 
-input directionInput {
+input UpdateManyClientsInput {
+  """Filter used to find fields to update"""
+  filter: ClientUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateClient!
+}
+
+input ClientUpdateFilter {
+  and: [ClientUpdateFilter!]
+  or: [ClientUpdateFilter!]
+  email: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+}
+
+input DeleteOneClientInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyClientsInput {
+  """Filter to find records to delete"""
+  filter: ClientDeleteFilter!
+}
+
+input ClientDeleteFilter {
+  and: [ClientDeleteFilter!]
+  or: [ClientDeleteFilter!]
+  email: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+}
+
+input CreateOneContactInput {
+  """The record to create"""
+  contact: InputCreateContact!
+}
+
+input InputCreateContact {
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+}
+
+input CreateManyContactsInput {
+  """Array of records to create"""
+  contacts: [InputCreateContact!]!
+}
+
+input UpdateOneContactInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateContact!
+}
+
+input InputUpdateContact {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+}
+
+input UpdateManyContactsInput {
+  """Filter used to find fields to update"""
+  filter: ContactUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateContact!
+}
+
+input ContactUpdateFilter {
+  and: [ContactUpdateFilter!]
+  or: [ContactUpdateFilter!]
+  email: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input DeleteOneContactInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyContactsInput {
+  """Filter to find records to delete"""
+  filter: ContactDeleteFilter!
+}
+
+input ContactDeleteFilter {
+  and: [ContactDeleteFilter!]
+  or: [ContactDeleteFilter!]
+  email: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOneDirectionInput {
+  """The record to create"""
+  direction: InputCreateDirection!
+}
+
+input InputCreateDirection {
   street: String!
   neigthboorhood: String!
   municipality: String!
   state: String!
-  externalNumber: Float!
-  internalNumber: Float = 0
+  externalNumber: String!
+  internalNumber: String = "0"
   zipCode: String!
   latitude: Float = 0
   longitude: Float = 0
 }
 
-input updateDirectionInput {
+input CreateManyDirectionsInput {
+  """Array of records to create"""
+  directions: [InputCreateDirection!]!
+}
+
+input UpdateOneDirectionInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateDirection!
+}
+
+input InputUpdateDirection {
   street: String
   neigthboorhood: String
   municipality: String
   state: String
-  externalNumber: Float
-  internalNumber: Float
+  externalNumber: String
+  internalNumber: String
   zipCode: String
   latitude: Float
   longitude: Float
-  packageId: Float
-  orderId: Float
 }
 
-input messengerInput {
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
+input UpdateManyDirectionsInput {
+  """Filter used to find fields to update"""
+  filter: directionUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateDirection!
 }
 
-input updateMessengerInput {
-  firstName: String
-  lastName: String
-  phone: String
-  email: String
+input directionUpdateFilter {
+  and: [directionUpdateFilter!]
+  or: [directionUpdateFilter!]
+  zipCode: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
 }
 
-input invoiceInput {
+input DeleteOneDirectionInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyDirectionsInput {
+  """Filter to find records to delete"""
+  filter: directionDeleteFilter!
+}
+
+input directionDeleteFilter {
+  and: [directionDeleteFilter!]
+  or: [directionDeleteFilter!]
+  zipCode: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOneInvoiceInput {
+  """The record to create"""
+  invoice: InputCreateInvoice!
+}
+
+input InputCreateInvoice {
   socialReazon: String!
   rfc: String!
   street: String!
@@ -251,7 +1384,20 @@ input invoiceInput {
   cfdi: String!
 }
 
-input updateInvoiceInput {
+input CreateManyInvoicesInput {
+  """Array of records to create"""
+  invoices: [InputCreateInvoice!]!
+}
+
+input UpdateOneInvoiceInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateInvoice!
+}
+
+input InputUpdateInvoice {
   socialReazon: String
   rfc: String
   street: String
@@ -265,66 +1411,376 @@ input updateInvoiceInput {
   cfdi: String
 }
 
-input orderStatusInput {
-  name: String!
-  status: String!
+input UpdateManyInvoicesInput {
+  """Filter used to find fields to update"""
+  filter: invoiceUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateInvoice!
 }
 
-input updateOrderStatusInput {
-  name: String
+input invoiceUpdateFilter {
+  and: [invoiceUpdateFilter!]
+  or: [invoiceUpdateFilter!]
+  rfc: StringFieldComparison
+  zipCode: NumberFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
 }
 
-input packagesInput {
-  weigth: Float!
-  width: Float!
-  heigth: Float!
-  legth: Float!
-  contact: CreateContactInput!
-  direction: directionInput!
+input DeleteOneInvoiceInput {
+  """The id of the record to delete."""
+  id: ID!
 }
 
-input CreateContactInput {
+input DeleteManyInvoicesInput {
+  """Filter to find records to delete"""
+  filter: invoiceDeleteFilter!
+}
+
+input invoiceDeleteFilter {
+  and: [invoiceDeleteFilter!]
+  or: [invoiceDeleteFilter!]
+  rfc: StringFieldComparison
+  zipCode: NumberFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOneMessengerInput {
+  """The record to create"""
+  messenger: InputCreateMessenger!
+}
+
+input InputCreateMessenger {
   firstName: String!
   lastName: String!
   phone: String!
   email: String!
 }
 
-input UpdatePackageInput {
+input CreateManyMessengersInput {
+  """Array of records to create"""
+  messengers: [InputCreateMessenger!]!
+}
+
+input UpdateOneMessengerInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateMessenger!
+}
+
+input InputUpdateMessenger {
+  firstName: String
+  lastName: String
+  phone: String
+  email: String
+}
+
+input UpdateManyMessengersInput {
+  """Filter used to find fields to update"""
+  filter: messengerUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateMessenger!
+}
+
+input messengerUpdateFilter {
+  and: [messengerUpdateFilter!]
+  or: [messengerUpdateFilter!]
+  phone: StringFieldComparison
+  email: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input DeleteOneMessengerInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyMessengersInput {
+  """Filter to find records to delete"""
+  filter: messengerDeleteFilter!
+}
+
+input messengerDeleteFilter {
+  and: [messengerDeleteFilter!]
+  or: [messengerDeleteFilter!]
+  phone: StringFieldComparison
+  email: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOnePackageHistoryInput {
+  """The record to create"""
+  packageHistory: InputCreatePackageHistory!
+}
+
+input InputCreatePackageHistory {
+  status: String!
+  idPackage: Float!
+  description: String!
+}
+
+input CreateManyPackageHistoriesInput {
+  """Array of records to create"""
+  packageHistories: [InputCreatePackageHistory!]!
+}
+
+input UpdateOnePackageHistoryInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdatePackageHistory!
+}
+
+input InputUpdatePackageHistory {
+  status: String
+  idPackage: Float
+  description: String
+}
+
+input UpdateManyPackageHistoriesInput {
+  """Filter used to find fields to update"""
+  filter: PackageHistoryUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdatePackageHistory!
+}
+
+input PackageHistoryUpdateFilter {
+  and: [PackageHistoryUpdateFilter!]
+  or: [PackageHistoryUpdateFilter!]
+  status: StringFieldComparison
+  idPackage: NumberFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input DeleteOnePackageHistoryInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyPackageHistoriesInput {
+  """Filter to find records to delete"""
+  filter: PackageHistoryDeleteFilter!
+}
+
+input PackageHistoryDeleteFilter {
+  and: [PackageHistoryDeleteFilter!]
+  or: [PackageHistoryDeleteFilter!]
+  status: StringFieldComparison
+  idPackage: NumberFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOnePackageInput {
+  """The record to create"""
+  package: InputCreatePackage!
+}
+
+input InputCreatePackage {
   weigth: Float!
   width: Float!
   heigth: Float!
   legth: Float!
 }
 
-input orderInput {
+input CreateManyPackagesInput {
+  """Array of records to create"""
+  packages: [InputCreatePackage!]!
+}
+
+input UpdateOnePackageInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdatePackage!
+}
+
+input InputUpdatePackage {
+  weigth: Float!
+  width: Float!
+  heigth: Float!
+  legth: Float!
+}
+
+input UpdateManyPackagesInput {
+  """Filter used to find fields to update"""
+  filter: packageUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdatePackage!
+}
+
+input packageUpdateFilter {
+  and: [packageUpdateFilter!]
+  or: [packageUpdateFilter!]
+  guide: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input DeleteOnePackageInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyPackagesInput {
+  """Filter to find records to delete"""
+  filter: packageDeleteFilter!
+}
+
+input packageDeleteFilter {
+  and: [packageDeleteFilter!]
+  or: [packageDeleteFilter!]
+  guide: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOneShipmentInput {
+  """The record to create"""
+  shipment: InputCreateShipment!
+}
+
+input InputCreateShipment {
   comments: String!
   clientId: Float!
-  direction: directionInput!
 }
 
-input updateOrderInput {
+input CreateManyShipmentsInput {
+  """Array of records to create"""
+  shipments: [InputCreateShipment!]!
+}
+
+input UpdateOneShipmentInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateShipment!
+}
+
+input InputUpdateShipment {
   comments: String
   messengerId: Float
-  packges: [packagesInput!]
 }
 
-input updateContactInput {
-  firstName: String
-  lastName: String
-  phone: String
-  email: String
-  packageId: Float
+input UpdateManyShipmentsInput {
+  """Filter used to find fields to update"""
+  filter: shipmentUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateShipment!
 }
 
-input CreatePackageHistory {
-  packagaStatus: String!
-  idPackage: Float!
-  clientDescription: String!
+input shipmentUpdateFilter {
+  and: [shipmentUpdateFilter!]
+  or: [shipmentUpdateFilter!]
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
 }
 
-input UpdatePackageHistory {
-  packagaStatus: String
-  idPackage: Float
-  clientDescription: String
+input DeleteOneShipmentInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyShipmentsInput {
+  """Filter to find records to delete"""
+  filter: shipmentDeleteFilter!
+}
+
+input shipmentDeleteFilter {
+  and: [shipmentDeleteFilter!]
+  or: [shipmentDeleteFilter!]
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input CreateOneShipmentStatusInput {
+  """The record to create"""
+  shipmentStatus: InputCreateShipmentStatus!
+}
+
+input InputCreateShipmentStatus {
+  name: String!
+  status: String!
+  description: String!
+}
+
+input CreateManyShipmentStatusesInput {
+  """Array of records to create"""
+  shipmentStatuses: [InputCreateShipmentStatus!]!
+}
+
+input UpdateOneShipmentStatusInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: InputUpdateShipmentStatus!
+}
+
+input InputUpdateShipmentStatus {
+  name: String
+  description: String
+  status: String
+}
+
+input UpdateManyShipmentStatusesInput {
+  """Filter used to find fields to update"""
+  filter: ShipmentStatusUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: InputUpdateShipmentStatus!
+}
+
+input ShipmentStatusUpdateFilter {
+  and: [ShipmentStatusUpdateFilter!]
+  or: [ShipmentStatusUpdateFilter!]
+  name: StringFieldComparison
+  status: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
+}
+
+input DeleteOneShipmentStatusInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+input DeleteManyShipmentStatusesInput {
+  """Filter to find records to delete"""
+  filter: ShipmentStatusDeleteFilter!
+}
+
+input ShipmentStatusDeleteFilter {
+  and: [ShipmentStatusDeleteFilter!]
+  or: [ShipmentStatusDeleteFilter!]
+  name: StringFieldComparison
+  status: StringFieldComparison
+  createAt: DateFieldComparison
+  updateAt: DateFieldComparison
+  deleteAt: DateFieldComparison
 }

@@ -1,9 +1,15 @@
-import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
-import { PackageDto } from 'src/modules/packages/dto/packages.dto';
+import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
+import {
+  FilterableField,
+  FilterableRelation,
+  KeySet,
+  PagingStrategies,
+} from '@nestjs-query/query-graphql';
 
-@ObjectType('contact')
-export class ContactDto {
-  @Field()
+@ObjectType('Contact')
+@KeySet(['id'])
+export class ContactDTO {
+  @Field(() => ID)
   id!: number;
 
   @Field()
@@ -15,21 +21,15 @@ export class ContactDto {
   @Field()
   phone!: string;
 
-  @Field()
+  @FilterableField()
   email!: string;
 
-  @Field()
-  packageId: number;
-
-  @Field(() => PackageDto, { nullable: true })
-  package: PackageDto;
-
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   createAt!: Date;
 
-  @Field(() => GraphQLISODateTime)
+  @FilterableField(() => GraphQLISODateTime)
   updateAt!: Date;
 
-  @Field(() => GraphQLISODateTime, { nullable: true })
+  @FilterableField(() => GraphQLISODateTime, { nullable: true })
   deleteAt?: Date;
 }

@@ -1,11 +1,8 @@
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
-import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,11 +24,11 @@ export class DirectionEntity {
   @Column({ name: 'state' })
   state: string;
 
-  @Column({ name: 'external_number' })
-  externalNumber: number;
+  @Column({ name: 'external_number', nullable: false })
+  externalNumber: string;
 
-  @Column({ name: 'internal_number' })
-  internalNumber: number;
+  @Column({ name: 'internal_number', nullable: true })
+  internalNumber: string;
 
   @Column({ name: 'zip_code' })
   zipCode: string;
@@ -41,30 +38,6 @@ export class DirectionEntity {
 
   @Column({ name: 'longitude', type: 'float' })
   longitude: number;
-
-  @Column({
-    name: 'order_id',
-    type: 'text',
-    nullable: true,
-  })
-  orderId?: number;
-
-  @OneToOne(() => OrderEntity, (order) => order.direction, {
-    nullable: true,
-  })
-  order?: OrderEntity;
-
-  @Column({
-    type: 'text',
-    name: 'package_id',
-    nullable: true,
-  })
-  packageId: number;
-
-  @OneToOne(() => PackageEntity, (packge) => packge.direction, {
-    nullable: true,
-  })
-  packge?: PackageEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
