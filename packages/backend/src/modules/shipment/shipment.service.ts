@@ -34,10 +34,6 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
         comments: input.comments,
         price: 10,
       });
-      await queryRunner.manager.save(DirectionEntity, {
-        ...input.direction,
-        shipmentId: shipment.id,
-      });
 
       // await Promise.all(
       //   input.packages.map(async (pack, index) => {

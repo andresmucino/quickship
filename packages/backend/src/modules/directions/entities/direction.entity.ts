@@ -1,4 +1,5 @@
 import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
+import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -57,6 +58,19 @@ export class DirectionEntity {
   )
   @JoinColumn({ name: 'shipment_id' })
   shipment?: ShipmentEntity;
+
+  @Column({ name: 'warehouse_shipment_id', nullable: true })
+  warehouseShipmentId: number;
+  @OneToMany(
+    (): ObjectType<WarehouseShipmentEntity> => WarehouseShipmentEntity,
+    (shipment) => shipment.id,
+    {
+      onDelete: 'CASCADE',
+      nullable: false,
+    },
+  )
+  @JoinColumn({ name: 'warehouse_shipment_id' })
+  warehouseShipment?: WarehouseShipmentEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

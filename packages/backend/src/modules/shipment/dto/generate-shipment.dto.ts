@@ -1,7 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { InputCreateDirectionDTO } from 'src/modules/directions/dto/create-direction.input';
-import { InputCreatePackageDTO } from 'src/modules/packages/dto/create-package.input';
 
 @InputType('InputGenerateShipment')
 export class InputGenerateShipmentDTO {
@@ -15,6 +13,8 @@ export class InputGenerateShipmentDTO {
   @IsNotEmpty()
   clientId!: number;
 
-  @Field(() => InputCreateDirectionDTO)
-  direction: InputCreateDirectionDTO;
+  @Field()
+  @IsNumber()
+  @IsNotEmpty()
+  warehouseShipmentId: number;
 }

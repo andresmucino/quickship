@@ -19,6 +19,7 @@ import { PackagesModule } from './modules/packages/packages.module';
 import { ShipmentModule } from './modules/shipment/shipment.module';
 import { ShipmentStatusModule } from './modules/shipmet-status/shipment-status.module';
 import { PackageStatusModule } from './modules/package-status/package-status.module';
+import { WarehouseShipmentModule } from './modules/warehouse-shipment/warehouse-shipment.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { PackageStatusModule } from './modules/package-status/package-status.mod
     ShipmentModule,
     ShipmentStatusModule,
     PackageStatusModule,
+    WarehouseShipmentModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

@@ -3,6 +3,7 @@ import { DirectionEntity } from 'src/modules/directions/entities/direction.entit
 import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
 import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
+import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -32,14 +33,18 @@ export class ShipmentEntity {
   })
   packages?: PackageEntity[];
 
-  @OneToMany(
-    () => DirectionEntity,
-    (direction) => direction.shipment.direction,
-    {
-      nullable: true,
-    },
-  )
-  direction?: DirectionEntity;
+  @Column({
+    type: 'int',
+    name: 'warehouse_shipment_id',
+    nullable: true,
+  })
+  warehouseShipmentId: number;
+
+  @OneToMany(() => WarehouseShipmentEntity, (who) => who.id, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'warehouse_shipment_id' })
+  warehouseShipment?: WarehouseShipmentEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

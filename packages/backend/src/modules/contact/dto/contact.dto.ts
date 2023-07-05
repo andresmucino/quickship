@@ -1,5 +1,6 @@
 import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
 import {
+  CursorConnection,
   FilterableField,
   FilterableRelation,
   KeySet,
@@ -7,10 +8,17 @@ import {
 } from '@nestjs-query/query-graphql';
 import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 import { SortDirection } from '@nestjs-query/core';
+import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehouse-shipment.dto';
 
 @ObjectType('Contact')
 @KeySet(['id'])
 @FilterableRelation('packages', () => PackageDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@CursorConnection('warehouseShipment', () => WarehouseShipmentDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.ASC }],

@@ -5,16 +5,18 @@ import {
   QueryOptions,
   PagingStrategies,
   FilterableCursorConnection,
-  CursorConnection,
   Relation,
+  CursorConnection,
 } from '@nestjs-query/query-graphql';
-
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
-import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
-import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
-import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehouse-shipment.dto';
+import { ClientDTO } from 'src/modules/client/dto/client.dto';
 
-@ObjectType('Shipment')
+/*Local Imports */
+import { ContactDTO } from 'src/modules/contact/dto/contact.dto';
+import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
+import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
+
+@ObjectType('WarehouseShipment')
 @KeySet(['id'])
 @QueryOptions({
   defaultResultSize: 200,
@@ -22,27 +24,36 @@ import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehou
   enableTotalCount: true,
   pagingStrategy: PagingStrategies.OFFSET,
 })
-@FilterableCursorConnection('packages', () => PackageDTO, {
+@Relation('contact', () => ContactDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
-@Relation('warehouseShipment', () => WarehouseShipmentDTO, {
+@Relation('direction', () => DirectionDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
-export class ShipmentDTO {
-  @Field(() => ID)
+@Relation('client', () => ClientDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@CursorConnection('shipment', () => ShipmentDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+export class WarehouseShipmentDTO {
+  @Field()
   id!: number;
 
   @Field({ nullable: true })
-  comments?: string;
-
-  @Field({ defaultValue: 0 })
-  price!: number;
+  instructions?: string;
 
   @FilterableField(() => GraphQLISODateTime)
   createdAt!: Date;
