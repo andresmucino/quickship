@@ -1,37 +1,29 @@
-name: Deploy pipeline 
+name: linter
 
-on: 
-  push: 
-    branches:
-      - "master"
+on:
   pull_request:
-    branches: ["master"]
-    types: [opened, synchronize]
+    branches: [master]
 
-jobs: 
-  deploy:
+jobs:
+  linter:
+    if: github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Redundant Builds
-        uses: styfle/cancel-workflow-action
-        with: 
-          access_token: ${{ github.token }}
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-      # - name: Install dependencies
-      #   run: npm install
-      # - name: Linter
-      #   run: npm run Linter
-      # - name: build
-      #   run: npm run build
-      # - name: Test
-      #   run: npm run test
-      # - name: deploy
-      # if: ${{ github.event_name == 'push'}}
-      #   uses: dependencie to hosting deploy
-      #   with:
-      #   hosting-apk: ${{secrets.hosting_api_key}}
+      - uses: github/super-linter/slim@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ANSIBLE: false
+          VALIDATE_GO: false
+          VALIDATE_COFFEE: false
+          VALIDATE_RUBY: false
+          VALIDATE_PYTHON: false
+          VALIDATE_PERL: false
+          VALIDATE_TYPESCRIPT_STANDARD: false
+          VALIDATE_JAVASCRIPT_STANDARD: false
+          FILTER_REGEX_EXCLUDE: (\.github/.*|\.yarn/.*)
