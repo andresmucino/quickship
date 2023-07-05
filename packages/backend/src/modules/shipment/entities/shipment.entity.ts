@@ -1,3 +1,4 @@
+import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import { ShipmentStatusEntity } from 'src/modules/shipmet-status/entities/shipment-status.entity';
 import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
@@ -54,6 +55,19 @@ export class ShipmentEntity {
   })
   @JoinColumn({ name: 'shipment_status_id' })
   shipmentStatus?: ShipmentStatusEntity;
+
+  @Column({
+    type: 'int',
+    name: 'messenger_id',
+    nullable: true,
+  })
+  messengerId: number;
+
+  @ManyToOne(() => MessengerEntity, (messenger) => messenger.shipment, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'messenger_id' })
+  messenger?: ShipmentStatusEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

@@ -2,6 +2,22 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Messenger {
+  id: Float!
+  firstName: String!
+  lastName: String!
+  phone: String!
+  email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type ShipmentStatus {
   id: Float!
   name: String!
@@ -21,11 +37,6 @@ type ShipmentStatus {
     sorting: [ShipmentSort!] = [{field: createdAt, direction: DESC}]
   ): ShipmentStatusShipmentsConnection!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 input OffsetPaging {
   """Limit the number of records returned"""
@@ -123,6 +134,7 @@ type Shipment {
   deletedAt: DateTime
   warehouseShipment: WarehouseShipment!
   shipmentStatus: ShipmentStatus!
+  messenger: Messenger
   packages(
     """Limit or page results."""
     paging: OffsetPaging = {limit: 200}
@@ -132,7 +144,7 @@ type Shipment {
 
     """Specify to sort results."""
     sorting: [PackageSort!] = [{field: createdAt, direction: DESC}]
-  ): ShipmentPackagesConnection!
+  ): ShipmentPackagesConnection
 }
 
 input PackageFilter {
@@ -656,26 +668,15 @@ type InvoiceMaxAggregate {
   deleteAt: DateTime
 }
 
-type Messenger {
-  id: Float!
-  firstName: String!
-  lastName: String!
-  phone: String!
-  email: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
 type MessengerDeleteResponse {
   id: Float
   firstName: String
   lastName: String
   phone: String
   email: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type MessengerEdge {
@@ -697,33 +698,33 @@ type MessengerConnection {
 type MessengerAggregateGroupBy {
   phone: String
   email: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type MessengerCountAggregate {
   phone: Int
   email: Int
-  createAt: Int
-  updateAt: Int
-  deleteAt: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
 }
 
 type MessengerMinAggregate {
   phone: String
   email: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type MessengerMaxAggregate {
   phone: String
   email: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type PackageHistory {
@@ -1407,9 +1408,9 @@ input MessengerFilter {
   or: [MessengerFilter!]
   phone: StringFieldComparison
   email: StringFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input MessengerSort {
@@ -1421,9 +1422,9 @@ input MessengerSort {
 enum MessengerSortFields {
   phone
   email
-  createAt
-  updateAt
-  deleteAt
+  createdAt
+  updatedAt
+  deletedAt
 }
 
 input PackageHistoryFilter {
@@ -1576,10 +1577,12 @@ type Mutation {
   createDelivery(input: InputCreatePackage!): Package!
   setWarehouseShipmentOnShipment(input: SetWarehouseShipmentOnShipmentInput!): Shipment!
   setShipmentStatusOnShipment(input: SetShipmentStatusOnShipmentInput!): Shipment!
+  setMessengerOnShipment(input: SetMessengerOnShipmentInput!): Shipment!
   addPackagesToShipment(input: AddPackagesToShipmentInput!): Shipment!
   setPackagesOnShipment(input: SetPackagesOnShipmentInput!): Shipment!
   removeWarehouseShipmentFromShipment(input: RemoveWarehouseShipmentFromShipmentInput!): Shipment!
   removeShipmentStatusFromShipment(input: RemoveShipmentStatusFromShipmentInput!): Shipment!
+  removeMessengerFromShipment(input: RemoveMessengerFromShipmentInput!): Shipment!
   removePackagesFromShipment(input: RemovePackagesFromShipmentInput!): Shipment!
   createOneShipment(input: CreateOneShipmentInput!): Shipment!
   createManyShipments(input: CreateManyShipmentsInput!): [Shipment!]!
@@ -1589,6 +1592,7 @@ type Mutation {
   deleteManyShipments(input: DeleteManyShipmentsInput!): DeleteManyResponse!
   generateShipment(input: InputGenerateShipment!): Shipment!
   addPackageShipment(input: InputAddPackageShipment!): Shipment!
+  assignCourierShipment(input: InputAssignCourier!): Shipment!
   addShipmentsToShipmentStatus(input: AddShipmentsToShipmentStatusInput!): ShipmentStatus!
   setShipmentsOnShipmentStatus(input: SetShipmentsOnShipmentStatusInput!): ShipmentStatus!
   removeShipmentsFromShipmentStatus(input: RemoveShipmentsFromShipmentStatusInput!): ShipmentStatus!
@@ -2080,9 +2084,9 @@ input MessengerUpdateFilter {
   or: [MessengerUpdateFilter!]
   phone: StringFieldComparison
   email: StringFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input DeleteOneMessengerInput {
@@ -2100,9 +2104,9 @@ input MessengerDeleteFilter {
   or: [MessengerDeleteFilter!]
   phone: StringFieldComparison
   email: StringFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input CreateOnePackageHistoryInput {
@@ -2341,6 +2345,14 @@ input SetShipmentStatusOnShipmentInput {
   relationId: ID!
 }
 
+input SetMessengerOnShipmentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input AddPackagesToShipmentInput {
   """The id of the record."""
   id: ID!
@@ -2366,6 +2378,14 @@ input RemoveWarehouseShipmentFromShipmentInput {
 }
 
 input RemoveShipmentStatusFromShipmentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveMessengerFromShipmentInput {
   """The id of the record."""
   id: ID!
 
@@ -2454,6 +2474,11 @@ input InputGenerateShipment {
 input InputAddPackageShipment {
   shipmentId: Float!
   guides: [String!]!
+}
+
+input InputAssignCourier {
+  courierId: Float!
+  shipmentId: Float!
 }
 
 input AddShipmentsToShipmentStatusInput {
