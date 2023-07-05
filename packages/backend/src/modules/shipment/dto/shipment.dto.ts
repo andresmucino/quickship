@@ -10,6 +10,7 @@ import {
 
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
 import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
+import { ShipmentStatusDTO } from 'src/modules/shipmet-status/dto/shipment-status.dto';
 import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehouse-shipment.dto';
 
 @ObjectType('Shipment')
@@ -32,6 +33,12 @@ import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehou
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
+  @Relation('shipmentStatus', () => ShipmentStatusDTO, {
+    defaultResultSize: 200,
+    maxResultsSize: 500,
+    defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+    pagingStrategy: PagingStrategies.OFFSET,
+  })
 export class ShipmentDTO {
   @Field()
   id!: number;

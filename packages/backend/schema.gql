@@ -2,24 +2,24 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Shipment {
+type ShipmentStatus {
   id: Float!
-  comments: String
-  price: Float!
+  name: String!
+  status: String!
+  description: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   deletedAt: DateTime
-  warehouseShipment: WarehouseShipment!
-  packages(
+  shipments(
     """Limit or page results."""
     paging: OffsetPaging = {limit: 200}
 
     """Specify to filter the records returned."""
-    filter: PackageFilter = {}
+    filter: ShipmentFilter = {}
 
     """Specify to sort results."""
-    sorting: [PackageSort!] = [{field: createdAt, direction: DESC}]
-  ): ShipmentPackagesConnection!
+    sorting: [ShipmentSort!] = [{field: createdAt, direction: DESC}]
+  ): ShipmentStatusShipmentsConnection!
 }
 
 """
@@ -35,35 +35,13 @@ input OffsetPaging {
   offset: Int
 }
 
-input PackageFilter {
-  and: [PackageFilter!]
-  or: [PackageFilter!]
-  guide: StringFieldComparison
+input ShipmentFilter {
+  and: [ShipmentFilter!]
+  or: [ShipmentFilter!]
   createdAt: DateFieldComparison
   updatedAt: DateFieldComparison
   deletedAt: DateFieldComparison
-  status: PackageFilterPackageStatusFilter
-  client: PackageFilterClientFilter
-  contact: PackageFilterContactFilter
-  direction: PackageFilterDirectionFilter
-  shipment: PackageFilterShipmentFilter
-}
-
-input StringFieldComparison {
-  is: Boolean
-  isNot: Boolean
-  eq: String
-  neq: String
-  gt: String
-  gte: String
-  lt: String
-  lte: String
-  like: String
-  notLike: String
-  iLike: String
-  notILike: String
-  in: [String!]
-  notIn: [String!]
+  packages: ShipmentFilterPackageFilter
 }
 
 input DateFieldComparison {
@@ -84,6 +62,91 @@ input DateFieldComparison {
 input DateFieldComparisonBetween {
   lower: DateTime!
   upper: DateTime!
+}
+
+input ShipmentFilterPackageFilter {
+  and: [ShipmentFilterPackageFilter!]
+  or: [ShipmentFilterPackageFilter!]
+  guide: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+}
+
+input StringFieldComparison {
+  is: Boolean
+  isNot: Boolean
+  eq: String
+  neq: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  like: String
+  notLike: String
+  iLike: String
+  notILike: String
+  in: [String!]
+  notIn: [String!]
+}
+
+input ShipmentSort {
+  field: ShipmentSortFields!
+  direction: SortDirection!
+  nulls: SortNulls
+}
+
+enum ShipmentSortFields {
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+type Shipment {
+  id: Float!
+  comments: String
+  price: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  deletedAt: DateTime
+  warehouseShipment: WarehouseShipment!
+  shipmentStatus: ShipmentStatus!
+  packages(
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 200}
+
+    """Specify to filter the records returned."""
+    filter: PackageFilter = {}
+
+    """Specify to sort results."""
+    sorting: [PackageSort!] = [{field: createdAt, direction: DESC}]
+  ): ShipmentPackagesConnection!
+}
+
+input PackageFilter {
+  and: [PackageFilter!]
+  or: [PackageFilter!]
+  guide: StringFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  status: PackageFilterPackageStatusFilter
+  client: PackageFilterClientFilter
+  contact: PackageFilterContactFilter
+  direction: PackageFilterDirectionFilter
+  shipment: PackageFilterShipmentFilter
 }
 
 input PackageFilterPackageStatusFilter {
@@ -141,18 +204,6 @@ enum PackageSortFields {
   createdAt
   updatedAt
   deletedAt
-}
-
-"""Sort Directions"""
-enum SortDirection {
-  ASC
-  DESC
-}
-
-"""Sort Nulls Options"""
-enum SortNulls {
-  NULLS_FIRST
-  NULLS_LAST
 }
 
 type Direction {
@@ -222,36 +273,6 @@ type WarehouseShipment {
     """Specify to sort results."""
     sorting: [ShipmentSort!] = [{field: createdAt, direction: DESC}]
   ): WarehouseShipmentShipmentsConnection!
-}
-
-input ShipmentFilter {
-  and: [ShipmentFilter!]
-  or: [ShipmentFilter!]
-  createdAt: DateFieldComparison
-  updatedAt: DateFieldComparison
-  deletedAt: DateFieldComparison
-  packages: ShipmentFilterPackageFilter
-}
-
-input ShipmentFilterPackageFilter {
-  and: [ShipmentFilterPackageFilter!]
-  or: [ShipmentFilterPackageFilter!]
-  guide: StringFieldComparison
-  createdAt: DateFieldComparison
-  updatedAt: DateFieldComparison
-  deletedAt: DateFieldComparison
-}
-
-input ShipmentSort {
-  field: ShipmentSortFields!
-  direction: SortDirection!
-  nulls: SortNulls
-}
-
-enum ShipmentSortFields {
-  createdAt
-  updatedAt
-  deletedAt
 }
 
 type Contact {
@@ -881,72 +902,68 @@ type ShipmentPackagesConnection {
   nodes: [Package!]!
 }
 
-type ShipmentStatus {
-  id: ID!
-  name: String!
-  status: String!
-  description: String!
-  createAt: DateTime!
-  updateAt: DateTime!
-  deleteAt: DateTime
-}
-
 type ShipmentStatusDeleteResponse {
-  id: ID
+  id: Float
   name: String
   status: String
   description: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
-}
-
-type ShipmentStatusEdge {
-  """The node containing the ShipmentStatus"""
-  node: ShipmentStatus!
-
-  """Cursor for this node."""
-  cursor: ConnectionCursor!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type ShipmentStatusConnection {
   """Paging information"""
-  pageInfo: PageInfo!
+  pageInfo: OffsetPageInfo!
 
-  """Array of edges."""
-  edges: [ShipmentStatusEdge!]!
+  """Array of nodes."""
+  nodes: [ShipmentStatus!]!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 type ShipmentStatusAggregateGroupBy {
   name: String
   status: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type ShipmentStatusCountAggregate {
   name: Int
   status: Int
-  createAt: Int
-  updateAt: Int
-  deleteAt: Int
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
 }
 
 type ShipmentStatusMinAggregate {
   name: String
   status: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
 }
 
 type ShipmentStatusMaxAggregate {
   name: String
   status: String
-  createAt: DateTime
-  updateAt: DateTime
-  deleteAt: DateTime
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+type ShipmentStatusShipmentsConnection {
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Array of nodes."""
+  nodes: [Shipment!]!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 type PackageStatusDeleteResponse {
@@ -1184,7 +1201,7 @@ type Query {
   ): ShipmentStatus
   shipmentStatuses(
     """Limit or page results."""
-    paging: CursorPaging = {first: 10}
+    paging: OffsetPaging = {limit: 200}
 
     """Specify to filter the records returned."""
     filter: ShipmentStatusFilter = {}
@@ -1438,9 +1455,9 @@ input ShipmentStatusFilter {
   or: [ShipmentStatusFilter!]
   name: StringFieldComparison
   status: StringFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input ShipmentStatusSort {
@@ -1452,9 +1469,9 @@ input ShipmentStatusSort {
 enum ShipmentStatusSortFields {
   name
   status
-  createAt
-  updateAt
-  deleteAt
+  createdAt
+  updatedAt
+  deletedAt
 }
 
 input PackageStatusFilter {
@@ -1558,9 +1575,11 @@ type Mutation {
   deleteManyPackages(input: DeleteManyPackagesInput!): DeleteManyResponse!
   createDelivery(input: InputCreatePackage!): Package!
   setWarehouseShipmentOnShipment(input: SetWarehouseShipmentOnShipmentInput!): Shipment!
+  setShipmentStatusOnShipment(input: SetShipmentStatusOnShipmentInput!): Shipment!
   addPackagesToShipment(input: AddPackagesToShipmentInput!): Shipment!
   setPackagesOnShipment(input: SetPackagesOnShipmentInput!): Shipment!
   removeWarehouseShipmentFromShipment(input: RemoveWarehouseShipmentFromShipmentInput!): Shipment!
+  removeShipmentStatusFromShipment(input: RemoveShipmentStatusFromShipmentInput!): Shipment!
   removePackagesFromShipment(input: RemovePackagesFromShipmentInput!): Shipment!
   createOneShipment(input: CreateOneShipmentInput!): Shipment!
   createManyShipments(input: CreateManyShipmentsInput!): [Shipment!]!
@@ -1570,6 +1589,9 @@ type Mutation {
   deleteManyShipments(input: DeleteManyShipmentsInput!): DeleteManyResponse!
   generateShipment(input: InputGenerateShipment!): Shipment!
   addPackageShipment(input: InputAddPackageShipment!): Shipment!
+  addShipmentsToShipmentStatus(input: AddShipmentsToShipmentStatusInput!): ShipmentStatus!
+  setShipmentsOnShipmentStatus(input: SetShipmentsOnShipmentStatusInput!): ShipmentStatus!
+  removeShipmentsFromShipmentStatus(input: RemoveShipmentsFromShipmentStatusInput!): ShipmentStatus!
   createOneShipmentStatus(input: CreateOneShipmentStatusInput!): ShipmentStatus!
   createManyShipmentStatuses(input: CreateManyShipmentStatusesInput!): [ShipmentStatus!]!
   updateOneShipmentStatus(input: UpdateOneShipmentStatusInput!): ShipmentStatus!
@@ -2311,6 +2333,14 @@ input SetWarehouseShipmentOnShipmentInput {
   relationId: ID!
 }
 
+input SetShipmentStatusOnShipmentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
 input AddPackagesToShipmentInput {
   """The id of the record."""
   id: ID!
@@ -2328,6 +2358,14 @@ input SetPackagesOnShipmentInput {
 }
 
 input RemoveWarehouseShipmentFromShipmentInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveShipmentStatusFromShipmentInput {
   """The id of the record."""
   id: ID!
 
@@ -2418,6 +2456,30 @@ input InputAddPackageShipment {
   guides: [String!]!
 }
 
+input AddShipmentsToShipmentStatusInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetShipmentsOnShipmentStatusInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveShipmentsFromShipmentStatusInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 input CreateOneShipmentStatusInput {
   """The record to create"""
   shipmentStatus: InputCreateShipmentStatus!
@@ -2461,9 +2523,9 @@ input ShipmentStatusUpdateFilter {
   or: [ShipmentStatusUpdateFilter!]
   name: StringFieldComparison
   status: StringFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input DeleteOneShipmentStatusInput {
@@ -2481,9 +2543,9 @@ input ShipmentStatusDeleteFilter {
   or: [ShipmentStatusDeleteFilter!]
   name: StringFieldComparison
   status: StringFieldComparison
-  createAt: DateFieldComparison
-  updateAt: DateFieldComparison
-  deleteAt: DateFieldComparison
+  createdAt: DateFieldComparison
+  updatedAt: DateFieldComparison
+  deletedAt: DateFieldComparison
 }
 
 input AddPackagesToPackageStatusInput {

@@ -1,15 +1,32 @@
-import { Field, GraphQLISODateTime, ObjectType, ID } from '@nestjs/graphql';
+import { Field, GraphQLISODateTime, ObjectType } from '@nestjs/graphql';
 import {
+  CursorConnection,
   FilterableField,
-  FilterableRelation,
   KeySet,
   PagingStrategies,
+  QueryOptions,
 } from '@nestjs-query/query-graphql';
+import { SortDirection } from '@nestjs-query/core';
+
+/*Local Imports */
+import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 
 @ObjectType('ShipmentStatus')
 @KeySet(['id'])
+@QueryOptions({
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  enableTotalCount: true,
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@CursorConnection('shipment', () => ShipmentDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
 export class ShipmentStatusDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @FilterableField()
@@ -22,11 +39,11 @@ export class ShipmentStatusDTO {
   description!: string;
 
   @FilterableField(() => GraphQLISODateTime)
-  createAt!: Date;
+  createdAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime)
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime, { nullable: true })
-  deleteAt?: Date;
+  deletedAt?: Date;
 }
