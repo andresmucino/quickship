@@ -1,10 +1,8 @@
-import { OrderEntity } from 'src/modules/orders/entities/order.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -25,11 +23,6 @@ export class MessengerEntity {
 
   @Column({ name: 'phone' })
   phone: string;
-
-  @OneToMany(() => OrderEntity, (order) => order.messenger, {
-    nullable: true,
-  })
-  orders?: OrderEntity[];
 
   @CreateDateColumn({
     type: 'timestamp',
