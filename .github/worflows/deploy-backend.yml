@@ -110,7 +110,7 @@ jobs:
           image: gcr.io/${{ env.GCP_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
           service: ${{ env.SERVICE_NAME }}-${{ env.ENV }}
           region: ${{ matrix.region }}
-          env_vars: LOG_LEVEL=debug,DATABASE_URL=${{ secrets.DATABASE_URL }},DATABASE_HOST=${{ secrets.DATABASE_HOST }},DATABASE_PORT=${{ secrets.DATABASE_PORT }},DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }},DATABASE_PASSWORD=${{secrets.DATABASE_PASSWORD }},DATABASE=${{secrets.DATABASE }}
+          env_vars: LOG_LEVEL=debug,DATABASE_URL=${{ secrets.DATABASE_URL }},DATABASE_PORT=${{ secrets.DATABASE_PORT }},DATABASE=${{secrets.DATABASE }}
           secrets:
           flags: "--cpu=1 --memory=512Mi --concurrency=100 --min-instances=0 --max-instances=100"
           tag: beta
