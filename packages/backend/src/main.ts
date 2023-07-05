@@ -29,7 +29,7 @@ async function bootstrap() {
 
   app.enableCors();
 
-  const port = process.env.APLICATION_PORT || 3000;
+  const port = process.env.APLICATION_PORT || 4000;
 
   await app.listen(port).then(() => {
     console.log(`Server is running at http://localhost:${port}/graphql`);
