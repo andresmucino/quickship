@@ -23,7 +23,7 @@ RUN yarn build
 # Runner
 FROM gcr.io/distroless/nodejs:16 as runner
 
-LABEL "org.opencontainers.image.source"="https://github.com/Tavo010/quickship"
+LABEL "org.opencontainers.image.source"="https://github.com/Quick-Ship/quickship"
 
 COPY --from=dependencies /app/node_modules /app/node_modules
 COPY --from=builder /app/packages/backend/dist /app/packages/backend/dist

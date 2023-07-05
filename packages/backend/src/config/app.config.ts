@@ -10,10 +10,10 @@ export default registerAs('config', () => {
     database: process.env.DATABASE,
     type: 'postgres',
     autoLoadEntities: true,
-    migrationsRun: true,
+    //migrationsRun: true,
     logging: true,
-    entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    synchronize: true,
+    //entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+    //synchronize: true,
     ssl: {
       rejectUnauthorized: false,
     },
