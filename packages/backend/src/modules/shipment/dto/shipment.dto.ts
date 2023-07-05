@@ -9,7 +9,9 @@ import {
 } from '@nestjs-query/query-graphql';
 
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
+import { MessengerDTO } from 'src/modules/messengers/dto/messenger.dto';
 import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
+import { ShipmentStatusDTO } from 'src/modules/shipmet-status/dto/shipment-status.dto';
 import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehouse-shipment.dto';
 
 @ObjectType('Shipment')
@@ -23,12 +25,26 @@ import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehou
 @FilterableCursorConnection('packages', () => PackageDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
+  nullable: true,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
 @Relation('warehouseShipment', () => WarehouseShipmentDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@Relation('shipmentStatus', () => ShipmentStatusDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+@Relation('messenger', () => MessengerDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  nullable: true,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
