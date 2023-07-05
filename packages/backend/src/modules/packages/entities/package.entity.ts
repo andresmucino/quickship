@@ -10,7 +10,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -21,7 +20,7 @@ export class PackageEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'guide', primary: true, unique: true })
+  @Column({ name: 'guide', unique: true })
   guide: string;
 
   @Column({ name: 'weigth', type: 'float', default: 1.0 })

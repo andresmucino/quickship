@@ -1569,6 +1569,7 @@ type Mutation {
   deleteOneShipment(input: DeleteOneShipmentInput!): ShipmentDeleteResponse!
   deleteManyShipments(input: DeleteManyShipmentsInput!): DeleteManyResponse!
   generateShipment(input: InputGenerateShipment!): Shipment!
+  addPackageShipment(input: InputAddPackageShipment!): Shipment!
   createOneShipmentStatus(input: CreateOneShipmentStatusInput!): ShipmentStatus!
   createManyShipmentStatuses(input: CreateManyShipmentStatusesInput!): [ShipmentStatus!]!
   updateOneShipmentStatus(input: UpdateOneShipmentStatusInput!): ShipmentStatus!
@@ -2410,6 +2411,11 @@ input InputGenerateShipment {
   comments: String!
   clientId: Float!
   warehouseShipmentId: Float!
+}
+
+input InputAddPackageShipment {
+  shipmentId: Float!
+  guides: [String!]!
 }
 
 input CreateOneShipmentStatusInput {

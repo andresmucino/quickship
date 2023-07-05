@@ -23,7 +23,7 @@ export class ShipmentEntity {
   @Column({ name: 'comments', type: 'text', default: 0 })
   comments: string;
 
-  @OneToMany(() => PackageEntity, (package_) => package_.shipment.packages, {
+  @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
     nullable: true,
   })
   packages?: PackageEntity[];
