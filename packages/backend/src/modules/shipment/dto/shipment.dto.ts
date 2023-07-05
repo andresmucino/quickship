@@ -5,12 +5,10 @@ import {
   QueryOptions,
   PagingStrategies,
   FilterableCursorConnection,
-  CursorConnection,
   Relation,
 } from '@nestjs-query/query-graphql';
 
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
-import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
 import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
 import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehouse-shipment.dto';
 
@@ -35,7 +33,7 @@ import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehou
   pagingStrategy: PagingStrategies.OFFSET,
 })
 export class ShipmentDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @Field({ nullable: true })

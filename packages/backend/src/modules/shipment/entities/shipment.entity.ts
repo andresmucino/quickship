@@ -1,7 +1,3 @@
-import { ClientEntity } from 'src/modules/client/entities/client.entity';
-import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
-import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
-import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
 import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
 import {
@@ -12,7 +8,6 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -40,7 +35,7 @@ export class ShipmentEntity {
   })
   warehouseShipmentId: number;
 
-  @OneToMany(() => WarehouseShipmentEntity, (who) => who.id, {
+  @ManyToOne(() => WarehouseShipmentEntity, (who) => who.shipment, {
     nullable: true,
   })
   @JoinColumn({ name: 'warehouse_shipment_id' })

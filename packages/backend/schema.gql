@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Shipment {
-  id: ID!
+  id: Float!
   comments: String
   price: Float!
   createdAt: DateTime!
@@ -830,7 +830,7 @@ type PackageMaxAggregate {
 }
 
 type ShipmentDeleteResponse {
-  id: ID
+  id: Float
   comments: String
   price: Float
   createdAt: DateTime

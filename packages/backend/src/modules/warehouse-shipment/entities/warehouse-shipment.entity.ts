@@ -1,6 +1,7 @@
 import { ClientEntity } from 'src/modules/client/entities/client.entity';
 import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -8,6 +9,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -62,6 +64,20 @@ export class WarehouseShipmentEntity {
   })
   @JoinColumn({ name: 'client_id' })
   client: ClientEntity;
+
+  // @Column({
+  //   type: 'int',
+  //   name: 'shipment_id',
+  //   nullable: true,
+  // })
+  // shipmentId: number;
+
+  @OneToMany(() => ShipmentEntity, (shipment) => shipment.warehouseShipment, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  //@JoinColumn({ name: 'shipment_id' })
+  shipment: ShipmentEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

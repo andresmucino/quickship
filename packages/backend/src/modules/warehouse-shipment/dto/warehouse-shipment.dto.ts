@@ -4,7 +4,6 @@ import {
   KeySet,
   QueryOptions,
   PagingStrategies,
-  FilterableCursorConnection,
   Relation,
   CursorConnection,
 } from '@nestjs-query/query-graphql';
