@@ -1,8 +1,15 @@
+import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
+import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
+  ObjectType,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -39,21 +46,47 @@ export class DirectionEntity {
   @Column({ name: 'longitude', type: 'float' })
   longitude: number;
 
+  @Column({ name: 'shipment_id', nullable: true })
+  shipmentId: number;
+  @OneToMany(
+    (): ObjectType<ShipmentEntity> => ShipmentEntity,
+    (shipment) => shipment.id,
+    {
+      onDelete: 'CASCADE',
+      nullable: false,
+    },
+  )
+  @JoinColumn({ name: 'shipment_id' })
+  shipment?: ShipmentEntity;
+
+  @Column({ name: 'warehouse_shipment_id', nullable: true })
+  warehouseShipmentId: number;
+  @OneToMany(
+    (): ObjectType<WarehouseShipmentEntity> => WarehouseShipmentEntity,
+    (shipment) => shipment.id,
+    {
+      onDelete: 'CASCADE',
+      nullable: false,
+    },
+  )
+  @JoinColumn({ name: 'warehouse_shipment_id' })
+  warehouseShipment?: WarehouseShipmentEntity;
+
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'create_at',
+    name: 'created_at',
   })
-  createAt!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    name: 'update_at',
+    name: 'updates_at',
   })
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    name: 'delete_at',
+    name: 'deleted_at',
   })
-  deleteAt!: Date;
+  deletedAt!: Date;
 }

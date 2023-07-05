@@ -1,8 +1,5 @@
-import { ClientEntity } from 'src/modules/client/entities/client.entity';
-import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
-import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
-import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
+import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -11,7 +8,6 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,27 +23,39 @@ export class ShipmentEntity {
   @Column({ name: 'comments', type: 'text', default: 0 })
   comments: string;
 
-  // @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
-  //   nullable: true,
-  // })
-  // @JoinColumn()
-  // packages?: PackageEntity[];
+  @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
+    nullable: true,
+  })
+  packages?: PackageEntity[];
+
+  @Column({
+    type: 'int',
+    name: 'warehouse_shipment_id',
+    nullable: true,
+  })
+  warehouseShipmentId: number;
+
+  @ManyToOne(() => WarehouseShipmentEntity, (who) => who.shipment, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'warehouse_shipment_id' })
+  warehouseShipment?: WarehouseShipmentEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'create_at',
+    name: 'created_at',
   })
-  createAt!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    name: 'update_at',
+    name: 'updated_at',
   })
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    name: 'delete_at',
+    name: 'deleted_at',
   })
-  deleteAt!: Date;
+  deletedAt!: Date;
 }

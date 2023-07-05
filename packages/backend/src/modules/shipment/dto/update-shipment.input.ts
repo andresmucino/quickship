@@ -14,6 +14,6 @@ export class InputUpdateShipmentDTO {
   @IsOptional()
   messengerId?: number;
 
-  // @Field(() => [InputCreatePackageDTO], { nullable: true })
-  // packages?: InputCreatePackageDTO[];
+  @Field(() => [InputCreatePackageDTO], { nullable: true })
+  packages?: InputCreatePackageDTO[];
 }

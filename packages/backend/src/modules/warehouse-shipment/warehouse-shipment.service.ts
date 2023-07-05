@@ -2,22 +2,24 @@ import { QueryService } from '@nestjs-query/core';
 import { TypeOrmQueryService } from '@nestjs-query/query-typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getConnection } from 'typeorm';
-import { PackageEntity } from './entities/package.entity';
-import { InputCreatePackageDTO } from './dto/create-package.input';
+
+/*Local Imports */
+import { WarehouseShipmentEntity } from './entities/warehouse-shipment.entity';
+import { InputCreateWarehouseShipmentDTO } from './dto/create-warehouse-shipment.input';
 import { GraphQLError } from 'graphql';
 import { ContactEntity } from '../contact/entities/contact.entity';
 import { DirectionEntity } from '../directions/entities/direction.entity';
-import { PackageHistoryEntity } from '../package-history/entities/package-history.entity';
 
-@QueryService(PackageEntity)
-export class PackagesService extends TypeOrmQueryService<PackageEntity> {
+@QueryService(WarehouseShipmentEntity)
+export class WarehouseShipmentService extends TypeOrmQueryService<WarehouseShipmentEntity> {
   constructor(
-    @InjectRepository(PackageEntity) repo: Repository<PackageEntity>,
+    @InjectRepository(WarehouseShipmentEntity)
+    repo: Repository<WarehouseShipmentEntity>,
   ) {
     super(repo);
   }
 
-  public async createPackages(input: InputCreatePackageDTO) {
+  public async createWarehouseShipment(input: InputCreateWarehouseShipmentDTO) {
     const connection = getConnection();
     const queryRunner = connection.createQueryRunner();
     await queryRunner.connect();
@@ -29,26 +31,19 @@ export class PackagesService extends TypeOrmQueryService<PackageEntity> {
       const direction = await queryRunner.manager.save(DirectionEntity, {
         ...input.direction,
       });
-      const packages = await queryRunner.manager.save(PackageEntity, {
-        clientId: input.idClient,
-        contactId: contact.id,
-        directionId: direction.id,
-        statusId: 1,
-        guide: input.guide,
-        heigth: input.heigth,
-        length: input.length,
-        weigth: input.weigth,
-        width: input.width,
-      });
-      await queryRunner.manager.save(PackageHistoryEntity, {
-        status: 'CREATED',
-        idPackage: packages.id,
-        description: 'Delivery Creado',
-      });
 
+      const warehouseShipment = await queryRunner.manager.save(
+        WarehouseShipmentEntity,
+        {
+          instructions: input.instructions,
+          clientId: input.clientId,
+          contactId: contact.id,
+          directionId: direction.id,
+        },
+      );
       await queryRunner.commitTransaction();
 
-      return packages;
+      return warehouseShipment;
     } catch (error) {
       if (queryRunner.isTransactionActive)
         await queryRunner.rollbackTransaction();
