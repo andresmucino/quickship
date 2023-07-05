@@ -1593,6 +1593,7 @@ type Mutation {
   generateShipment(input: InputGenerateShipment!): Shipment!
   addPackageShipment(input: InputAddPackageShipment!): Shipment!
   assignCourierShipment(input: InputAssignCourier!): Shipment!
+  openPackage(input: InputOpenPackage!): Shipment!
   addShipmentsToShipmentStatus(input: AddShipmentsToShipmentStatusInput!): ShipmentStatus!
   setShipmentsOnShipmentStatus(input: SetShipmentsOnShipmentStatusInput!): ShipmentStatus!
   removeShipmentsFromShipmentStatus(input: RemoveShipmentsFromShipmentStatusInput!): ShipmentStatus!
@@ -2479,6 +2480,11 @@ input InputAddPackageShipment {
 input InputAssignCourier {
   courierId: Float!
   shipmentId: Float!
+}
+
+input InputOpenPackage {
+  shipmentId: Float!
+  packageId: Float!
 }
 
 input AddShipmentsToShipmentStatusInput {

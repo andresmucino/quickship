@@ -8,6 +8,7 @@ import { ShipmentDTO } from './dto/shipment.dto';
 import { InputGenerateShipmentDTO } from './dto/generate-shipment.dto';
 import { InputAddPackageShipmentDTO } from './dto/add-packages-shipment.dto';
 import { InputAssignCourierDTO } from './dto/assign-courier.dto';
+import { InputOpenPackageDTO } from './dto/open-package.dto';
 
 @Resolver(() => ShipmentDTO)
 export class ShipmentResolver extends CRUDResolver(ShipmentDTO) {
@@ -37,5 +38,13 @@ export class ShipmentResolver extends CRUDResolver(ShipmentDTO) {
     input: InputAssignCourierDTO,
   ): Promise<ShipmentDTO> {
     return this.shipmentService.assignCourierShipment(input);
+  }
+
+  @Mutation(() => ShipmentDTO)
+  public async openPackage(
+    @Args('input', new ValidationPipe())
+    input: InputOpenPackageDTO,
+  ): Promise<ShipmentDTO> {
+    return this.shipmentService.openPackage(input);
   }
 }

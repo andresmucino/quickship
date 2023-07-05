@@ -8,6 +8,8 @@ import { GraphQLError } from 'graphql';
 import { ContactEntity } from '../contact/entities/contact.entity';
 import { DirectionEntity } from '../directions/entities/direction.entity';
 import { PackageHistoryEntity } from '../package-history/entities/package-history.entity';
+import { PackageStatusEnum } from 'src/common/package-status.enum';
+import { PackageStatusDescriptionEnum } from 'src/common/package-status-description.enum';
 
 @QueryService(PackageEntity)
 export class PackagesService extends TypeOrmQueryService<PackageEntity> {
@@ -33,7 +35,7 @@ export class PackagesService extends TypeOrmQueryService<PackageEntity> {
         clientId: input.idClient,
         contactId: contact.id,
         directionId: direction.id,
-        statusId: 1,
+        statusId: PackageStatusEnum.SC,
         guide: input.guide,
         heigth: input.heigth,
         length: input.length,
@@ -41,9 +43,9 @@ export class PackagesService extends TypeOrmQueryService<PackageEntity> {
         width: input.width,
       });
       await queryRunner.manager.save(PackageHistoryEntity, {
-        status: 'CREATED',
+        status: 'SC',
         idPackage: packages.id,
-        description: 'Delivery Creado',
+        description: PackageStatusDescriptionEnum.SC,
       });
 
       await queryRunner.commitTransaction();
