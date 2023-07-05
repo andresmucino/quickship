@@ -65,18 +65,10 @@ export class WarehouseShipmentEntity {
   @JoinColumn({ name: 'client_id' })
   client: ClientEntity;
 
-  // @Column({
-  //   type: 'int',
-  //   name: 'shipment_id',
-  //   nullable: true,
-  // })
-  // shipmentId: number;
-
   @OneToMany(() => ShipmentEntity, (shipment) => shipment.warehouseShipment, {
     nullable: true,
     onDelete: 'CASCADE',
   })
-  //@JoinColumn({ name: 'shipment_id' })
   shipment: ShipmentEntity;
 
   @CreateDateColumn({
