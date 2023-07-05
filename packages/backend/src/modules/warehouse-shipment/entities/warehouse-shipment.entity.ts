@@ -1,7 +1,6 @@
 import { ClientEntity } from 'src/modules/client/entities/client.entity';
 import { ContactEntity } from 'src/modules/contact/entities/contact.entity';
 import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
-import { PackageStatusEntity } from 'src/modules/package-status/entities/package-status.entity';
 import { ShipmentEntity } from 'src/modules/shipment/entities/shipment.entity';
 import {
   Column,
@@ -10,44 +9,19 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('packages')
-export class PackageEntity {
+@Entity({ name: 'warehouse_shipment' })
+export class WarehouseShipmentEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'guide', unique: true })
-  guide: string;
-
-  @Column({ name: 'weigth', type: 'float', default: 1.0 })
-  weigth: number;
-
-  @Column({ name: 'width', type: 'float', default: 1.0 })
-  width: number;
-
-  @Column({ name: 'heigth', type: 'float', default: 1.0 })
-  heigth: number;
-
-  @Column({ name: 'length', type: 'float', default: 1.0 })
-  length: number;
-
-  @Column({
-    type: 'int',
-    name: 'shipment_id',
-    nullable: true,
-  })
-  shipmentId?: number;
-
-  @ManyToOne(() => ShipmentEntity, (shipment) => shipment.id, {
-    nullable: true,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'shipment_id' })
-  shipment?: ShipmentEntity;
+  @Column({ name: 'instructions', type: 'text', default: 0 })
+  instructions: string;
 
   @Column({
     type: 'text',
@@ -78,7 +52,7 @@ export class PackageEntity {
   contact: ContactEntity;
 
   @Column({
-    type: 'int',
+    type: 'text',
     name: 'client_id',
     nullable: true,
   })
@@ -91,18 +65,11 @@ export class PackageEntity {
   @JoinColumn({ name: 'client_id' })
   client: ClientEntity;
 
-  @Column({
-    type: 'text',
-    name: 'status_id',
-    nullable: true,
-  })
-  statusId: number;
-  @ManyToOne(() => PackageStatusEntity, (status) => status.id, {
+  @OneToMany(() => ShipmentEntity, (shipment) => shipment.warehouseShipment, {
     nullable: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'status_id' })
-  status?: PackageStatusEntity;
+  shipment: ShipmentEntity;
 
   @CreateDateColumn({
     type: 'timestamp',

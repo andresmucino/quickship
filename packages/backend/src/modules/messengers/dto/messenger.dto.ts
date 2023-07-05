@@ -8,10 +8,10 @@ import {
 } from '@nestjs-query/query-graphql';
 import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
 
-@ObjectType('messenger')
+@ObjectType('Messenger')
 @KeySet(['id'])
 export class MessengerDTO {
-  @Field(() => ID)
+  @Field()
   id!: number;
 
   @Field()
@@ -27,11 +27,11 @@ export class MessengerDTO {
   email!: string;
 
   @FilterableField(() => GraphQLISODateTime)
-  createAt!: Date;
+  createdAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime)
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @FilterableField(() => GraphQLISODateTime, { nullable: true })
-  deleteAt?: Date;
+  deletedAt?: Date;
 }

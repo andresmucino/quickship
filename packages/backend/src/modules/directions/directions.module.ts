@@ -30,4 +30,4 @@ import { InputUpdateDirectionDTO } from './dto/update-direction.input';
   providers: [DirectionsResolver, DirectionsService],
   exports: [DirectionsService],
 })
-export class DirectionModule { }
+export class DirectionModule {}

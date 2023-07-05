@@ -1,8 +1,7 @@
-import { ClientEntity } from 'src/modules/client/entities/client.entity';
-import { DirectionEntity } from 'src/modules/directions/entities/direction.entity';
-import { InvoiceEntity } from 'src/modules/invoices/entities/invoice.entity';
 import { MessengerEntity } from 'src/modules/messengers/entities/messenger.entity';
 import { PackageEntity } from 'src/modules/packages/entities/package.entity';
+import { ShipmentStatusEntity } from 'src/modules/shipmet-status/entities/shipment-status.entity';
+import { WarehouseShipmentEntity } from 'src/modules/warehouse-shipment/entities/warehouse-shipment.entity';
 import {
   Column,
   CreateDateColumn,
@@ -11,7 +10,6 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -27,27 +25,65 @@ export class ShipmentEntity {
   @Column({ name: 'comments', type: 'text', default: 0 })
   comments: string;
 
-  // @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
-  //   nullable: true,
-  // })
-  // @JoinColumn()
-  // packages?: PackageEntity[];
+  @OneToMany(() => PackageEntity, (package_) => package_.shipment, {
+    nullable: true,
+  })
+  packages?: PackageEntity[];
+
+  @Column({
+    type: 'int',
+    name: 'warehouse_shipment_id',
+    nullable: true,
+  })
+  warehouseShipmentId: number;
+
+  @ManyToOne(() => WarehouseShipmentEntity, (who) => who.shipment, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'warehouse_shipment_id' })
+  warehouseShipment?: WarehouseShipmentEntity;
+
+  @Column({
+    type: 'int',
+    name: 'shipment_status_id',
+    nullable: true,
+  })
+  shipmentStatusId: number;
+
+  @ManyToOne(() => ShipmentStatusEntity, (status) => status.shipment, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'shipment_status_id' })
+  shipmentStatus?: ShipmentStatusEntity;
+
+  @Column({
+    type: 'int',
+    name: 'messenger_id',
+    nullable: true,
+  })
+  messengerId: number;
+
+  @ManyToOne(() => MessengerEntity, (messenger) => messenger.shipment, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'messenger_id' })
+  messenger?: ShipmentStatusEntity;
 
   @CreateDateColumn({
     type: 'timestamp',
-    name: 'create_at',
+    name: 'created_at',
   })
-  createAt!: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    name: 'update_at',
+    name: 'updated_at',
   })
-  updateAt!: Date;
+  updatedAt!: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    name: 'delete_at',
+    name: 'deleted_at',
   })
-  deleteAt!: Date;
+  deletedAt!: Date;
 }

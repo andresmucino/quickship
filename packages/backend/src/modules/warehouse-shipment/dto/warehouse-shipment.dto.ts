@@ -4,17 +4,18 @@ import {
   KeySet,
   QueryOptions,
   PagingStrategies,
-  FilterableCursorConnection,
   Relation,
+  CursorConnection,
 } from '@nestjs-query/query-graphql';
-
 import { Field, GraphQLISODateTime, ID, ObjectType } from '@nestjs/graphql';
-import { MessengerDTO } from 'src/modules/messengers/dto/messenger.dto';
-import { PackageDTO } from 'src/modules/packages/dto/packages.dto';
-import { ShipmentStatusDTO } from 'src/modules/shipmet-status/dto/shipment-status.dto';
-import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehouse-shipment.dto';
+import { ClientDTO } from 'src/modules/client/dto/client.dto';
 
-@ObjectType('Shipment')
+/*Local Imports */
+import { ContactDTO } from 'src/modules/contact/dto/contact.dto';
+import { DirectionDTO } from 'src/modules/directions/dto/directions.dto';
+import { ShipmentDTO } from 'src/modules/shipment/dto/shipment.dto';
+
+@ObjectType('WarehouseShipment')
 @KeySet(['id'])
 @QueryOptions({
   defaultResultSize: 200,
@@ -22,41 +23,36 @@ import { WarehouseShipmentDTO } from 'src/modules/warehouse-shipment/dto/warehou
   enableTotalCount: true,
   pagingStrategy: PagingStrategies.OFFSET,
 })
-@FilterableCursorConnection('packages', () => PackageDTO, {
-  defaultResultSize: 200,
-  maxResultsSize: 500,
-  nullable: true,
-  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
-  pagingStrategy: PagingStrategies.OFFSET,
-})
-@Relation('warehouseShipment', () => WarehouseShipmentDTO, {
+@Relation('contact', () => ContactDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
-@Relation('shipmentStatus', () => ShipmentStatusDTO, {
+@Relation('direction', () => DirectionDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
-@Relation('messenger', () => MessengerDTO, {
+@Relation('client', () => ClientDTO, {
   defaultResultSize: 200,
   maxResultsSize: 500,
-  nullable: true,
   defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
   pagingStrategy: PagingStrategies.OFFSET,
 })
-export class ShipmentDTO {
+@CursorConnection('shipment', () => ShipmentDTO, {
+  defaultResultSize: 200,
+  maxResultsSize: 500,
+  defaultSort: [{ field: 'createdAt', direction: SortDirection.DESC }],
+  pagingStrategy: PagingStrategies.OFFSET,
+})
+export class WarehouseShipmentDTO {
   @Field()
   id!: number;
 
   @Field({ nullable: true })
-  comments?: string;
-
-  @Field({ defaultValue: 0 })
-  price!: number;
+  instructions?: string;
 
   @FilterableField(() => GraphQLISODateTime)
   createdAt!: Date;
