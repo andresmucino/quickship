@@ -16,11 +16,14 @@ import { ShipmentStatusEnum } from 'src/common/shipment-status-enum';
 import { PackageStatusDescriptionEnum } from 'src/common/package-status-description.enum';
 import { PackageStatusEnum } from 'src/common/package-status.enum';
 import { InputOpenPackageDTO } from './dto/open-package.dto';
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
 @QueryService(ShipmentEntity)
 export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
   constructor(
     @InjectRepository(ShipmentEntity) repo: Repository<ShipmentEntity>,
+    @InjectPinoLogger(ShipmentService.name)
+    private readonly logger: PinoLogger,
   ) {
     super(repo);
   }
@@ -31,6 +34,10 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
+      this.logger.debug({
+        event: 'shipmentService.generateShipment.input',
+        data: input,
+      });
       const shipment = await queryRunner.manager.save(ShipmentEntity, {
         comments: input.comments,
         price: 0,
@@ -39,6 +46,11 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
       });
 
       await queryRunner.commitTransaction();
+
+      this.logger.debug({
+        event: 'shipmentService.generateShipment.response',
+        data: shipment,
+      });
 
       return shipment;
     } catch (error) {
