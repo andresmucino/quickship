@@ -7,9 +7,10 @@ export default registerAs('config', () => {
     database: process.env.DATABASE,
     type: 'postgres',
     autoLoadEntities: true,
-    //migrationsRun: true,
+    // migrationsRun: true,
+    // synchronize: true,
     //entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    //synchronize: true,
+
     logging: process.env.NODE_ENV === 'staging',
 
     ssl: {
