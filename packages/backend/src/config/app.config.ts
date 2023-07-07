@@ -10,7 +10,7 @@ export default registerAs('config', () => {
     //migrationsRun: true,
     //entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     //synchronize: true,
-    logging: true,
+    logging: process.env.NODE_ENV === 'staging',
 
     ssl: {
       rejectUnauthorized: false,

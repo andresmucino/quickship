@@ -34,7 +34,7 @@ async function bootstrap() {
   );
 
   app.enableCors();
-  await app.listen(port)
+  await app.listen(port);
   logger.log(
     `Server is running at http://localhost:${port}/graphql, environmet ${env}`,
   );

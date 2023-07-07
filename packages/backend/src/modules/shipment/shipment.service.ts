@@ -3,6 +3,7 @@ import { TypeOrmQueryService } from '@nestjs-query/query-typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getConnection } from 'typeorm';
 import { GraphQLError } from 'graphql';
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
 /*Local Imports */
 import { ShipmentEntity } from './entities/shipment.entity';
@@ -16,7 +17,6 @@ import { ShipmentStatusEnum } from 'src/common/shipment-status-enum';
 import { PackageStatusDescriptionEnum } from 'src/common/package-status-description.enum';
 import { PackageStatusEnum } from 'src/common/package-status.enum';
 import { InputOpenPackageDTO } from './dto/open-package.dto';
-import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 
 @QueryService(ShipmentEntity)
 export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
@@ -68,8 +68,16 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
+      this.logger.debug({
+        event: 'shipmentService.addPackageShipment.input',
+        data: input,
+      });
       const [shipment] = await queryRunner.manager.find(ShipmentEntity, {
         where: { id: input.shipmentId },
+      });
+      this.logger.debug({
+        event: 'shipmentService.addPackageShipment.shipmentEntity',
+        data: shipment,
       });
 
       const packages = await queryRunner.manager.query(
@@ -77,6 +85,11 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
           (g) => `'${g}'`,
         )})`,
       );
+
+      this.logger.debug({
+        event: 'shipmentService.addPackageShipment.packageEntity',
+        data: packages,
+      });
 
       await Promise.all(
         packages.map(async (pack) => {
@@ -99,6 +112,11 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
         }),
       );
 
+      this.logger.debug({
+        event: 'shipmentService.addPackageShipment.response',
+        data: shipment,
+      });
+
       await queryRunner.commitTransaction();
 
       return shipment;
@@ -117,8 +135,17 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
+      this.logger.debug({
+        event: 'shipmentService.assignCourierShipment.input',
+        data: input,
+      });
       const [shipment] = await queryRunner.manager.find(ShipmentEntity, {
         where: { id: input.shipmentId },
+      });
+
+      this.logger.debug({
+        event: 'shipmentService.assignCourierShipment.shipmentEntity',
+        data: shipment,
       });
 
       this.validateShipmentStatus(shipment, ShipmentStatusEnum.PENDING);
@@ -130,7 +157,16 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
         },
       });
 
+      this.logger.debug({
+        event: 'shipmentService.assignCourierShipment.currentShipment',
+        data: currentShipment,
+      });
+
       if (currentShipment) {
+        this.logger.warn({
+          event: 'shipmentService.assignCourierShipment.courierInvalid',
+          warning: Error.COURIER_INVALID,
+        });
         throw new GraphQLError(Error.COURIER_INVALID);
       }
 
@@ -141,6 +177,10 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
 
       await queryRunner.commitTransaction();
 
+      this.logger.debug({
+        event: 'shipmentService.assignCourierShipment.response',
+        data: shipment,
+      });
       return shipment;
     } catch (error) {
       if (queryRunner.isTransactionActive)
@@ -157,8 +197,17 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
+      this.logger.debug({
+        event: 'shipmentService.openPackage.input',
+        data: input,
+      });
       const [shipment] = await queryRunner.manager.find(ShipmentEntity, {
         where: { id: input.shipmentId },
+      });
+
+      this.logger.debug({
+        event: 'shipmentService.openPackage.shipmentEntity',
+        data: shipment,
       });
 
       this.validateShipmentStatus(shipment, ShipmentStatusEnum.IN_PROCESS);
@@ -167,11 +216,24 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
         where: { id: input.packageId },
       });
 
+      this.logger.debug({
+        event: 'shipmentService.openPackage.packagesEntity',
+        data: packages,
+      });
+
       if (!packages) {
+        this.logger.warn({
+          event: 'shipmentService.openPackage.guideNotFound',
+          warning: Error.GUIDE_NOT_FOUND,
+        });
         throw new GraphQLError(Error.GUIDE_NOT_FOUND);
       }
 
       if (packages.shipmentId !== shipment.id) {
+        this.logger.warn({
+          event: 'shipmentService.openPackage.guideNotFoundInShipment',
+          warning: Error.GUIDE_NOT_FOUND_SHIPMENT,
+        });
         throw new GraphQLError(Error.GUIDE_NOT_FOUND_SHIPMENT);
       }
 
@@ -187,6 +249,10 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
 
       await queryRunner.commitTransaction();
 
+      this.logger.debug({
+        event: 'shipmentService.openPackage.response',
+        data: shipment,
+      });
       return shipment;
     } catch (error) {
       if (queryRunner.isTransactionActive)
@@ -202,10 +268,18 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
     status: ShipmentStatusEnum,
   ) {
     if (!shipment) {
+      this.logger.warn({
+        event: 'shipmentService.openPackage.shipmentNotFound',
+        warning: Error.SHIPMENT_NOT_FOUND,
+      });
       throw new GraphQLError(Error.SHIPMENT_NOT_FOUND);
     }
 
     if (shipment?.shipmentStatusId !== status) {
+      this.logger.warn({
+        event: 'shipmentService.openPackage.shipmentInvalidStatus',
+        warning: Error.SHIPMENT_STATUS_INVALID,
+      });
       throw new GraphQLError(Error.SHIPMENT_STATUS_INVALID);
     }
   }
