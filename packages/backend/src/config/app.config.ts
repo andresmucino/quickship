@@ -8,13 +8,19 @@ export default registerAs('config', () => {
     type: 'postgres',
     autoLoadEntities: true,
     //migrationsRun: true,
-    logging: true,
     //entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     //synchronize: true,
+    logging: process.env.NODE_ENV === 'staging',
+
     ssl: {
       rejectUnauthorized: false,
     },
   };
+  const app = {
+    logLevel: process.env.LOG_LEVEL || 'info',
+    port: process.env.APLICATION_PORT || 3000,
+    nodeEnv: process.env.NODE_ENV || 'production',
+  };
 
-  return { database };
+  return { database, app };
 });
