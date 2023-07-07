@@ -9,3 +9,5 @@ export enum PackageStatusCancelEnum {
   NH = 13,
   RD = 14,
 }
+
+export const PackageStatusCancelTypes: number[] = [6, 7, 8, 9, 11, 12, 13, 14];

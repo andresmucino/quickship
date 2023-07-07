@@ -16,9 +16,8 @@ export class InputCancelPackageDTO {
   packageId: number;
 
   @Field()
-  @IsDefined()
   @IsCancelStatus()
-  status!: number;
+  statusCancelation?: number;
 
   @Field(() => InputEvidence)
   @IsDefined()

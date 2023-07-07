@@ -2663,7 +2663,7 @@ input InputEvidence {
 input InputCancelPackage {
   shipmentId: Float!
   packageId: Float!
-  status: Float!
+  statusCancelation: Float!
   evidence: InputEvidence!
 }
 
