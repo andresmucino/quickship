@@ -13,28 +13,46 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient, gql } from "graphql-request";
 
-const ClientsQuery = gql`
-  query getOrders {
-    orders {
-      id
-      price
-      clientId
-      directionId
-      createAt
+const ShipmentsQuery = gql`
+  query getShipments {
+    shipments {
+      nodes {
+        id
+        shipmentStatus {
+          id
+          status
+        }
+        warehouseShipment {
+          id
+          client {
+            id
+          }
+        }
+        packages {
+          nodes {
+            id
+            guide
+          }
+        }
+        messenger {
+          id
+        }
+        updatedAt
+      }
     }
   }
 `;
 
 const graphQLClient = new GraphQLClient(`${API_URL}/graphql`);
 
-const fetchOrders = async () => {
-  return await graphQLClient.request(ClientsQuery);
+const fetchShipments = async () => {
+  return await graphQLClient.request(ShipmentsQuery);
 };
 
-export default function Orders() {
+export default function Shipments() {
   const { data, isLoading, error }: any = useQuery({
-    queryKey: ["getOrders"],
-    queryFn: fetchOrders,
+    queryKey: ["getShipments"],
+    queryFn: fetchShipments,
   });
 
   const columns: Array<EuiBasicTableColumn<any>> = [
@@ -43,11 +61,23 @@ export default function Orders() {
       name: "ID",
     },
     {
-      field: "createAt",
-      name: "Creada",
+      field: "packages.nodes.length",
+      name: "Paradas",
+    },
+    {
+      field: "updatedAt",
+      name: "Actualizada",
+    },
+    {
+      field: "shipmentStatus.status",
+      name: "Estatus",
+    },
+    {
+      field: "null",
+      name: "Acciones",
     },
   ];
-  
+
   return (
     <EuiPageHeaderContent>
       {isLoading ? (
@@ -67,14 +97,14 @@ export default function Orders() {
         </EuiPanel>
       ) : (
         <EuiPanel style={{ margin: "2vh" }}>
-          <Header title={`Ordenes (${data?.orders.length})`}>
+          <Header title={`Ordenes (${data?.shipments?.nodes.length})`}>
             {/* <EuiButton onClick={() => "/"} href="/">
                     Crear cliente
                   </EuiButton> */}
           </Header>
           <EuiHorizontalRule />
           <EuiPanel>
-            <Table items={data?.orders} columns={columns} />
+            <Table items={data?.shipments.nodes} columns={columns} />
           </EuiPanel>
         </EuiPanel>
       )}

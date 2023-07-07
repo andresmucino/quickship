@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
     <EuiPageHeader>
       <EuiHeaderSectionItem border="right">
         <EuiText>
-          <p>{title}</p>
+          <h2>{title}</h2>
         </EuiText>
       </EuiHeaderSectionItem>
       <EuiHeaderSectionItem>{children}</EuiHeaderSectionItem>

@@ -1,6 +1,6 @@
 import { Providers } from "@/common";
 
-export default function OrdersLayout({
+export default function ShipmentsLayout({
     children,
   }: {
     children: React.ReactNode;

@@ -3,7 +3,7 @@
 import { API_URL } from "@/common";
 import { Header, Table } from "@/components";
 import {
-    EuiBasicTableColumn,
+  EuiBasicTableColumn,
   EuiButton,
   EuiHorizontalRule,
   EuiPageHeader,
@@ -17,11 +17,15 @@ import { GraphQLClient, gql } from "graphql-request";
 const ClientsQuery = gql`
   query getMessengers {
     messengers {
-      id
-      firstName
-      lastName
-      phone
-      email
+      edges {
+        node {
+          id
+          firstName
+          lastName
+          phone
+          email
+        }
+      }
     }
   }
 `;
@@ -33,33 +37,33 @@ const fetchMessengers = async () => {
 };
 
 export default function Messengers() {
-    const { isLoading, error, data, isFetching }: any = useQuery({
-        queryKey: ["messengers"],
-        queryFn: fetchMessengers,
-      });
+  const { isLoading, error, data, isFetching }: any = useQuery({
+    queryKey: ["messengers"],
+    queryFn: fetchMessengers,
+  });
 
-      const columns: Array<EuiBasicTableColumn<any>> = [
-        {
-          field: "id",
-          name: "ID",
-        },
-        {
-          field: "firstName",
-          name: "Nombre",
-        },
-        {
-          field: "lastName",
-          name: "Apellido",
-        },
-        {
-          field: "phone",
-          name: "Telefono",
-        },
-        {
-          field: "email",
-          name: "Correo",
-        },
-      ];
+  const columns: Array<EuiBasicTableColumn<any>> = [
+    {
+      field: "node.id",
+      name: "ID",
+    },
+    {
+      field: "node.firstName",
+      name: "Nombre",
+    },
+    {
+      field: "node.lastName",
+      name: "Apellido",
+    },
+    {
+      field: "node.phone",
+      name: "Telefono",
+    },
+    {
+      field: "node.email",
+      name: "Correo",
+    },
+  ];
 
   return (
     <EuiPageHeaderContent>
@@ -80,14 +84,17 @@ export default function Messengers() {
         </EuiPanel>
       ) : (
         <EuiPanel style={{ margin: "2vh" }}>
-          <Header title={`Clientes ()`}>
-            <EuiButton onClick={() => "/createMessenger"} href="/createMessenger">
+          <Header title={`Mensajeros (${data.messengers.edges.length})`}>
+            <EuiButton
+              onClick={() => "/createMessenger"}
+              href="/createMessenger"
+            >
               Crear mensajero
             </EuiButton>
           </Header>
           <EuiHorizontalRule />
           <EuiPanel>
-            <Table items={data?.messengers} columns={columns} />
+            <Table items={data?.messengers.edges} columns={columns} />
           </EuiPanel>
         </EuiPanel>
       )}

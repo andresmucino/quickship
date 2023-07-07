@@ -32,9 +32,9 @@ export const Menu = () => {
       <EuiHorizontalRule />
       <EuiListGroupItem
         iconType="dotInCircle"
-        label="Ordenes"
-        onClick={() => "/orders"}
-        href="/orders"
+        label="Envios"
+        onClick={() => "/shipments"}
+        href="/shipments"
       />
       <EuiHorizontalRule />
       <EuiListGroupItem

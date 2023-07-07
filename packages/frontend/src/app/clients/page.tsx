@@ -17,11 +17,13 @@ import { GraphQLClient, gql } from "graphql-request";
 const ClientsQuery = gql`
   query getClients {
     clients {
-      id
-      firstName
-      lastName
-      phone
-      email
+      nodes {
+        id
+        firstName
+        lastName
+        phone
+        email
+      }
     }
   }
 `;
@@ -37,6 +39,8 @@ export default function Clients() {
     queryKey: ["clients"],
     queryFn: fetchClients,
   });
+
+  console.log(data)
 
   const columns: Array<EuiBasicTableColumn<any>> = [
     {
@@ -80,14 +84,14 @@ export default function Clients() {
         </EuiPanel>
       ) : (
         <EuiPanel style={{ margin: "2vh" }}>
-          <Header title={`Clientes (${data?.clients.length})`}>
+          <Header title={`Clientes (${data?.clients.nodes.length})`}>
             <EuiButton onClick={() => "/createClient"} href="/createClient">
               Crear cliente
             </EuiButton>
           </Header>
           <EuiHorizontalRule />
           <EuiPanel>
-            <Table items={data?.clients} columns={columns} />
+            <Table items={data?.clients.nodes} columns={columns} />
           </EuiPanel>
         </EuiPanel>
       )}
