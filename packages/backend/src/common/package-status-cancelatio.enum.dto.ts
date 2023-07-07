@@ -1,9 +1,4 @@
-export enum PackageStatusEnum {
-  SC = 1,
-  PU = 2,
-  WC = 3,
-  PL = 4,
-  DE = 5,
+export enum PackageStatusCancelEnum {
   BA = 6,
   CM = 7,
   DM = 8,
