@@ -17,7 +17,7 @@ import { ShipmentStatusEnum } from 'src/common/shipment-status-enum';
 import { PackageStatusDescriptionEnum } from 'src/common/package-status-description.enum';
 import { PackageStatusEnum } from 'src/common/package-status.enum';
 import { InputOpenPackageDTO } from './dto/open-package.dto';
-import { isEmpty } from 'class-validator';
+import { validTransaction } from 'src/common/utils';
 
 @QueryService(ShipmentEntity)
 export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
@@ -55,9 +55,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
 
       return shipment;
     } catch (error) {
-      if (queryRunner.isTransactionActive)
-        await queryRunner.rollbackTransaction();
-      throw new GraphQLError(error?.message || error);
+      validTransaction(queryRunner, error);
     } finally {
       await queryRunner.release();
     }
@@ -148,9 +146,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
 
       return shipment;
     } catch (error) {
-      if (queryRunner.isTransactionActive)
-        await queryRunner.rollbackTransaction();
-      throw new GraphQLError(error?.message || error);
+      validTransaction(queryRunner, error);
     } finally {
       await queryRunner.release();
     }
@@ -210,9 +206,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
       });
       return shipment;
     } catch (error) {
-      if (queryRunner.isTransactionActive)
-        await queryRunner.rollbackTransaction();
-      throw new GraphQLError(error?.message || error);
+      validTransaction(queryRunner, error);
     } finally {
       await queryRunner.release();
     }
@@ -282,9 +276,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
       });
       return shipment;
     } catch (error) {
-      if (queryRunner.isTransactionActive)
-        await queryRunner.rollbackTransaction();
-      throw new GraphQLError(error?.message || error);
+      validTransaction(queryRunner, error);
     } finally {
       await queryRunner.release();
     }
