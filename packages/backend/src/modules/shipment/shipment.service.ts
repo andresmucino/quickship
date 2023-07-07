@@ -63,9 +63,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
 
       return shipment;
     } catch (error) {
-      if (validTransaction(queryRunner)) {
-        await queryRunner.rollbackTransaction();
-      }
+      await validTransaction(queryRunner)
       throw new GraphQLError(error?.message || error);
     } finally {
       await queryRunner.release();
@@ -140,9 +138,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
 
       return shipment;
     } catch (error) {
-      if (validTransaction(queryRunner)) {
-        await queryRunner.rollbackTransaction();
-      }
+      await validTransaction(queryRunner)
       throw new GraphQLError(error?.message || error);
     } finally {
       await queryRunner.release();
@@ -203,10 +199,8 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
       });
       return shipment;
     } catch (error) {
-      if (validTransaction(queryRunner)) {
-        await queryRunner.rollbackTransaction();
-      }
-      throw new GraphQLError(error);
+      await validTransaction(queryRunner)
+      throw new GraphQLError(error?.message || error);
     } finally {
       await queryRunner.release();
     }
@@ -277,9 +271,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
       });
       return shipment;
     } catch (error) {
-      if (validTransaction(queryRunner)) {
-        await queryRunner.rollbackTransaction();
-      }
+      await validTransaction(queryRunner)
       throw new GraphQLError(error?.message || error);
     } finally {
       await queryRunner.release();
@@ -433,9 +425,7 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
       await queryRunner.commitTransaction();
       return shipment;
     } catch (error) {
-      if (validTransaction(queryRunner)) {
-        await queryRunner.rollbackTransaction();
-      }
+      await validTransaction(queryRunner)
       throw new GraphQLError(error?.message || error);
     } finally {
       await queryRunner.release();

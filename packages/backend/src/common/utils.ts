@@ -4,7 +4,7 @@ import { PackageStatusEnum } from './package-status.enum';
 
 export const validTransaction = async (queryRunner: QueryRunner) => {
   if (queryRunner.isTransactionActive) {
-    return true;
+    await queryRunner.rollbackTransaction();
   }
   return false;
 };
