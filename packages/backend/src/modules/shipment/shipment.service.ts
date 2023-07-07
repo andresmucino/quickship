@@ -17,6 +17,7 @@ import { ShipmentStatusEnum } from 'src/common/shipment-status-enum';
 import { PackageStatusDescriptionEnum } from 'src/common/package-status-description.enum';
 import { PackageStatusEnum } from 'src/common/package-status.enum';
 import { InputOpenPackageDTO } from './dto/open-package.dto';
+import { isEmpty } from 'class-validator';
 
 @QueryService(ShipmentEntity)
 export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
@@ -80,11 +81,37 @@ export class ShipmentService extends TypeOrmQueryService<ShipmentEntity> {
         data: shipment,
       });
 
-      const packages = await queryRunner.manager.query(
+      const packages: PackageEntity[] = await queryRunner.manager.query(
         `select * from packages where guide in (${input.guides.map(
           (g) => `'${g}'`,
-        )})`,
+        )}) and status_id = ${PackageStatusEnum.SC}`,
       );
+
+      if (packages.length === 0) {
+        throw new GraphQLError(
+          Error.GUIDE_NOT_FOUND_ADD_SHIPMENT.replace(
+            '$guides',
+            input.guides.toString(),
+          ),
+        );
+      }
+
+      const validaPackages = packages.map(
+        (pack, index) => pack.guide !== input.guides[index],
+      );
+
+      if (!validaPackages || validaPackages.length > 1) {
+        this.logger.warn({
+          event: 'shipmentService.addPackageShipment.validaPackages',
+          data: validaPackages,
+        });
+        throw new GraphQLError(
+          Error.GUIDE_NOT_FOUND_ADD_SHIPMENT.replace(
+            '$guides',
+            validaPackages.toString(),
+          ),
+        );
+      }
 
       this.logger.debug({
         event: 'shipmentService.addPackageShipment.packageEntity',

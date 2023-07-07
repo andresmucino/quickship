@@ -4,4 +4,5 @@ export enum Error {
   COURIER_INVALID = 'El mesajero cuenta con un envio en proceso.',
   GUIDE_NOT_FOUND = 'El guia no fue encontado.',
   GUIDE_NOT_FOUND_SHIPMENT = 'La guia no se encuentra en el envio.',
+  GUIDE_NOT_FOUND_ADD_SHIPMENT = 'Guias en estatus invalido: $guides',
 }
